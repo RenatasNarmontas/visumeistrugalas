@@ -8,6 +8,7 @@ NFQ Akademija
 
 Useful commands to check code quality:
 > bin/phpcs -p --standard=PSR2 --extensions=php ./src
+
 > bin/phpcs -p --standard=PSR2 --extensions=php --report=diff ./src
 
 Code quality automatic fix:
