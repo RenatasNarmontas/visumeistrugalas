@@ -88,5 +88,4 @@ class Role
     {
         return $this->type;
     }
-
 }

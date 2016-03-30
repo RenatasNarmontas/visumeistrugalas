@@ -65,10 +65,12 @@ EOF
 
         // Get content
         $json_string = file_get_contents(
-            sprintf('http://api.wunderground.com/api/%s/forecast10day/conditions/q/%s/%s.json',
+            sprintf(
+                'http://api.wunderground.com/api/%s/forecast10day/conditions/q/%s/%s.json',
                 $wuApi,
                 $country,
-                $cityName)
+                $cityName
+            )
         );
 
         // Parse json
