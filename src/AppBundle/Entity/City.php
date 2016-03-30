@@ -5,7 +5,10 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity @Table(name="cities")
+ * City
+ *
+ * @ORM\Table(name="cities")
+ * @ORM\Entity
  **/
 
 class City

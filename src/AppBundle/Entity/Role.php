@@ -5,7 +5,10 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity @Table(name="roles")
+ * Role
+ *
+ * @ORM\Table(name="roles")
+ * @ORM\Entity
  **/
 
 class Role

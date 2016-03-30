@@ -6,7 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * @Entity @Table(name="providers")
+ * Provider
+ *
+ * @ORM\Table(name="providers")
+ * @ORM\Entity
  **/
 
 class Provider

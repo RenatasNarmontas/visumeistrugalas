@@ -3,14 +3,16 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
- * Forecasts1d
+ * Forecast
  *
- * @ORM\Table(name="forecasts_1d")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Forecasts1dRepository")
+ * @ORM\Table(name="forecasts")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ForecastRepository")
  */
-class Forecasts1d
+class Forecast
 {
     /**
      * @var int
@@ -22,11 +24,13 @@ class Forecasts1d
     private $id;
 
     /**
-     * @var int
+     * @var Provider
      *
-     * @ORM\Column(name="provider_id", type="integer")
+     * @ManyToOne(targetEntity="Provider")
+     * @JoinColumn(name="provider_id", referencedColumnName="id")
+     *
      */
-    private $providerId;
+    private $provider;
 
     /**
      * @var \DateTime
@@ -38,6 +42,13 @@ class Forecasts1d
     /**
      * @var int
      *
+     * @ORM\Column(name="forecast_days", type="integer")
+     */
+    private $forecastDays;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="city_id", type="integer")
      */
     private $cityId;
@@ -45,7 +56,7 @@ class Forecasts1d
     /**
      * @var float
      *
-     * @ORM\Column(name="temperature_high", type="float")
+     * @ORM\Column(name="temperature_high", type="float", nullable=true)
      */
     private $temperatureHigh;
 
@@ -89,27 +100,27 @@ class Forecasts1d
     }
 
     /**
-     * Set providerId
+     * Set provider
      *
-     * @param integer $providerId
+     * @param integer $provider
      *
-     * @return Forecasts1d
+     * @return Forecast
      */
-    public function setProviderId($providerId)
+    public function setProvider($provider)
     {
-        $this->providerId = $providerId;
+        $this->provider = $provider;
 
         return $this;
     }
 
     /**
-     * Get providerId
+     * Get provider
      *
      * @return int
      */
-    public function getProviderId()
+    public function getProvider()
     {
-        return $this->providerId;
+        return $this->provider;
     }
 
     /**
@@ -117,7 +128,7 @@ class Forecasts1d
      *
      * @param \DateTime $forecastDate
      *
-     * @return Forecasts1d
+     * @return Forecast
      */
     public function setForecastDate($forecastDate)
     {
@@ -141,7 +152,7 @@ class Forecasts1d
      *
      * @param integer $cityId
      *
-     * @return Forecasts1d
+     * @return Forecast
      */
     public function setCityId($cityId)
     {
@@ -165,7 +176,7 @@ class Forecasts1d
      *
      * @param float $temperatureHigh
      *
-     * @return Forecasts1d
+     * @return Forecast
      */
     public function setTemperatureHigh($temperatureHigh)
     {
@@ -189,7 +200,7 @@ class Forecasts1d
      *
      * @param float $temperatureLow
      *
-     * @return Forecasts1d
+     * @return Forecast
      */
     public function setTemperatureLow($temperatureLow)
     {
@@ -213,7 +224,7 @@ class Forecasts1d
      *
      * @param float $deviation
      *
-     * @return Forecasts1d
+     * @return Forecast
      */
     public function setDeviation($deviation)
     {
@@ -237,7 +248,7 @@ class Forecasts1d
      *
      * @param integer $humidity
      *
-     * @return Forecasts1d
+     * @return Forecast
      */
     public function setHumidity($humidity)
     {
@@ -261,7 +272,7 @@ class Forecasts1d
      *
      * @param integer $pressure
      *
-     * @return Forecasts1d
+     * @return Forecast
      */
     public function setPressure($pressure)
     {
@@ -278,5 +289,29 @@ class Forecasts1d
     public function getPressure()
     {
         return $this->pressure;
+    }
+
+    /**
+     * Set forecastDays
+     *
+     * @param integer $forecastDays
+     *
+     * @return Forecast
+     */
+    public function setForecastDays($forecastDays)
+    {
+        $this->forecastDays = $forecastDays;
+
+        return $this;
+    }
+
+    /**
+     * Get forecastDays
+     *
+     * @return integer
+     */
+    public function getForecastDays()
+    {
+        return $this->forecastDays;
     }
 }

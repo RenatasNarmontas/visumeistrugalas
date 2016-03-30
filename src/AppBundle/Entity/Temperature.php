@@ -3,10 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\OneToOne;
 
 /**
- * @Entity @Table(name="temperatures")
+ * Temperature
+ *
+ * @ORM\Table(name="temperatures")
+ * @ORM\Entity
  **/
 
 class Temperature
@@ -20,7 +25,7 @@ class Temperature
      */
      private $id;
     /**
-     * @Column(type="datetime")
+     * @ORM\Column(type="datetime")
      * @var DateTime
      */
      private $date;
