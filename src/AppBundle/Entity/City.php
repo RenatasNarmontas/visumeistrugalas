@@ -87,5 +87,4 @@ class City
     {
         return $this->country;
     }
-
 }

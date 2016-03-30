@@ -5,14 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
 
 class User
-
 {
     /**
      * @var integer
@@ -309,7 +307,4 @@ class User
     {
         return $this->role;
     }
-
-
 }
-

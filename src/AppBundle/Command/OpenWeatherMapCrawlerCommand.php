@@ -8,7 +8,6 @@
 
 namespace AppBundle\Command;
 
-
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,12 +22,12 @@ class OpenWeatherMapCrawlerCommand extends ContainerAwareCommand
     {
         $this ->setName('crawler:openweathermap:crawl')
               ->setDescription('Gets weather data from openweathermap.org')
-              ->addArgument('city', InputArgument::REQUIRED,'City')
+              ->addArgument('city', InputArgument::REQUIRED, 'City')
               ->setHelp(<<<EOT
 The <info>crawler:openweathermap:crawl</info> command crawls data for a certain city
 <info>app/console crawler:openweathermap:crawl Vilnius</info>
 EOT
-            );
+              );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -36,8 +35,7 @@ EOT
         $city = $input->getArgument('city');
         $data = $this->getData($this->getJsonData($city));
 
-        foreach ($data as $key => $value)
-        {
+        foreach ($data as $key => $value) {
             $output->writeln($key.': '.$value);
 
         }
@@ -47,7 +45,7 @@ EOT
     {
         $apiKey = $this->getContainer()->getParameter('api_key');
         $client = new Client(['base_uri' => 'http://api.openweathermap.org/data/2.5/forecast/']);
-        $request = $client->request('GET',"daily?q=".$city.'&mode=json&units=metric&cnt=5&appid='.$apiKey);
+        $request = $client->request('GET', "daily?q=".$city.'&mode=json&units=metric&cnt=5&appid='.$apiKey);
         $response = $request->getBody();
 
         return json_decode($response, true);
