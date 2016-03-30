@@ -40,12 +40,14 @@ class WundergroundCrawlerCommand extends CrawlerAbstract
                 InputOption::VALUE_REQUIRED,
                 'Country'
             )
-            ->setHelp(
-'The <info>crawler:wunderground</info> command imports weather data to DB from wunderground.com.
+            ->setHelp(<<<EOF
+The <info>crawler:wunderground</info> command imports weather data to DB from wunderground.com.
 
 <comment>Samples:</comment>
     To get weather information for Vilnius/Lithuania:
-    <info>php app/console crawler:wunderground --city=Vilnius --country=Lithuania</info>');
+    <info>php app/console crawler:wunderground --city=Vilnius --country=Lithuania</info>
+EOF
+            );
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
