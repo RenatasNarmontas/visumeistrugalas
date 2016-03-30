@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Forecasts_3d
+ * Forecasts4d
  *
- * @ORM\Table(name="forecasts_3d")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Forecasts_3dRepository")
+ * @ORM\Table(name="forecasts_4d")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Forecasts4dRepository")
  */
-class Forecasts_3d
+class Forecasts4d
 {
     /**
      * @var int
@@ -93,7 +93,7 @@ class Forecasts_3d
      *
      * @param integer $providerId
      *
-     * @return Forecasts_3d
+     * @return Forecasts4d
      */
     public function setProviderId($providerId)
     {
@@ -117,7 +117,7 @@ class Forecasts_3d
      *
      * @param \DateTime $forecastDate
      *
-     * @return Forecasts_3d
+     * @return Forecasts4d
      */
     public function setForecastDate($forecastDate)
     {
@@ -141,7 +141,7 @@ class Forecasts_3d
      *
      * @param integer $cityId
      *
-     * @return Forecasts_3d
+     * @return Forecasts4d
      */
     public function setCityId($cityId)
     {
@@ -165,7 +165,7 @@ class Forecasts_3d
      *
      * @param float $temperatureHigh
      *
-     * @return Forecasts_3d
+     * @return Forecasts4d
      */
     public function setTemperatureHigh($temperatureHigh)
     {
@@ -189,7 +189,7 @@ class Forecasts_3d
      *
      * @param float $temperatureLow
      *
-     * @return Forecasts_3d
+     * @return Forecasts4d
      */
     public function setTemperatureLow($temperatureLow)
     {
@@ -213,7 +213,7 @@ class Forecasts_3d
      *
      * @param float $deviation
      *
-     * @return Forecasts_3d
+     * @return Forecasts4d
      */
     public function setDeviation($deviation)
     {
@@ -237,7 +237,7 @@ class Forecasts_3d
      *
      * @param integer $humidity
      *
-     * @return Forecasts_3d
+     * @return Forecasts4d
      */
     public function setHumidity($humidity)
     {
@@ -261,7 +261,7 @@ class Forecasts_3d
      *
      * @param integer $pressure
      *
-     * @return Forecasts_3d
+     * @return Forecasts4d
      */
     public function setPressure($pressure)
     {

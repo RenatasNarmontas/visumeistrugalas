@@ -8,13 +8,12 @@
 
 namespace AppBundle\Command;
 
-//use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use AppBundle\Crawler\CrawlerAbstract;
-use AppBundle\Entity\Forecasts_1d;
-use AppBundle\Entity\Forecasts_2d;
-use AppBundle\Entity\Forecasts_3d;
-use AppBundle\Entity\Forecasts_4d;
-use AppBundle\Entity\Forecasts_5d;
+use AppBundle\Entity\Forecasts1d;
+use AppBundle\Entity\Forecasts2d;
+use AppBundle\Entity\Forecasts3d;
+use AppBundle\Entity\Forecasts4d;
+use AppBundle\Entity\Forecasts5d;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -41,13 +40,12 @@ class WundergroundCrawlerCommand extends CrawlerAbstract
                 InputOption::VALUE_REQUIRED,
                 'Country'
             )
-            ->setHelp(<<<EOF
-The <info>crawler:wunderground</info> command imports weather data to DB from wunderground.com.
+            ->setHelp(
+'The <info>crawler:wunderground</info> command imports weather data to DB from wunderground.com.
 
-<info>php app/console crawler:wunderground --city=Vilnius --country=Lithuania</info>
-
-EOF
-            );
+<comment>Samples:</comment>
+    To get weather information for Vilnius/Lithuania:
+    <info>php app/console crawler:wunderground --city=Vilnius --country=Lithuania</info>');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -74,32 +72,24 @@ EOF
             $i++;
 
             switch (get_class($forecastObject)) {
-                case 'AppBundle\Entity\Forecasts_1d':
+                case 'AppBundle\Entity\Forecasts1d':
                     $this->logger('Inserting to forecast_1d');
                     parent::insertForecast1dTemperature($forecastObject);
                     break;
-                case 'AppBundle\Entity\Forecasts_2d':
-                    if ($output->isVerbose()) {
-                        $output->writeln('Inserting to forecast_2d');
-                    }
+                case 'AppBundle\Entity\Forecasts2d':
+                    $this->logger('Inserting to forecast_2d');
                     parent::insertForecast2dTemperature($forecastObject);
                     break;
-                case 'AppBundle\Entity\Forecasts_3d':
-                    if ($output->isVerbose()) {
-                        $output->writeln('Inserting to forecast_3d');
-                    }
+                case 'AppBundle\Entity\Forecasts3d':
+                    $this->logger('Inserting to forecast_3d');
                     parent::insertForecast3dTemperature($forecastObject);
                     break;
-                case 'AppBundle\Entity\Forecasts_4d':
-                    if ($output->isVerbose()) {
-                        $output->writeln('Inserting to forecast_4d');
-                    }
+                case 'AppBundle\Entity\Forecasts4d':
+                    $this->logger('Inserting to forecast_4d');
                     parent::insertForecast4dTemperature($forecastObject);
                     break;
-                case 'AppBundle\Entity\Forecasts_5d':
-                    if ($output->isVerbose()) {
-                        $output->writeln('Inserting to forecast_5d');
-                    }
+                case 'AppBundle\Entity\Forecasts5d':
+                    $this->logger('Inserting to forecast_5d');
                     parent::insertForecast5dTemperature($forecastObject);
                     break;
                 default:
@@ -148,25 +138,25 @@ EOF
      *
      * @param $forecastItem
      * @param int $i
-     * @return Forecasts_1d|Forecasts_2d|Forecasts_3d|Forecasts_4d|Forecasts_5d
+     * @return Forecasts1d|Forecasts2d|Forecasts3d|Forecasts4d|Forecasts5d
      */
     private function makeForecastObject($forecastItem, $i)
     {
         switch ($i) {
             case 0:
-                $forecast = new Forecasts_1d();
+                $forecast = new Forecasts1d();
                 break;
             case 1:
-                $forecast = new Forecasts_2d();
+                $forecast = new Forecasts2d();
                 break;
             case 2:
-                $forecast = new Forecasts_3d();
+                $forecast = new Forecasts3d();
                 break;
             case 3:
-                $forecast = new Forecasts_4d();
+                $forecast = new Forecasts4d();
                 break;
             case 4:
-                $forecast = new Forecasts_5d();
+                $forecast = new Forecasts5d();
                 break;
             default:
                 return;
