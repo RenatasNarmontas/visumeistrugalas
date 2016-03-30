@@ -2,13 +2,17 @@ sudo: false
 language: php
 php:
   - 7.0
+env:
+  - SYMFONY_VERSION='2.8.*' DB=mysql
 services:
   - mysql
 matrix:
   allow_failures:
     - php: hhvm
 before_script:
-#  - composer config -g github-oauth.github.com $GITHUB_COMPOSER_AUTH
+  - composer update
   - composer install --no-interaction --prefer-dist
 script:
-  - vendor/bin/phpcs -p --standard=PSR2 --extensions=php ./src
+  - bin/phpcs -p --standard=PSR2 --extensions=php ./src
+install:
+  - composer require symfony/framework-bundle:${SYMFONY_VERSION}
