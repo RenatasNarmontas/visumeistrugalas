@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Forecasts_5d
+ * Forecasts5d
  *
  * @ORM\Table(name="forecasts_5d")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Forecasts_5dRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Forecasts5dRepository")
  */
-class Forecasts_5d
+class Forecasts5d
 {
     /**
      * @var int
@@ -93,7 +93,7 @@ class Forecasts_5d
      *
      * @param integer $providerId
      *
-     * @return Forecasts_5d
+     * @return Forecasts5d
      */
     public function setProviderId($providerId)
     {
@@ -117,7 +117,7 @@ class Forecasts_5d
      *
      * @param \DateTime $forecastDate
      *
-     * @return Forecasts_5d
+     * @return Forecasts5d
      */
     public function setForecastDate($forecastDate)
     {
@@ -141,7 +141,7 @@ class Forecasts_5d
      *
      * @param integer $cityId
      *
-     * @return Forecasts_5d
+     * @return Forecasts5d
      */
     public function setCityId($cityId)
     {
@@ -165,7 +165,7 @@ class Forecasts_5d
      *
      * @param float $temperatureHigh
      *
-     * @return Forecasts_5d
+     * @return Forecasts5d
      */
     public function setTemperatureHigh($temperatureHigh)
     {
@@ -189,7 +189,7 @@ class Forecasts_5d
      *
      * @param float $temperatureLow
      *
-     * @return Forecasts_5d
+     * @return Forecasts5d
      */
     public function setTemperatureLow($temperatureLow)
     {
@@ -213,7 +213,7 @@ class Forecasts_5d
      *
      * @param float $deviation
      *
-     * @return Forecasts_5d
+     * @return Forecasts5d
      */
     public function setDeviation($deviation)
     {
@@ -237,7 +237,7 @@ class Forecasts_5d
      *
      * @param integer $humidity
      *
-     * @return Forecasts_5d
+     * @return Forecasts5d
      */
     public function setHumidity($humidity)
     {
@@ -261,7 +261,7 @@ class Forecasts_5d
      *
      * @param integer $pressure
      *
-     * @return Forecasts_5d
+     * @return Forecasts5d
      */
     public function setPressure($pressure)
     {

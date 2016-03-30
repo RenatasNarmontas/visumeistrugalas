@@ -10,11 +10,11 @@ namespace AppBundle\Crawler;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 //use AppBundle\Entity\Temperatures;
-use AppBundle\Entity\Forecasts_1d;
-use AppBundle\Entity\Forecasts_2d;
-use AppBundle\Entity\Forecasts_3d;
-use AppBundle\Entity\Forecasts_4d;
-use AppBundle\Entity\Forecasts_5d;
+use AppBundle\Entity\Forecasts1d;
+use AppBundle\Entity\Forecasts2d;
+use AppBundle\Entity\Forecasts3d;
+use AppBundle\Entity\Forecasts4d;
+use AppBundle\Entity\Forecasts5d;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -41,50 +41,50 @@ abstract class CrawlerAbstract extends ContainerAwareCommand implements CrawlerI
     /**
      * Inserts forecast values to 'forecasts_1d' table
      */
-    public function insertForecast1dTemperature(Forecasts_1d $forecasts_1d)
+    public function insertForecast1dTemperature(Forecasts1d $forecasts1d)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->persist($forecasts_1d);
+        $em->persist($forecasts1d);
         $em->flush();
     }
 
     /**
      * Inserts forecast values to 'forecasts_2d' table
      */
-    public function insertForecast2dTemperature(Forecasts_2d $forecasts_2d)
+    public function insertForecast2dTemperature(Forecasts2d $forecasts2d)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->persist($forecasts_2d);
+        $em->persist($forecasts2d);
         $em->flush();
     }
 
     /**
      * Inserts forecast values to 'forecasts_3d' table
      */
-    public function insertForecast3dTemperature(Forecasts_3d $forecasts_3d)
+    public function insertForecast3dTemperature(Forecasts3d $forecasts3d)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->persist($forecasts_3d);
+        $em->persist($forecasts3d);
         $em->flush();
     }
 
     /**
      * Inserts forecast values to 'forecasts_4d' table
      */
-    public function insertForecast4dTemperature(Forecasts_4d $forecasts_4d)
+    public function insertForecast4dTemperature(Forecasts4d $forecasts4d)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->persist($forecasts_4d);
+        $em->persist($forecasts4d);
         $em->flush();
     }
 
     /**
      * Inserts forecast values to 'forecasts_5d' table
      */
-    public function insertForecast5dTemperature(Forecasts_5d $forecasts_5d)
+    public function insertForecast5dTemperature(Forecasts5d $forecasts5d)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->persist($forecasts_5d);
+        $em->persist($forecasts5d);
         $em->flush();
     }
 
