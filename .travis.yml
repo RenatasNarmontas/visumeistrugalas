@@ -2,17 +2,11 @@ sudo: false
 language: php
 php:
   - 7.0
-env:
-  - SYMFONY_VERSION='2.8.*' DB=mysql
 services:
   - mysql
-matrix:
-  allow_failures:
-    - php: hhvm
-before_script:
-  - composer update
+before_install:
+  - phpenv config-rm xdebug.ini
+install:
   - composer install --no-interaction --prefer-dist
 script:
   - bin/phpcs -p --standard=PSR2 --extensions=php ./src
-install:
-  - composer require symfony/framework-bundle:${SYMFONY_VERSION}

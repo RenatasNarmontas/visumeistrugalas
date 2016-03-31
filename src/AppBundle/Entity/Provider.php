@@ -4,9 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
- * @Entity @Table(name="providers")
+ * Provider
+ *
+ * @ORM\Table(name="providers")
+ * @ORM\Entity
  **/
 
 class Provider
@@ -18,21 +20,21 @@ class Provider
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-     private $id;
+    private $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=50)
      */
-     private $name;
+    private $name;
 
     /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=200)
      */
-     private $url;
+    private $url;
 
     /**
      * Get id.

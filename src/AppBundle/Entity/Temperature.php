@@ -3,10 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\OneToOne;
 
 /**
- * @Entity @Table(name="temperatures")
+ * Temperature
+ *
+ * @ORM\Table(name="temperatures")
+ * @ORM\Entity
  **/
 
 class Temperature
@@ -18,51 +23,51 @@ class Temperature
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-     private $id;
+    private $id;
     /**
-     * @Column(type="datetime")
+     * @ORM\Column(type="datetime")
      * @var DateTime
      */
-     private $date;
+    private $date;
     /**
      * @ManyToOne(targetEntity="City")
      * @JoinColumn(name="city_id", referencedColumnName="id")
      */
-     private $city;
+    private $city;
 
     /**
      * @var float
      *
      * @ORM\Column(name="temperature_high", type="float")
      */
-     private $temperatureHigh;
+    private $temperatureHigh;
 
     /**
      * @var float
      *
      * @ORM\Column(name="temperature_low", type="float")
      */
-     private $temperatureLow;
+    private $temperatureLow;
 
     /**
      * @OneToOne(targetEntity="Provider")
      * @JoinColumn(name="provider_id", referencedColumnName="id")
      */
-     private $provider;
+    private $provider;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="humidity", type="integer")
      */
-     private $humidity;
+    private $humidity;
 
     /**
      * @var float
      *
      * @ORM\Column(name="pressure", type="float")
      */
-     private $pressure;
+    private $pressure;
 
 
     /**
@@ -221,6 +226,4 @@ class Temperature
     {
         return $this->pressure;
     }
-
-
 }
