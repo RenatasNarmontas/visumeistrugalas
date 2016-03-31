@@ -24,7 +24,7 @@ class YahooCrawlerCommand extends ContainerAwareCommand
             ->setHelp(<<<EOF
 The <info>crawler:yahoo</info> command import forecast data.
 
-<info>php app/console crawler:wunderground --city=Vilnius</info>
+<info>php app/console crawler:yahoo --city=Vilnius</info>
 
 EOF
             );
