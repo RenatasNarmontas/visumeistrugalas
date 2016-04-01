@@ -4,8 +4,13 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "373ba0a68c5b67e9aee9c5593159ca64",
     "content-hash": "629074d48cfab43e38a6d5b8107a27f0",
+=======
+    "hash": "0a810efb5057d37e274b443262965e05",
+    "content-hash": "f9c7f229f5e1d6473ea3cc99cd77526e",
+>>>>>>> Add Yahoo Crawler
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1513,6 +1518,7 @@
         },
         {
             "name": "symfony/console",
+<<<<<<< HEAD
             "version": "v3.0.4",
             "source": {
                 "type": "git",
@@ -1523,6 +1529,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/console/zipball/6b1175135bc2a74c08a28d89761272de8beed8cd",
                 "reference": "6b1175135bc2a74c08a28d89761272de8beed8cd",
+=======
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "2ed5e2706ce92313d120b8fe50d1063bcfd12e04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/2ed5e2706ce92313d120b8fe50d1063bcfd12e04",
+                "reference": "2ed5e2706ce92313d120b8fe50d1063bcfd12e04",
+>>>>>>> Add Yahoo Crawler
                 "shasum": ""
             },
             "require": {
@@ -1569,7 +1587,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
             "time": "2016-03-16 17:00:50"
+=======
+            "time": "2016-02-28 16:24:34"
+>>>>>>> Add Yahoo Crawler
         },
         {
             "name": "symfony/monolog-bundle",
