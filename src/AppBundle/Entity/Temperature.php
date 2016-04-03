@@ -2,10 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\OneToOne;
 
 /**
  * Temperature
@@ -50,7 +50,7 @@ class Temperature
     private $temperatureLow;
 
     /**
-     * @OneToOne(targetEntity="Provider")
+     * @ManyToOne(targetEntity="Provider")
      * @JoinColumn(name="provider_id", referencedColumnName="id")
      */
     private $provider;
@@ -104,7 +104,7 @@ class Temperature
     /**
      * Set city.
      *
-     * @param string $city
+     * @param integer $city
      * @return Temperature
      */
     public function setCity($city)
@@ -225,5 +225,15 @@ class Temperature
     public function getPressure()
     {
         return $this->pressure;
+    }
+
+    /**
+     * Get temperatureLow
+     *
+     * @return float
+     */
+    public function getTemperatureLow()
+    {
+        return $this->temperatureLow;
     }
 }

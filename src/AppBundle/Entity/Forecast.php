@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping\JoinColumn;
 /**
  * Forecast
  *
- * @ORM\Table(name="forecasts")
+ * @ORM\Table(name="forecasts", uniqueConstraints={
+ *     @ORM\UniqueConstraint(columns={"forecast_date", "city_id", "forecast_days", "provider_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ForecastRepository")
  */
 class Forecast
@@ -47,11 +48,12 @@ class Forecast
     private $forecastDays;
 
     /**
-     * @var int
+     * @var City
      *
-     * @ORM\Column(name="city_id", type="integer")
+     * @ManyToOne(targetEntity="City")
+     * @JoinColumn(name="city_id", referencedColumnName="id")
      */
-    private $cityId;
+    private $city;
 
     /**
      * @var float
@@ -148,27 +150,27 @@ class Forecast
     }
 
     /**
-     * Set cityId
+     * Set city
      *
-     * @param integer $cityId
+     * @param City $city
      *
      * @return Forecast
      */
-    public function setCityId($cityId)
+    public function setCity($city)
     {
-        $this->cityId = $cityId;
+        $this->city = $city;
 
         return $this;
     }
 
     /**
-     * Get cityId
+     * Get city
      *
-     * @return int
+     * @return City
      */
-    public function getCityId()
+    public function getCity()
     {
-        return $this->cityId;
+        return $this->city;
     }
 
     /**
