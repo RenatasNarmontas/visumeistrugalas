@@ -24,12 +24,16 @@ class Temperature
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
      * @ORM\Column(type="datetime")
      * @var DateTime
      */
     private $date;
+
     /**
+     * @var City
+     *
      * @ManyToOne(targetEntity="City")
      * @JoinColumn(name="city_id", referencedColumnName="id")
      */
@@ -50,6 +54,8 @@ class Temperature
     private $temperatureLow;
 
     /**
+     * @var Provider
+     *
      * @ManyToOne(targetEntity="Provider")
      * @JoinColumn(name="provider_id", referencedColumnName="id")
      */
@@ -83,18 +89,20 @@ class Temperature
     /**
      * Set date.
      *
-     * @param string $date
+     * @param DateTime $date
      * @return Temperature
      */
     public function setDate($date)
     {
         $this->date = $date;
+
+        return $this;
     }
 
     /**
      * Get date.
      *
-     * @return string
+     * @return DateTime
      */
     public function getDate()
     {
@@ -104,18 +112,20 @@ class Temperature
     /**
      * Set city.
      *
-     * @param integer $city
+     * @param City $city
      * @return Temperature
      */
     public function setCity($city)
     {
         $this->city = $city;
+
+        return $this;
     }
 
     /**
      * Get city.
      *
-     * @return string
+     * @return City
      */
     public function getCity()
     {
@@ -131,10 +141,12 @@ class Temperature
     public function setTemperatureHigh($temperatureHigh)
     {
         $this->temperatureHigh = $temperatureHigh;
+
+        return $this;
     }
 
     /**
-     * Get temperature.
+     * Get temperature high.
      *
      * @return float
      */
@@ -146,20 +158,22 @@ class Temperature
     /**
      * Set temperature.
      *
-     * @param string $temperatureLow
+     * @param float $temperatureLow
      * @return Temperature
      */
     public function setTemperatureLow($temperatureLow)
     {
         $this->temperatureLow = $temperatureLow;
+
+        return $this;
     }
 
     /**
-     * Get temperature.
+     * Get temperature low.
      *
      * @return float
      */
-    public function getTemperature()
+    public function getTemperatureLow()
     {
         return $this->temperatureLow;
     }
@@ -167,18 +181,20 @@ class Temperature
     /**
      * Set provider.
      *
-     * @param string $provider
-     * @return Provider
+     * @param Provider $provider
+     * @return temperature
      */
     public function setProvider($provider)
     {
         $this->provider = $provider;
+
+        return $this;
     }
 
     /**
      * Get provider.
      *
-     * @return string
+     * @return Provider
      */
     public function getProvider()
     {
@@ -189,11 +205,13 @@ class Temperature
      * Set humidity.
      *
      * @param integer $humidity
-     * @return
+     * @return Temperature
      */
     public function setHumidity($humidity)
     {
         $this->humidity = $humidity;
+
+        return $this;
     }
 
     /**
@@ -210,11 +228,13 @@ class Temperature
      * Set pressure.
      *
      * @param float $pressure
-     * @return
+     * @return Temperature
      */
     public function setPressure($pressure)
     {
         $this->pressure = $pressure;
+
+        return $this;
     }
 
     /**
@@ -225,15 +245,5 @@ class Temperature
     public function getPressure()
     {
         return $this->pressure;
-    }
-
-    /**
-     * Get temperatureLow
-     *
-     * @return float
-     */
-    public function getTemperatureLow()
-    {
-        return $this->temperatureLow;
     }
 }

@@ -35,7 +35,6 @@ class WundergroundCrawler implements CrawlerInterface
         }
 
         // Get provider
-//        $this->provider = $this->em->getRepository('AppBundle:Provider')->findOneBy(array('name' => 'wunderground'));
         $this->provider = $this->getProvider();
 
         if (null === $this->provider) {
