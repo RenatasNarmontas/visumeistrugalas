@@ -94,7 +94,7 @@ class Forecast
     /**
      * Get id
      *
-     * @return int
+     * @return Provider
      */
     public function getId()
     {
@@ -104,7 +104,7 @@ class Forecast
     /**
      * Set provider
      *
-     * @param integer $provider
+     * @param Provider $provider
      *
      * @return Forecast
      */
