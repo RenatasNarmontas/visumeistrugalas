@@ -24,6 +24,7 @@ class WundergroundCrawler implements CrawlerInterface
 
     /**
      * WundergroundCrawler constructor.
+     *
      * @param ContainerInterface $containerInterface
      * @throws \Exception
      */
@@ -38,7 +39,7 @@ class WundergroundCrawler implements CrawlerInterface
         $this->provider = $this->getProvider();
 
         if (null === $this->provider) {
-            throw new \Exception('Can\'t find provider ID');
+            throw new \Exception('Can\'t get wunderground provider from DB');
         }
 
         // Read wunderground API key from config
@@ -109,6 +110,7 @@ class WundergroundCrawler implements CrawlerInterface
 
     /**
      * Make forecast object
+     *
      * @param $forecastItem
      * @param $dt
      * @param $cityId
@@ -131,6 +133,7 @@ class WundergroundCrawler implements CrawlerInterface
 
     /**
      * Make temperature object
+     *
      * @param $parsed_json
      * @param $dt
      * @param $cityId
@@ -139,9 +142,7 @@ class WundergroundCrawler implements CrawlerInterface
     private function makeTemperatureObject($parsed_json, $dt, $cityId)
     {
         $conditionsObject = new Temperature();
-
         $conditionsObject->setDate($dt);
-
         $conditionsObject->setCity($this->getCityObject($cityId));
         $conditionsObject->setTemperatureHigh($parsed_json->current_observation->temp_c);
         $conditionsObject->setTemperatureLow($parsed_json->current_observation->temp_c);
@@ -168,7 +169,9 @@ class WundergroundCrawler implements CrawlerInterface
 
         $data = array();
         foreach ($cities as $city) {
-            $data[$this->normalizeCityName($city->getName())] = array($city->getId(), $city->getCountry());
+            if ($city instanceof City) {
+                $data[$this->normalizeCityName($city->getName())] = array($city->getId(), $city->getCountry());
+            }
         }
 
         return $data;
@@ -178,10 +181,16 @@ class WundergroundCrawler implements CrawlerInterface
      * Get provider
      *
      * @return Provider
+     * @throws \Exception
      */
     private function getProvider()
     {
-        return $this->em->getRepository('AppBundle:Provider')->findOneBy(array('name' => 'wunderground'));
+        $provider = $this->em->getRepository('AppBundle:Provider')->findOneBy(array('name' => 'wunderground'));
+        if (!($provider instanceof Provider)) {
+            throw new \Exception('Can\'t get wunderground provider from DB');
+        }
+
+        return $provider;
     }
 
     /**
@@ -220,12 +229,19 @@ class WundergroundCrawler implements CrawlerInterface
      *
      * @param int $id
      * @return City
+     * @throws \Exception
      */
     private function getCityObject(int $id)
     {
         if ((null === $this->city) || ($id !== $this->city->getId())) {
-            $this->city = $this->em->getRepository('AppBundle:City')->findOneBy(array('id' => $id));
+            $city = $this->em->getRepository('AppBundle:City')->findOneBy(array('id' => $id));
+            if ($city instanceof City) {
+                $this->city = $city;
+            } else {
+                throw new \Exception(sprintf('Can\'t get city ID: %d from DB', $id));
+            }
         }
+
         return $this->city;
     }
 }
