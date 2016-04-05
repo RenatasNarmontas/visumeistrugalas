@@ -41,7 +41,7 @@ EOF
         $parsed_json = json_decode($json_string);
 
         $city = $parsed_json->query->results->channel->location->city;
-        $temp_c = $parsed_json->query->results->channel->item->{'condition'}->{'temp'};
+        $temp_c = $parsed_json->query->results->channel->item->condition->temp;
 
         $output->writeln('City: '.$city);
         $output->writeln('Temperature: '.$temp_c);
