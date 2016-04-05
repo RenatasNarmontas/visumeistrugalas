@@ -37,7 +37,6 @@ EOT
 
         foreach ($data as $key => $value) {
             $output->writeln($key.': '.$value);
-
         }
     }
 
