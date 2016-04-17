@@ -41,54 +41,56 @@ class WundergroundCrawler implements CrawlerInterface
         // Array of current and forecast temperatures
         $result = array();
 
-            // Get content
-            $json_string = file_get_contents(
+        // Get content
+        $json_string = file_get_contents(
+            sprintf(
+                'http://api.wunderground.com/api/%s/forecast10day/conditions/q/%s/%s.json',
+                $this->wundergroundApiKey,
+                $city->getCountry(),
+                $this->normalizeCityName($city->getName())
+            )
+        );
+
+        // Parse json
+        $parsed_json = json_decode($json_string);
+
+        if (isset($parsed_json->response->error->type)) {
+            throw new WeatherProviderException(
                 sprintf(
-                    'http://api.wunderground.com/api/%s/forecast10day/conditions/q/%s/%s.json',
-                        $this->wundergroundApiKey,
-                    $city->getCountry(),
-                    $this->normalizeCityName($city->getName())
-                )
-            );
-
-            // Parse json
-            $parsed_json = json_decode($json_string);
-
-            if (isset($parsed_json->response->error->type)) {
-                throw new WeatherProviderException(sprintf(
                     'JSON response error: %s - %s',
                     $parsed_json->response->error->type,
                     $parsed_json->response->error->description
-                ));
-            }
+                )
+            );
+        }
 
-            // Convert forecast date from UNIX timestamp to PHP DateTime
-            $epoch = $parsed_json->forecast->simpleforecast->forecastday[0]->date->epoch;
-            $dt = new \DateTime();
-            $dt->setTimestamp($epoch);
+        // Convert forecast date from UNIX timestamp to PHP DateTime
+        $epoch = $parsed_json->forecast->simpleforecast->forecastday[0]->date->epoch;
+        $dt = new \DateTime();
+        $dt->setTimestamp($epoch);
 
-            $i = 0;
-            foreach ($parsed_json->forecast->simpleforecast->forecastday as $forecastItem) {
-                // Skip forecast for the current day
-                if (0 === $i) {
-                    $i++;
-                    continue;
-                }
-
-                // Parse and save forecast conditions
-                $forecastObject = $this->makeForecastObject($provider, $forecastItem, $dt, $city, $i);
-                array_push($result, $forecastObject);
-
-                // We need 5 days forecast only
-                if (5 === $i) {
-                    break;
-                }
+        $i = 0;
+        foreach ($parsed_json->forecast->simpleforecast->forecastday as $forecastItem) {
+            // Skip forecast for the current day
+            if (0 === $i) {
                 $i++;
+                continue;
             }
 
-            // Parse and save current conditions
-            $temperatureObject = $this->makeTemperatureObject($provider, $parsed_json, $dt, $city);
-            array_push($result, $temperatureObject);
+            // Parse and save forecast conditions
+            $forecastObject = $this->makeForecastObject($provider, $forecastItem, $dt, $city, $i);
+            array_push($result, $forecastObject);
+
+            // We need 5 days forecast only
+            if (5 === $i) {
+                break;
+            }
+            $i++;
+        }
+
+        // Parse and save current conditions
+        $temperatureObject = $this->makeTemperatureObject($provider, $parsed_json, $dt, $city);
+        array_push($result, $temperatureObject);
 
         return $result;
     }

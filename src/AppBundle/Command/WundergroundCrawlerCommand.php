@@ -106,7 +106,10 @@ EOF
      */
     private function fetchProvider()
     {
-        $provider = $this->entityManager->getRepository('AppBundle:Provider')->findOneBy(array('name' => 'wunderground'));
+        $provider = $this->entityManager
+            ->getRepository('AppBundle:Provider')
+            ->findOneBy(array('name' => 'wunderground'));
+
         if (!($provider instanceof Provider)) {
             throw new WeatherProviderException('Can\'t get wunderground provider from DB');
         }
