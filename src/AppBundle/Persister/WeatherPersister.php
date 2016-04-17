@@ -10,23 +10,24 @@ namespace AppBundle\Persister;
 
 use AppBundle\Entity\Forecast;
 use AppBundle\Entity\Temperature;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManager;
 
 class WeatherPersister
 {
     /**
-     * @var EntityManager
+     * @var ManagerRegistry
      */
-    private $entityManager;
+    private $managerRegistry;
 
     /**
      * WeatherPersister constructor.
-     * @param EntityManager $entityManager
+     * @param ManagerRegistry $managerRegistry
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        $this->entityManager = $entityManager;
+        $this->managerRegistry = $managerRegistry;
     }
 
     /**
@@ -37,7 +38,8 @@ class WeatherPersister
     {
         foreach ($temperatures as $temperature) {
             if (($temperature instanceof Forecast) || ($temperature instanceof Temperature)) {
-                $this->entityManager->persist($temperature);
+                $entityManager = $this->managerRegistry->getManagerForClass(get_class($temperature));
+                $entityManager->persist($temperature);
             }
         }
     }
@@ -47,8 +49,9 @@ class WeatherPersister
      */
     public function flush()
     {
+        $entityManager = $this->managerRegistry->getManager();
         try {
-            $this->entityManager->flush();
+            $entityManager->flush();
         } catch (UniqueConstraintViolationException $e) {
             error_log($e->getMessage());
         }

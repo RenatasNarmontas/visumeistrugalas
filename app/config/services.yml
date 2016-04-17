@@ -15,4 +15,4 @@ services:
     weather.persister.service:
         class: AppBundle\Persister\WeatherPersister
         arguments:
-            ["@doctrine.orm.entity_manager"]
+            ["@doctrine"]
