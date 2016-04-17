@@ -12,65 +12,55 @@ use AppBundle\Entity\City;
 use AppBundle\Entity\Forecast;
 use AppBundle\Entity\Provider;
 use AppBundle\Entity\Temperature;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class WundergroundCrawler implements CrawlerInterface
 {
-    private $em;
-    private $wuApi;
-    private $provider;
-    private $city;
+    /**
+     * @var string
+     */
+    private $wundergroundApiKey;
 
     /**
      * WundergroundCrawler constructor.
-     *
-     * @param ContainerInterface $containerInterface
-     * @throws \Exception
+     * @param string $wundergroundApiKey
      */
-    public function __construct(ContainerInterface $containerInterface)
+    public function __construct(string $wundergroundApiKey)
     {
-        $this->em = $containerInterface->get('doctrine')->getManager();
-        if (null === $this->em) {
-            throw new \Exception('Can\'t get Doctrine entity manager');
-        }
-
-        // Get provider
-        $this->provider = $this->getProvider();
-
-        if (null === $this->provider) {
-            throw new \Exception('Can\'t get wunderground provider from DB');
-        }
-
-        // Read wunderground API key from config
-        $this->wuApi = $containerInterface->getParameter('wundergroung_api');
-
-        // Check API key
-        if (null === $this->wuApi) {
-            throw new \Exception('Wunderground API key is missing');
-        }
+        $this->wundergroundApiKey = $wundergroundApiKey;
     }
 
     /**
      * Crawl wunderground site and save to DB
+     * @param Provider $provider
+     * @param City $city
+     * @return array
+     * @throws WeatherProviderException
      */
-    public function crawl()
+    public function crawl(Provider $provider, City $city): array
     {
-        $citiesAndCountries = $this->getCitiesAndCountries();
+        // Array of current and forecast temperatures
+        $result = array();
 
-        foreach ($citiesAndCountries as $city => $properties) {
-        // Get content
+            // Get content
             $json_string = file_get_contents(
                 sprintf(
                     'http://api.wunderground.com/api/%s/forecast10day/conditions/q/%s/%s.json',
-                    $this->wuApi,
-                    $properties[1],
-                    $city
+                        $this->wundergroundApiKey,
+                    $city->getCountry(),
+                    $this->normalizeCityName($city->getName())
                 )
             );
 
             // Parse json
             $parsed_json = json_decode($json_string);
+
+            if (isset($parsed_json->response->error->type)) {
+                throw new WeatherProviderException(sprintf(
+                    'JSON response error: %s - %s',
+                    $parsed_json->response->error->type,
+                    $parsed_json->response->error->description
+                ));
+            }
 
             // Convert forecast date from UNIX timestamp to PHP DateTime
             $epoch = $parsed_json->forecast->simpleforecast->forecastday[0]->date->epoch;
@@ -86,8 +76,8 @@ class WundergroundCrawler implements CrawlerInterface
                 }
 
                 // Parse and save forecast conditions
-                $forecastObject = $this->makeForecastObject($forecastItem, $dt, $properties[0], $i);
-                $this->persistForecast($forecastObject);
+                $forecastObject = $this->makeForecastObject($provider, $forecastItem, $dt, $city, $i);
+                array_push($result, $forecastObject);
 
                 // We need 5 days forecast only
                 if (5 === $i) {
@@ -97,32 +87,27 @@ class WundergroundCrawler implements CrawlerInterface
             }
 
             // Parse and save current conditions
-            $temperatureObject = $this->makeTemperatureObject($parsed_json, $dt, $properties[0]);
-            $this->persistTemperature($temperatureObject);
-        }
+            $temperatureObject = $this->makeTemperatureObject($provider, $parsed_json, $dt, $city);
+            array_push($result, $temperatureObject);
 
-        try {
-            $this->em->flush();
-        } catch (UniqueConstraintViolationException $e) {
-            error_log($e->getMessage());
-        }
+        return $result;
     }
 
     /**
      * Make forecast object
-     *
+     * @param Provider $provider
      * @param $forecastItem
-     * @param $dt
-     * @param $cityId
-     * @param $i
+     * @param \DateTime $dt
+     * @param City $city
+     * @param int $i
      * @return Forecast
      */
-    private function makeForecastObject($forecastItem, $dt, $cityId, $i)
+    private function makeForecastObject($provider, $forecastItem, $dt, $city, $i)
     {
         $forecastObject = new Forecast();
-        $forecastObject->setProvider($this->provider);
+        $forecastObject->setProvider($provider);
         $forecastObject->setForecastDate($dt);
-        $forecastObject->setCity($this->getCityObject($cityId));
+        $forecastObject->setCity($city);
         $forecastObject->setForecastDays($i);
         $forecastObject->setTemperatureHigh($forecastItem->high->celsius);
         $forecastObject->setTemperatureLow($forecastItem->low->celsius);
@@ -133,20 +118,20 @@ class WundergroundCrawler implements CrawlerInterface
 
     /**
      * Make temperature object
-     *
+     * @param Provider $provider
      * @param $parsed_json
-     * @param $dt
-     * @param $cityId
+     * @param \DateTime $dt
+     * @param City $city
      * @return Temperature
      */
-    private function makeTemperatureObject($parsed_json, $dt, $cityId)
+    private function makeTemperatureObject($provider, $parsed_json, $dt, $city)
     {
         $conditionsObject = new Temperature();
         $conditionsObject->setDate($dt);
-        $conditionsObject->setCity($this->getCityObject($cityId));
+        $conditionsObject->setCity($city);
         $conditionsObject->setTemperatureHigh($parsed_json->current_observation->temp_c);
         $conditionsObject->setTemperatureLow($parsed_json->current_observation->temp_c);
-        $conditionsObject->setProvider($this->provider);
+        $conditionsObject->setProvider($provider);
         $conditionsObject->setHumidity($parsed_json->current_observation->relative_humidity);
         $conditionsObject->setPressure($parsed_json->current_observation->pressure_mb);
 
@@ -154,94 +139,12 @@ class WundergroundCrawler implements CrawlerInterface
     }
 
     /**
-     * Get all cities and countries from DB
-     * Format: City -> (CityId, Country)
-     * [
-     *   ('Roma' => (1, 'Italy')),
-     *   ...
-     * ]
-     *
-     * @return array
-     */
-    private function getCitiesAndCountries()
-    {
-        $cities = $this->em->getRepository('AppBundle:City')->findAll();
-
-        $data = array();
-        foreach ($cities as $city) {
-            if ($city instanceof City) {
-                $data[$this->normalizeCityName($city->getName())] = array($city->getId(), $city->getCountry());
-            }
-        }
-
-        return $data;
-    }
-
-    /**
-     * Get provider
-     *
-     * @return Provider
-     * @throws \Exception
-     */
-    private function getProvider()
-    {
-        $provider = $this->em->getRepository('AppBundle:Provider')->findOneBy(array('name' => 'wunderground'));
-        if (!($provider instanceof Provider)) {
-            throw new \Exception('Can\'t get wunderground provider from DB');
-        }
-
-        return $provider;
-    }
-
-    /**
      * Normalizes city name
-     *
      * @param string $cityName City name for normalization
      * @return string
      */
     private function normalizeCityName(string $cityName)
     {
         return str_replace(' ', '_', trim($cityName));
-    }
-
-    /**
-     * Persist forecast
-     *
-     * @param Forecast $forecast
-     */
-    private function persistForecast(Forecast $forecast)
-    {
-        $this->em->persist($forecast);
-    }
-
-    /**
-     * Persist temperature
-     *
-     * @param Temperature $temperature
-     */
-    private function persistTemperature(Temperature $temperature)
-    {
-        $this->em->persist($temperature);
-    }
-
-    /**
-     * Get City object
-     *
-     * @param int $id
-     * @return City
-     * @throws \Exception
-     */
-    private function getCityObject(int $id)
-    {
-        if ((null === $this->city) || ($id !== $this->city->getId())) {
-            $city = $this->em->getRepository('AppBundle:City')->findOneBy(array('id' => $id));
-            if ($city instanceof City) {
-                $this->city = $city;
-            } else {
-                throw new \Exception(sprintf('Can\'t get city ID: %d from DB', $id));
-            }
-        }
-
-        return $this->city;
     }
 }

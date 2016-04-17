@@ -8,8 +8,15 @@
 
 namespace AppBundle\Crawler;
 
+use AppBundle\Entity\City;
+use AppBundle\Entity\Provider;
+
 interface CrawlerInterface
 {
-    // Crawls the site
-    public function crawl();
+    /**
+     * Crawls the site and returns array of forecast and current temperature for the city
+     * @param City $city
+     * @return array
+     */
+    public function crawl(Provider $provider, City $city): array;
 }

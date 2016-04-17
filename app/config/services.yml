@@ -7,3 +7,12 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    wunderground.crawler.service:
+        class: AppBundle\Crawler\WundergroundCrawler
+        arguments:
+            ["%wundergroung_api%"]
+
+    weather.persister.service:
+        class: AppBundle\Persister\WeatherPersister
+        arguments:
+            ["@doctrine.orm.entity_manager"]
