@@ -56,13 +56,6 @@ EOF
         // Fetch cities
         $cities = $databaseManagerService->fetchCities();
 
-        // Fetch providers
-        $wundergroundProvider = $databaseManagerService->fetchProvider('wunderground');
-        // TODO: placeholder for OpenWeatherMap provider
-        //$openWeatherMapProvider = $databaseManagerService->fetchProvider('openweathermap');
-        // TODO: placeholder for Yahoo provider
-        //$yahooProvider = $databaseManagerService->fetchProvider('yahoo');
-
         // Cycle through each city/country
         foreach ($cities as $city) {
             $logger->info('Fetching weather data for '.$city->getName().'/'.$city->getCountry());
