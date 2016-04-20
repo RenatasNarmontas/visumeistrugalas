@@ -8,7 +8,6 @@
 
 namespace AppBundle\Crawler;
 
-
 use AppBundle\Entity\City;
 
 abstract class CrawlerAbstract implements CrawlerInterface
