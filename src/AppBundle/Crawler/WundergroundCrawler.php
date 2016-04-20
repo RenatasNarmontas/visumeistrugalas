@@ -44,7 +44,7 @@ class WundergroundCrawler extends CrawlerAbstract
             )
         );
 
-        if ($jsonString === FALSE) {
+        if ($jsonString === false) {
             $error = error_get_last();
             throw new WeatherProviderException(
                 sprintf(
