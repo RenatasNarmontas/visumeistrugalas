@@ -10,9 +10,9 @@ services:
     wunderground.crawler.service:
         class: AppBundle\Crawler\WundergroundCrawler
         arguments:
-            ["%wundergroung_api%"]
+            ["%wunderground_api%"]
 
-    weather.persister.service:
-        class: AppBundle\Persister\WeatherPersister
+    weather.manager.service:
+        class: AppBundle\DatabaseManager\WeatherDatabaseManager
         arguments:
             ["@doctrine"]

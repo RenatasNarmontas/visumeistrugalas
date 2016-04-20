@@ -9,7 +9,6 @@
 namespace AppBundle\Crawler;
 
 use AppBundle\Entity\City;
-use AppBundle\Entity\Provider;
 
 interface CrawlerInterface
 {
@@ -18,5 +17,5 @@ interface CrawlerInterface
      * @param City $city
      * @return array
      */
-    public function crawl(Provider $provider, City $city): array;
+    public function crawl(City $city): array;
 }

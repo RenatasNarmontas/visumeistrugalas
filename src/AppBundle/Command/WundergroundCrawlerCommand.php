@@ -17,6 +17,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class WundergroundCrawlerCommand
+ * @package AppBundle\Command
+ * @deprecated
+ */
 class WundergroundCrawlerCommand extends ContainerAwareCommand
 {
     /**
@@ -42,7 +47,6 @@ The <info>crawler:wunderground</info> command imports weather data to DB from wu
     <info>php app/console crawler:wunderground</info>
 EOF
             );
-
     }
 
     /**
@@ -57,7 +61,7 @@ EOF
 
         $this->entityManager = $this->getContainer()->get('doctrine');
         $wundergroundCrawler = $this->getContainer()->get('wunderground.crawler.service');
-        $persistService = $this->getContainer()->get('weather.persister.service');
+        $persistService = $this->getContainer()->get('weather.manager.service');
 
         // Fetch cities and countries
         $cities = $this->fetchCities();
@@ -86,34 +90,5 @@ EOF
         if ($output->getVerbosity() >= OutputInterface::VERBOSITY_NORMAL) {
             $output->writeln(date('Y-m-d H:i:s').' - '.$message);
         }
-    }
-
-    /**
-     * Get all cities and countries from DB
-     * @return array
-     */
-    private function fetchCities()
-    {
-        $cities = $this->entityManager->getRepository('AppBundle:City')->findAll();
-        return $cities;
-    }
-
-    /**
-     * Get provider
-     *
-     * @return Provider
-     * @throws WeatherProviderException
-     */
-    private function fetchProvider()
-    {
-        $provider = $this->entityManager
-            ->getRepository('AppBundle:Provider')
-            ->findOneBy(array('name' => 'wunderground'));
-
-        if (!($provider instanceof Provider)) {
-            throw new WeatherProviderException('Can\'t get wunderground provider from DB');
-        }
-
-        return $provider;
     }
 }

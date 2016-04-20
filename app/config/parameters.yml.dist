@@ -19,4 +19,4 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     # Get your own API at https://www.wunderground.com/
-    wundergroung_api: InsertYourOwnApiHere
+    wunderground_api: InsertYourOwnApiHere
