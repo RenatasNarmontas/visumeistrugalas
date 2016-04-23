@@ -94,4 +94,3 @@ class Request
         return $this->city;
     }
 }
-
