@@ -65,6 +65,13 @@ class Forecast
     /**
      * @var float
      *
+     * @ORM\Column(name="temperature_high_deviation", type="float", nullable=true)
+     */
+    private $temperatureHighDeviation;
+
+    /**
+     * @var float
+     *
      * @ORM\Column(name="temperature_low", type="float", nullable=true)
      */
     private $temperatureLow;
@@ -72,23 +79,37 @@ class Forecast
     /**
      * @var float
      *
-     * @ORM\Column(name="deviation", type="float", nullable=true)
+     * @ORM\Column(name="temperature_low_deviation", type="float", nullable=true)
      */
-    private $deviation;
+    private $temperatureLowDeviation;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="humidity", type="integer", nullable=true)
+     * @ORM\Column(name="humidity", type="float", nullable=true)
      */
     private $humidity;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="pressure", type="integer", nullable=true)
+     * @ORM\Column(name="humidity_deviation", type="float", nullable=true)
+     */
+    private $humidityDeviation;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="pressure", type="float", nullable=true)
      */
     private $pressure;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="pressure_deviation", type="float", nullable=true)
+     */
+    private $pressureDeviation;
 
 
     /**
@@ -222,78 +243,6 @@ class Forecast
     }
 
     /**
-     * Set deviation
-     *
-     * @param float $deviation
-     *
-     * @return Forecast
-     */
-    public function setDeviation($deviation)
-    {
-        $this->deviation = $deviation;
-
-        return $this;
-    }
-
-    /**
-     * Get deviation
-     *
-     * @return float
-     */
-    public function getDeviation()
-    {
-        return $this->deviation;
-    }
-
-    /**
-     * Set humidity
-     *
-     * @param integer $humidity
-     *
-     * @return Forecast
-     */
-    public function setHumidity($humidity)
-    {
-        $this->humidity = $humidity;
-
-        return $this;
-    }
-
-    /**
-     * Get humidity
-     *
-     * @return int
-     */
-    public function getHumidity()
-    {
-        return $this->humidity;
-    }
-
-    /**
-     * Set pressure
-     *
-     * @param integer $pressure
-     *
-     * @return Forecast
-     */
-    public function setPressure($pressure)
-    {
-        $this->pressure = $pressure;
-
-        return $this;
-    }
-
-    /**
-     * Get pressure
-     *
-     * @return int
-     */
-    public function getPressure()
-    {
-        return $this->pressure;
-    }
-
-    /**
      * Set forecastDays
      *
      * @param integer $forecastDays
@@ -315,5 +264,149 @@ class Forecast
     public function getForecastDays()
     {
         return $this->forecastDays;
+    }
+
+    /**
+     * Set temperatureHighDeviation
+     *
+     * @param float $temperatureHighDeviation
+     *
+     * @return Forecast
+     */
+    public function setTemperatureHighDeviation($temperatureHighDeviation)
+    {
+        $this->temperatureHighDeviation = $temperatureHighDeviation;
+
+        return $this;
+    }
+
+    /**
+     * Get temperatureHighDeviation
+     *
+     * @return float
+     */
+    public function getTemperatureHighDeviation()
+    {
+        return $this->temperatureHighDeviation;
+    }
+
+    /**
+     * Set temperatureLowDeviation
+     *
+     * @param float $temperatureLowDeviation
+     *
+     * @return Forecast
+     */
+    public function setTemperatureLowDeviation($temperatureLowDeviation)
+    {
+        $this->temperatureLowDeviation = $temperatureLowDeviation;
+
+        return $this;
+    }
+
+    /**
+     * Get temperatureLowDeviation
+     *
+     * @return float
+     */
+    public function getTemperatureLowDeviation()
+    {
+        return $this->temperatureLowDeviation;
+    }
+
+    /**
+     * Set humidity
+     *
+     * @param float $humidity
+     *
+     * @return Forecast
+     */
+    public function setHumidity($humidity)
+    {
+        $this->humidity = $humidity;
+
+        return $this;
+    }
+
+    /**
+     * Get humidity
+     *
+     * @return float
+     */
+    public function getHumidity()
+    {
+        return $this->humidity;
+    }
+
+    /**
+     * Set humidityDeviation
+     *
+     * @param float $humidityDeviation
+     *
+     * @return Forecast
+     */
+    public function setHumidityDeviation($humidityDeviation)
+    {
+        $this->humidityDeviation = $humidityDeviation;
+
+        return $this;
+    }
+
+    /**
+     * Get humidityDeviation
+     *
+     * @return float
+     */
+    public function getHumidityDeviation()
+    {
+        return $this->humidityDeviation;
+    }
+
+    /**
+     * Set pressure
+     *
+     * @param float $pressure
+     *
+     * @return Forecast
+     */
+    public function setPressure($pressure)
+    {
+        $this->pressure = $pressure;
+
+        return $this;
+    }
+
+    /**
+     * Get pressure
+     *
+     * @return float
+     */
+    public function getPressure()
+    {
+        return $this->pressure;
+    }
+
+    /**
+     * Set pressureDeviation
+     *
+     * @param float $pressureDeviation
+     *
+     * @return Forecast
+     */
+    public function setPressureDeviation($pressureDeviation)
+    {
+        $this->pressureDeviation = $pressureDeviation;
+
+        return $this;
+    }
+
+    /**
+     * Get pressureDeviation
+     *
+     * @return float
+     */
+    public function getPressureDeviation()
+    {
+        return $this->pressureDeviation;
     }
 }
