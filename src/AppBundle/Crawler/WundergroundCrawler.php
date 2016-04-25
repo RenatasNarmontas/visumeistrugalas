@@ -67,9 +67,11 @@ class WundergroundCrawler extends CrawlerAbstract
             );
         }
 
+        // Get forecast data
         $forecastArray = $this->getForecastData($parsedJson, $city);
         $result = $forecastArray;
 
+        // Get current data
         $currentArray = $this->getCurrentData($parsedJson, $city);
         array_push($result, $currentArray);
 
@@ -139,8 +141,7 @@ class WundergroundCrawler extends CrawlerAbstract
             $this::PROVIDER => 'wunderground',
             $this::CURRENT_DATE => new \DateTime('now'),
             $this::CITY_ID => $city->getId(),
-            $this::TEMPERATURE_HIGH => $parsedJson->current_observation->temp_c,
-            $this::TEMPERATURE_LOW => $parsedJson->current_observation->temp_c,
+            $this::TEMPERATURE_CURRENT => $parsedJson->current_observation->temp_c,
             $this::HUMIDITY => $parsedJson->current_observation->relative_humidity,
             $this::PRESSURE => $parsedJson->current_observation->pressure_mb
         ];
