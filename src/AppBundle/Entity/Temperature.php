@@ -42,16 +42,9 @@ class Temperature
     /**
      * @var float
      *
-     * @ORM\Column(name="temperature_high", type="float")
+     * @ORM\Column(name="temperature", type="float")
      */
-    private $temperatureHigh;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="temperature_low", type="float")
-     */
-    private $temperatureLow;
+    private $temperature;
 
     /**
      * @var Provider
@@ -62,16 +55,16 @@ class Temperature
     private $provider;
 
     /**
-     * @var integer
+     * @var float
      *
-     * @ORM\Column(name="humidity", type="integer")
+     * @ORM\Column(name="humidity", type="float", nullable=true)
      */
     private $humidity;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="pressure", type="float")
+     * @ORM\Column(name="pressure", type="float", nullable=true)
      */
     private $pressure;
 
@@ -135,47 +128,24 @@ class Temperature
     /**
      * Set temperature.
      *
-     * @param float $temperatureHigh
+     * @param float $temperature
      * @return Temperature
      */
-    public function setTemperatureHigh($temperatureHigh)
+    public function setTemperature($temperature)
     {
-        $this->temperatureHigh = $temperatureHigh;
+        $this->temperature = $temperature;
 
         return $this;
     }
 
     /**
-     * Get temperature high.
+     * Get temperature.
      *
      * @return float
      */
-    public function getTemperatureHigh()
+    public function getTemperature()
     {
-        return $this->temperatureHigh;
-    }
-
-    /**
-     * Set temperature.
-     *
-     * @param float $temperatureLow
-     * @return Temperature
-     */
-    public function setTemperatureLow($temperatureLow)
-    {
-        $this->temperatureLow = $temperatureLow;
-
-        return $this;
-    }
-
-    /**
-     * Get temperature low.
-     *
-     * @return float
-     */
-    public function getTemperatureLow()
-    {
-        return $this->temperatureLow;
+        return $this->temperature;
     }
 
     /**
@@ -204,7 +174,7 @@ class Temperature
     /**
      * Set humidity.
      *
-     * @param integer $humidity
+     * @param float $humidity
      * @return Temperature
      */
     public function setHumidity($humidity)
@@ -217,7 +187,7 @@ class Temperature
     /**
      * Get humidity.
      *
-     * @return integer
+     * @return float
      */
     public function getHumidity()
     {
