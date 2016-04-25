@@ -102,14 +102,14 @@ class WundergroundCrawler extends CrawlerAbstract
 
             // Get forecast conditions
             $forecastArray = [
-                'type' => 'forecast',
-                'provider' => 'wunderground',
-                'forecastDate' => $dt,
-                'forecastDays' => $i,
-                'cityId' => $city->getId(),
-                'temperatureHigh' => $forecastItem->high->celsius,
-                'temperatureLow' => $forecastItem->low->celsius,
-                'humidity' => $forecastItem->avehumidity
+                $this::DATA_TYPE => 'forecast',
+                $this::PROVIDER => 'wunderground',
+                $this::FORECAST_DATE => $dt,
+                $this::FORECAST_DAYS => $i,
+                $this::CITY_ID => $city->getId(),
+                $this::TEMPERATURE_HIGH => $forecastItem->high->celsius,
+                $this::TEMPERATURE_LOW => $forecastItem->low->celsius,
+                $this::HUMIDITY => $forecastItem->avehumidity
             ];
 
             array_push($result, $forecastArray);
@@ -135,14 +135,14 @@ class WundergroundCrawler extends CrawlerAbstract
     {
         // Get current conditions
         return [
-            'type' => 'current',
-            'provider' => 'wunderground',
-            'currentDate' => new \DateTime('now'),
-            'cityId' => $city->getId(),
-            'temperatureHigh' => $parsedJson->current_observation->temp_c,
-            'temperatureLow' => $parsedJson->current_observation->temp_c,
-            'humidity' => $parsedJson->current_observation->relative_humidity,
-            'pressure' => $parsedJson->current_observation->pressure_mb
+            $this::DATA_TYPE => 'current',
+            $this::PROVIDER => 'wunderground',
+            $this::CURRENT_DATE => new \DateTime('now'),
+            $this::CITY_ID => $city->getId(),
+            $this::TEMPERATURE_HIGH => $parsedJson->current_observation->temp_c,
+            $this::TEMPERATURE_LOW => $parsedJson->current_observation->temp_c,
+            $this::HUMIDITY => $parsedJson->current_observation->relative_humidity,
+            $this::PRESSURE => $parsedJson->current_observation->pressure_mb
         ];
     }
 }
