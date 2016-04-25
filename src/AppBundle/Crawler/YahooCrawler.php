@@ -8,7 +8,6 @@
 
 namespace AppBundle\Crawler;
 
-
 use AppBundle\Entity\City;
 
 class YahooCrawler extends CrawlerAbstract
