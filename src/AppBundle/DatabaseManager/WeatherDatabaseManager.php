@@ -124,10 +124,16 @@ class WeatherDatabaseManager
         $forecastObject->setForecastDays($forecast['forecastDays']);
         $forecastObject->setTemperatureHigh($forecast['temperatureHigh']);
         $forecastObject->setTemperatureLow($forecast['temperatureLow']);
-        $forecastObject->setHumidity($forecast['humidity']);
+        if (isset($forecast['humidity'])) {
+            $forecastObject->setHumidity($forecast['humidity']);
+        }
+        if (isset($forecast['pressure'])) {
+            $forecastObject->setPressure($forecast['pressure']);
+        }
 
         return $forecastObject;
     }
+
 
     /**
      * Make temperature object
@@ -139,11 +145,14 @@ class WeatherDatabaseManager
         $temperatureObject = new Temperature();
         $temperatureObject->setDate($current['currentDate']);
         $temperatureObject->setCity($this->fetchCityObject($current['cityId']));
-        $temperatureObject->setTemperatureHigh($current['temperatureHigh']);
-        $temperatureObject->setTemperatureLow($current['temperatureLow']);
+        $temperatureObject->setTemperature($current['temperatureCurrent']);
         $temperatureObject->setProvider($this->fetchProvider($current['provider']));
-        $temperatureObject->setHumidity($current['humidity']);
-        $temperatureObject->setPressure($current['pressure']);
+        if (isset($current['humidity'])) {
+            $temperatureObject->setHumidity($current['humidity']);
+        }
+        if (isset($current['pressure'])) {
+            $temperatureObject->setPressure($current['pressure']);
+        }
 
         return $temperatureObject;
     }

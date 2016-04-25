@@ -12,6 +12,9 @@ services:
         arguments:
             ["%wunderground_api%"]
 
+    yahoo.crawler.service:
+        class: AppBundle\Crawler\YahooCrawler
+
     weather.manager.service:
         class: AppBundle\DatabaseManager\WeatherDatabaseManager
         arguments:

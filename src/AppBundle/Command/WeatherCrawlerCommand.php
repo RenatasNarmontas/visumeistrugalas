@@ -46,11 +46,13 @@ EOF
         // Log to app/logs
         $logger = $this->getContainer()->get('logger');
 
+        // Wunderground service
         $wundergroundCrawler = $this->getContainer()->get('wunderground.crawler.service');
         // TODO: placeholder for OpenWeatherMap service
         //$openWeatherMapCrawler = $this->getContainer()->get('openweathermap.crawler.service');
-        // TODO: placeholder for Yahoo service
-        //$yahooCrawler = $this->getContainer()->get('yahoo.crawler.service');
+
+        // Yahoo service
+        $yahooCrawler = $this->getContainer()->get('yahoo.crawler.service');
         $databaseManagerService = $this->getContainer()->get('weather.manager.service');
 
         // Fetch cities
@@ -71,11 +73,10 @@ EOF
             //$databaseManagerService->persist($temperatures);
             //unset($temperatures);
 
-            // TODO: placeholder for Yahoo crawler
             // Yahoo crawler
-            //$temperatures = $yahooCrawler->crawl($city);
-            //$databaseManagerService->persist($temperatures);
-            //unset($temperatures);
+            $temperatures = $yahooCrawler->crawl($city);
+            $databaseManagerService->persist($temperatures);
+            unset($temperatures);
         }
 
         // Flush weather data to DB
