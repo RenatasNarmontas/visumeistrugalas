@@ -1,27 +1,32 @@
+AppBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+             fields: email
+             errorPath: email
+             message: fos_user.email.already_used
+             groups: [ "AppRegistration", "AppProfile" ]
 
-app:
-    resource: @AppBundle/Resources/config/routing.yml
-    type: yaml
-
-#fos_user:
-    #resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
-fos_user_profile:
-    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /account
-
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
-
-fos_user_resetting:
-    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
-
-fos_user_change_password:
-    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
+    properties:
+        email:
+            - NotBlank:
+                message: fos_user.email.blank
+                groups: [ "AppRegistration", "AppProfile" ]
+            - Length:
+                min: 2
+                minMessage: fos_user.email.short
+                max: 255
+                maxMessage: fos_user.email.long
+                groups: [ "AppRegistration", "AppProfile" ]
+            - Email:
+                message: fos_user.email.invalid
+                groups: ["AppRegistration", "AppProfile" ]
+        plainPassword:
+            - NotBlank:
+                message: fos_user.password.blank
+                groups: [ "AppRegistration", "ResetPassword", "ChangePassword" ]
+            - Length:
+                min: 2
+                max: 4096
+                minMessage: fos_user.password.short
+                groups: [ "AppRegistration", "AppProfile", "ResetPassword", "ChangePassword"]
 

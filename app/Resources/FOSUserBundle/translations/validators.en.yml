@@ -1,9 +1,6 @@
 fos_user:
     username:
-        already_used: 'The username is already used'
-        blank: 'Please enter a username'
-        short: '[-Inf,Inf]The username is too short'
-        long: '[-Inf,Inf]The username is too long'
+        already_used:
     email:
         already_used: 'The email is already used'
         blank: 'Please enter an email'
@@ -19,7 +16,3 @@ fos_user:
         short: '[-Inf,Inf]The new password is too short'
     current_password:
         invalid: 'The entered password is invalid'
-    group:
-        blank: 'Please enter a name'
-        short: '[-Inf,Inf]The name is too short'
-        long: '[-Inf,Inf]The name is too long'

@@ -34,8 +34,9 @@ class Temperature
     /**
      * @var City
      *
-     * @ManyToOne(targetEntity="City")
-     * @JoinColumn(name="city_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="City")
+     * @ORM\JoinColumns({
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")})
      */
     private $city;
 
@@ -49,8 +50,8 @@ class Temperature
     /**
      * @var Provider
      *
-     * @ManyToOne(targetEntity="Provider")
-     * @JoinColumn(name="provider_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Provider")
+     * @ORM\JoinColumn(name="provider_id", referencedColumnName="id")
      */
     private $provider;
 
