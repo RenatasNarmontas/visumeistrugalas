@@ -307,4 +307,42 @@ class User
     {
         return $this->role;
     }
+
+    /**
+     * Set registerDate
+     *
+     * @param \DateTime $registerDate
+     *
+     * @return User
+     */
+    public function setRegisterDate($registerDate)
+    {
+        $this->registerDate = $registerDate;
+
+        return $this;
+    }
+
+    /**
+     * Get registerDate
+     *
+     * @return \DateTime
+     */
+    public function getRegisterDate()
+    {
+        return $this->registerDate;
+    }
+
+    /**
+     * Set subscription
+     *
+     * @param boolean $subscription
+     *
+     * @return User
+     */
+    public function setSubscription($subscription)
+    {
+        $this->subscription = $subscription;
+
+        return $this;
+    }
 }
