@@ -27,11 +27,11 @@ class Forecast
     /**
      * @var Provider
      *
-     * @ManyToOne(targetEntity="Provider")
-     * @JoinColumn(name="provider_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Provider")
+     * @ORM\JoinColumn(name="provider_id", referencedColumnName="id")
      *
      */
-    private $provider;
+    protected $provider;
 
     /**
      * @var \DateTime
@@ -50,8 +50,8 @@ class Forecast
     /**
      * @var City
      *
-     * @ManyToOne(targetEntity="City")
-     * @JoinColumn(name="city_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="City")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
     private $city;
 

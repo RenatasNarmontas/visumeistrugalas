@@ -1,0 +1,36 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Homepage - {{ parent() }}{% endblock %}
+
+
+{% block body %}
+    <div class="jumbotron">
+    <h2>{{ city }}</h2>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+    <tr>
+        <th>Providers</th>
+        <th>Weather</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for temperature in temperatures %}
+        <tr>
+            <td>
+                {{ temperature.provider.name }}
+            </td>
+            <td>
+                {{ temperature.temperatureHigh }}
+            </td>
+            <td>
+                {{ temperature.temperatureLow }}
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+    </div>
+
+{% endblock %}
