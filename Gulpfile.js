@@ -23,7 +23,7 @@ gulp.task('scripts', function() {
     gulp.src([
             dir.bower + 'jquery/dist/jquery.min.js',
             // Bootstrap JS modules
-            //dir.bootstrapJS + 'transition.js',
+            dir.bootstrapJS + 'transition.js',
             //...
             // Main JS file
             dir.assets + 'scripts/main.js'
