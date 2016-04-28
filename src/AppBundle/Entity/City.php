@@ -37,6 +37,13 @@ class City
     private $country;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="country_iso3166", type="string", length=100)
+     */
+    private $countryIso3166;
+
+    /**
      * Get id.
      *
      * @return integer
@@ -86,5 +93,29 @@ class City
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * Set countryIso3166
+     *
+     * @param string $countryIso3166
+     *
+     * @return City
+     */
+    public function setCountryIso3166($countryIso3166)
+    {
+        $this->countryIso3166 = $countryIso3166;
+
+        return $this;
+    }
+
+    /**
+     * Get countryIso3166
+     *
+     * @return string
+     */
+    public function getCountryIso3166()
+    {
+        return $this->countryIso3166;
     }
 }
