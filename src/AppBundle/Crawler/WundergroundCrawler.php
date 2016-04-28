@@ -105,7 +105,7 @@ class WundergroundCrawler extends CrawlerAbstract
             // Get forecast conditions
             $forecastArray = [
                 $this::DATA_TYPE => 'forecast',
-                $this::PROVIDER => 'wunderground',
+                $this::PROVIDER => 'Weather Underground',
                 $this::FORECAST_DATE => $dt,
                 $this::FORECAST_DAYS => $i,
                 $this::CITY_ID => $city->getId(),
@@ -138,7 +138,7 @@ class WundergroundCrawler extends CrawlerAbstract
         // Get current conditions
         return [
             $this::DATA_TYPE => 'current',
-            $this::PROVIDER => 'wunderground',
+            $this::PROVIDER => 'Weather Underground',
             $this::CURRENT_DATE => new \DateTime('now'),
             $this::CITY_ID => $city->getId(),
             $this::TEMPERATURE_CURRENT => $parsedJson->current_observation->temp_c,
