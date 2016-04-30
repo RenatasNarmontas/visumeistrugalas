@@ -49,5 +49,4 @@ class ProfileType extends AbstractType
     {
         return $this->getBlockPrefix();
     }
-
 }

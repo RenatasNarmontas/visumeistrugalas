@@ -24,7 +24,7 @@ class DefaultController extends Controller
                 $em->persist($contact);
                 $em->flush();
                 return $this->redirect($this->generateUrl('contacts'));
-            }
+        }
 
 
         return $this->render('ContactsBundle:Default:index.html.twig', array(
