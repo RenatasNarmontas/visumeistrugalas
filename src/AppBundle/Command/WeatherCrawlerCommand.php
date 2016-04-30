@@ -9,6 +9,7 @@
 namespace AppBundle\Command;
 
 use AppBundle\Crawler\WeatherProviderException;
+use AppBundle\Entity\City;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -60,6 +61,7 @@ EOF
 
         // Cycle through each city/country
         foreach ($cities as $city) {
+            /** @var $city City */
             $logger->info('Fetching weather data for '.$city->getName().'/'.$city->getCountry());
 
             // Wunderground crawler
