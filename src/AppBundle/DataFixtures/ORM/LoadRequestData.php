@@ -9,6 +9,7 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Request;
+use AppBundle\Entity\User;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -25,11 +26,15 @@ class LoadRequestData extends AbstractFixture implements OrderedFixtureInterface
     {
         $request1 = new Request();
         $request1->setCity('New York');
-        $request1->setUserId($this->getReference('user1'));
+        /** @var User $user1 */
+        $user1 = $this->getReference('user1');
+        $request1->setUserId($user1->getId());
 
         $request2 = new Request();
         $request2->setCity('Beijing');
-        $request2->setUserId($this->getReference('user2'));
+        /** @var User $user2 */
+        $user2 = $this->getReference('user2');
+        $request2->setUserId($user2->getId());
 
         $manager->persist($request1);
         $manager->persist($request2);
