@@ -60,9 +60,12 @@ class WundergroundCrawler extends CrawlerAbstract
         if (isset($parsedJson->response->error->type)) {
             throw new WeatherProviderException(
                 sprintf(
-                    'JSON response error: %s - %s',
+                    'Wunderground - JSON response error: %s - %s, City: %s/%s (%s)',
                     $parsedJson->response->error->type,
-                    $parsedJson->response->error->description
+                    $parsedJson->response->error->description,
+                    $city->getName(),
+                    $city->getCountry(),
+                    $city->getCountryIso3166()
                 )
             );
         }
