@@ -43,7 +43,7 @@ class LoadCityData extends AbstractFixture implements OrderedFixtureInterface
 
         $city4 = new City();
         $city4->setName('London');
-        $city4->setCountry('United Kingdom of Great Britain');
+        $city4->setCountry('UK');
         $city4->setCountryIso3166('GB');
         $this->addReference('London', $city4);
 
