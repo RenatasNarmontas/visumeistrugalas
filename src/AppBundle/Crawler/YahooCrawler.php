@@ -90,12 +90,11 @@ class YahooCrawler extends CrawlerAbstract
 
         $dt = new \DateTime('now');
 
-        if (!isset($parsedJson->query->results->channel->item->forecast)) {
-            return $result;
-        }
+        /** @var \stdClass $jsonPath */
+        $jsonPath = $this->getJsonPath($parsedJson);
 
         $i = 0;
-        foreach ($parsedJson->query->results->channel->item->forecast as $forecastItem) {
+        foreach ($jsonPath->item->forecast as $forecastItem) {
             // Skip forecast for the current day
             if (0 === $i) {
                 $i++;
@@ -134,13 +133,36 @@ class YahooCrawler extends CrawlerAbstract
      */
     private function getCurrentData(\stdClass $parsedJson, City $city): array
     {
+        /** @var \stdClass $jsonPath */
+        $jsonPath = $this->getJsonPath($parsedJson);
+
         // Get current conditions
         return [
             $this::DATA_TYPE => 'current',
             $this::PROVIDER => 'Yahoo',
             $this::CURRENT_DATE => new \DateTime('now'),
             $this::CITY_ID => $city->getId(),
-            $this::TEMPERATURE_CURRENT => $parsedJson->query->results->channel->item->condition->temp
+            $this::TEMPERATURE_CURRENT => $jsonPath->item->condition->temp
         ];
+    }
+
+    /**
+     * Returns relative path. For some sities there are few forecasts. We are using only first of them.
+     * @param \stdClass $parsedJson
+     * @return \stdClass
+     */
+    private function getJsonPath(\stdClass $parsedJson): \stdClass
+    {
+        if (!isset($parsedJson->query->results->channel->item->forecast)) {
+            if (!isset($parsedJson->query->results->channel[0]->item->forecast)) {
+                return null;
+            } else {
+                $jsonPath = $parsedJson->query->results->channel[0];
+            }
+        } else {
+            $jsonPath = $parsedJson->query->results->channel;
+        }
+
+        return $jsonPath;
     }
 }
