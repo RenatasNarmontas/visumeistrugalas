@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\City;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -61,9 +62,26 @@ class AdminController extends Controller
      */
     public function deleteCityAction(int $id)
     {
+        /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
+        /** @var City $city */
         $city = $entityManager->getRepository('AppBundle:City')->find($id);
 
+        // Whipe out all temperature data for this city
+        $qbDeleteTemperatures = $entityManager->createQueryBuilder();
+        $qbDeleteTemperatures->delete('AppBundle:Temperature', 't');
+        $qbDeleteTemperatures->where('t.city = :city');
+        $qbDeleteTemperatures->setParameter('city', $city);
+        $qbDeleteTemperatures->getQuery()->execute();
+
+        // Whipe out all forecast data for this city
+        $qbDeleteForecasts = $entityManager->createQueryBuilder();
+        $qbDeleteForecasts->delete('AppBundle:Forecast', 'f');
+        $qbDeleteForecasts->where('f.city = :city');
+        $qbDeleteForecasts->setParameter('city', $city);
+        $qbDeleteForecasts->getQuery()->execute();
+
+        // Remove city itself
         $entityManager->remove($city);
         $entityManager->flush();
 
