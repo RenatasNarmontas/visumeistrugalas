@@ -19,7 +19,7 @@
                         <td>{{ city.name }}</td>
                         <td>{{ city.country }}</td>
                         <td>{{ city.countryIso3166 }}</td>
-                        <td><a href={{ path('delete_city', {'id': city.id }) }} onclick="deleteConfirmation()">Delete</a></td>
+                        <td><a href={{ path('delete_city', {'id': city.id }) }} onclick="return confirm('Do you want to delete it?');">Delete</a></td>
                     </tr>
                 {% else %}
                     <tr>
@@ -32,6 +32,15 @@
             </tbody>
         </table>
     </div>
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+        </div>
+
+    {% endfor %}
+
     <div>
         {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -43,12 +52,14 @@
             <thead>
                 <tr>
                     <th>The most requested cities</th>
+                    <th>Request count</th>
                 </tr>
             </thead>
             <tbody>
                 {% for request in requests %}
                     <tr>
                         <td>{{ request.city }}</td>
+                        <td>{{ request.request_count }}</td>
                     </tr>
                 {% else %}
                     <tr><td>No requests yet</td></tr>

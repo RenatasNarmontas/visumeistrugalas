@@ -26,7 +26,8 @@ gulp.task('scripts', function() {
             dir.bootstrapJS + 'transition.js',
             //...
             // Main JS file
-            dir.assets + 'scripts/main.js'
+            dir.assets + 'scripts/main.js',
+            dir.assets + 'scripts/admin.js'
         ])
         .pipe(concat('script.js'))
         .pipe(uglify())
