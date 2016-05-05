@@ -22,6 +22,7 @@ class RequestRepository extends EntityRepository
         return $queryBuilder->select('r.city, COUNT(r.city) as request_count')
             ->addGroupBy('r.city')
             ->addOrderBy('request_count', 'DESC')
+            ->setMaxResults($count)
             ->getQuery()
             ->execute();
     }
