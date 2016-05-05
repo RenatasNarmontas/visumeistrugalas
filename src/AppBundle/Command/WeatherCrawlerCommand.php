@@ -66,7 +66,7 @@ EOF
 
             // Wunderground crawler
             $temperatures = $wundergroundCrawler->crawl($city);
-            $databaseManagerService->persist($temperatures);
+            $databaseManagerService->persistAndFlush($temperatures);
             unset($temperatures);
 
             // TODO: placeholder for OpenWeatherMap crawler
@@ -77,7 +77,7 @@ EOF
 
             // Yahoo crawler
             $temperatures = $yahooCrawler->crawl($city);
-            $databaseManagerService->persist($temperatures);
+            $databaseManagerService->persistAndFlush($temperatures);
             unset($temperatures);
         }
 

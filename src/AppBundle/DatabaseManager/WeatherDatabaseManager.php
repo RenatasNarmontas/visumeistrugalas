@@ -55,6 +55,30 @@ class WeatherDatabaseManager
     }
 
     /**
+     * Persist and flush weather data
+     * @param array $temperatures
+     */
+    public function persistAndFlush(array $temperatures)
+    {
+        foreach ($temperatures as $temperature) {
+            switch ($temperature['type']) {
+                case 'forecast':
+                    $forecast = $this->makeForecastObject($temperature);
+                    $entityManager = $this->managerRegistry->getManagerForClass(get_class($forecast));
+                    $entityManager->persist($forecast);
+                    $entityManager->flush();
+                    break;
+                case 'current':
+                    $current = $this->makeTemperatureObject($temperature);
+                    $entityManager = $this->managerRegistry->getManagerForClass(get_class($current));
+                    $entityManager->persist($current);
+                    $entityManager->flush();
+                    break;
+            }
+        }
+    }
+
+    /**
      * Flush weather data to DB
      */
     public function flush()
