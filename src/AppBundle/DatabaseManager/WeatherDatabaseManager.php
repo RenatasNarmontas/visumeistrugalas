@@ -16,6 +16,10 @@ use AppBundle\Entity\Temperature;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
+/**
+ * Class WeatherDatabaseManager
+ * @package AppBundle\DatabaseManager
+ */
 class WeatherDatabaseManager
 {
     /**
@@ -33,7 +37,7 @@ class WeatherDatabaseManager
     }
 
     /**
-     * Persist and flush weather data
+     * Persist weather data
      * @param array $temperatures
      */
     public function persist(array $temperatures)
@@ -82,7 +86,6 @@ class WeatherDatabaseManager
             error_log($e->getMessage());
         }
     }
-
 
     /**
      * Get all cities from DB
@@ -149,7 +152,6 @@ class WeatherDatabaseManager
 
         return $forecastObject;
     }
-
 
     /**
      * Make temperature object
