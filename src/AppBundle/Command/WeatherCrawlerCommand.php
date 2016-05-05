@@ -65,8 +65,12 @@ EOF
             $logger->info('Fetching weather data for '.$city->getName().'/'.$city->getCountry());
 
             // Wunderground crawler
-            $temperatures = $wundergroundCrawler->crawl($city);
-            $databaseManagerService->persistAndFlush($temperatures);
+            try {
+                $temperatures = $wundergroundCrawler->crawl($city);
+                $databaseManagerService->persist($temperatures);
+            } catch (WeatherProviderException $e) {
+                $logger->error($e->getMessage());
+            }
             unset($temperatures);
 
             // TODO: placeholder for OpenWeatherMap crawler
@@ -76,8 +80,12 @@ EOF
             //unset($temperatures);
 
             // Yahoo crawler
-            $temperatures = $yahooCrawler->crawl($city);
-            $databaseManagerService->persistAndFlush($temperatures);
+            try {
+                $temperatures = $yahooCrawler->crawl($city);
+                $databaseManagerService->persist($temperatures);
+            } catch (WeatherProviderException $e) {
+                $logger->error($e->getMessage());
+            }
             unset($temperatures);
         }
 

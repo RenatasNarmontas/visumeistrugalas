@@ -33,7 +33,7 @@ class WeatherDatabaseManager
     }
 
     /**
-     * Persist weather data
+     * Persist and flush weather data
      * @param array $temperatures
      */
     public function persist(array $temperatures)
@@ -43,36 +43,28 @@ class WeatherDatabaseManager
                 case 'forecast':
                     $forecast = $this->makeForecastObject($temperature);
                     $entityManager = $this->managerRegistry->getManagerForClass(get_class($forecast));
-                    $entityManager->persist($forecast);
+                    // Check if we already have forecast for this day
+                    $exist = $entityManager->getRepository('AppBundle:Forecast')->findBy([
+                        'forecastDate' => $forecast->getForecastDate(),
+                        'city' => $forecast->getCity(),
+                        'provider' => $forecast->getProvider()
+                    ]);
+                    if (!$exist) {
+                        $entityManager->persist($forecast);
+                    }
                     break;
                 case 'current':
                     $current = $this->makeTemperatureObject($temperature);
                     $entityManager = $this->managerRegistry->getManagerForClass(get_class($current));
-                    $entityManager->persist($current);
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Persist and flush weather data
-     * @param array $temperatures
-     */
-    public function persistAndFlush(array $temperatures)
-    {
-        foreach ($temperatures as $temperature) {
-            switch ($temperature['type']) {
-                case 'forecast':
-                    $forecast = $this->makeForecastObject($temperature);
-                    $entityManager = $this->managerRegistry->getManagerForClass(get_class($forecast));
-                    $entityManager->persist($forecast);
-                    $entityManager->flush();
-                    break;
-                case 'current':
-                    $current = $this->makeTemperatureObject($temperature);
-                    $entityManager = $this->managerRegistry->getManagerForClass(get_class($current));
-                    $entityManager->persist($current);
-                    $entityManager->flush();
+                    // Check if we already have temperature for this day
+                    $exist = $entityManager->getRepository('AppBundle:Temperature')->findBy([
+                        'date' => $current->getDate(),
+                        'city' => $current->getCity(),
+                        'provider' => $current->getProvider()
+                    ]);
+                    if (!$exist) {
+                        $entityManager->persist($current);
+                    }
                     break;
             }
         }
