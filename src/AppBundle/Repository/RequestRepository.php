@@ -11,8 +11,18 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * RequestRepository
+ * Class RequestRepository
+ * @package AppBundle\Repository
  */
 class RequestRepository extends EntityRepository
 {
+    public function findTopXOrderedByCount(int $count)
+    {
+        $queryBuilder = $this->createQueryBuilder('r');
+        return $queryBuilder->select('r.city, COUNT(r.city) as request_count')
+            ->addGroupBy('r.city')
+            ->addOrderBy('request_count', 'DESC')
+            ->getQuery()
+            ->execute();
+    }
 }

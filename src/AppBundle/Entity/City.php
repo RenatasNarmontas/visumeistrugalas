@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * City
@@ -26,6 +28,7 @@ class City
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=50)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -33,6 +36,7 @@ class City
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $country;
 
@@ -40,6 +44,7 @@ class City
      * @var string
      *
      * @ORM\Column(name="country_iso3166", type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $countryIso3166;
 

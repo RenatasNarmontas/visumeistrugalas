@@ -27,7 +27,7 @@ class AdminController extends Controller
     {
         $entityManager = $this->getDoctrine()->getManager();
         $cities = $entityManager->getRepository('AppBundle:City')->findAll();
-        $requests = $entityManager->getRepository('AppBundle:Request')->findAll();
+        $requests = $entityManager->getRepository('AppBundle:Request')->findTopXOrderedByCount(10);
 
         $city = new City();
         $form = $this->createFormBuilder($city)
@@ -40,11 +40,27 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // perform data saving to DB
-            $entityManager->persist($city);
-            $entityManager->flush();
-            //
-            return $this->redirectToRoute('cities_manager');
+            // Check for existing data
+            $found = false;
+            foreach ($cities as $cityItem) {
+                if (($cityItem->getName() === $city->getName())
+                    && ($cityItem->getCountry() === $city->getCountry())
+                    && ($cityItem->getCountryIso3166() === $city->getCountryIso3166())) {
+                    $this->get('session')->getFlashBag()->add(
+                        'error',
+                        'This City/Country already exists in the list!'
+                    );
+                    $found = true;
+                }
+            }
+
+            if (!$found) {
+                // perform data saving to DB
+                $entityManager->persist($city);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('cities_manager');
+            }
         }
 
         return $this->render(
