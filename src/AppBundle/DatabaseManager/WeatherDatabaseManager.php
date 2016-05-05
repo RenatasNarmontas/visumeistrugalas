@@ -16,6 +16,10 @@ use AppBundle\Entity\Temperature;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
+/**
+ * Class WeatherDatabaseManager
+ * @package AppBundle\DatabaseManager
+ */
 class WeatherDatabaseManager
 {
     /**
@@ -43,12 +47,28 @@ class WeatherDatabaseManager
                 case 'forecast':
                     $forecast = $this->makeForecastObject($temperature);
                     $entityManager = $this->managerRegistry->getManagerForClass(get_class($forecast));
-                    $entityManager->persist($forecast);
+                    // Check if we already have forecast for this day
+                    $exist = $entityManager->getRepository('AppBundle:Forecast')->findBy([
+                        'forecastDate' => $forecast->getForecastDate(),
+                        'city' => $forecast->getCity(),
+                        'provider' => $forecast->getProvider()
+                    ]);
+                    if (!$exist) {
+                        $entityManager->persist($forecast);
+                    }
                     break;
                 case 'current':
                     $current = $this->makeTemperatureObject($temperature);
                     $entityManager = $this->managerRegistry->getManagerForClass(get_class($current));
-                    $entityManager->persist($current);
+                    // Check if we already have temperature for this day
+                    $exist = $entityManager->getRepository('AppBundle:Temperature')->findBy([
+                        'date' => $current->getDate(),
+                        'city' => $current->getCity(),
+                        'provider' => $current->getProvider()
+                    ]);
+                    if (!$exist) {
+                        $entityManager->persist($current);
+                    }
                     break;
             }
         }
@@ -66,7 +86,6 @@ class WeatherDatabaseManager
             error_log($e->getMessage());
         }
     }
-
 
     /**
      * Get all cities from DB
@@ -133,7 +152,6 @@ class WeatherDatabaseManager
 
         return $forecastObject;
     }
-
 
     /**
      * Make temperature object
