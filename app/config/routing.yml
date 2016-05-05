@@ -9,7 +9,7 @@ weather_app:
     prefix: /
 
 app:
-    resource: @AppBundle/Resources/config/routing.yml
+    resource: "@AppBundle/Resources/config/routing.yml"
     type: yaml
 
 #fos_user:
