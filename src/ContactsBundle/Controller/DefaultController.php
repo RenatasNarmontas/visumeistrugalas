@@ -6,6 +6,9 @@ use ContactsBundle\Entity\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ContactsBundle\Form\ContactType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -16,7 +19,13 @@ class DefaultController extends Controller
     public function contactAction(Request $request)
     {
         $contact = new Contact();
-        $form = $this->createForm(new ContactType(), $contact);
+//        $form = $this->createForm(new ContactType(), $contact);
+
+        $form = $this->createFormBuilder($contact)
+            ->add('email', EmailType::class)
+            ->add('message', TextareaType::class)
+            ->add('save', SubmitType::class, array('label' => 'Submit'))
+            ->getForm();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
