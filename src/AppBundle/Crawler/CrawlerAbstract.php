@@ -1,46 +1,43 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: reno
- * Date: 29/03/16
- * Time: 15:03
+ * User: Renatas Narmontas
+ * Date: 20/04/16
+ * Time: 20:01
  */
 
 namespace AppBundle\Crawler;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-//use AppBundle\Entity\Temperature;
-use AppBundle\Entity\Forecast;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use AppBundle\Entity\City;
 
-abstract class CrawlerAbstract extends ContainerAwareCommand implements CrawlerInterface
+abstract class CrawlerAbstract implements CrawlerInterface
 {
+    const DATA_TYPE = 'type';
+    const PROVIDER = 'provider';
+    const CURRENT_DATE = 'currentDate';
+    const FORECAST_DATE = 'forecastDate';
+    const FORECAST_DAYS = 'forecastDays';
+    const CITY_ID = 'cityId';
+    const TEMPERATURE_CURRENT = 'temperatureCurrent';
+    const TEMPERATURE_HIGH = 'temperatureHigh';
+    const TEMPERATURE_LOW = 'temperatureLow';
+    const HUMIDITY = 'humidity';
+    const PRESSURE = 'pressure';
+    
     /**
-     * Inserts current values to 'temperatures' table
+     * Crawls the site and returns array of forecast and current temperature for the city
+     * @param City $city
+     * @return array
      */
-//    public function insertCurrentTemperature(TemperatureEntity temperature)
-//    {
-//        $em = $this->getContainer()->get('doctrine')->getManager();
-//        $em->persist($forecasts_1d);
-//        $em->flush();
-//    }
-
-    public function configure()
-    {
-    }
-
-    public function execute(InputInterface $input, OutputInterface $output)
-    {
-    }
+    abstract public function crawl(City $city): array;
 
     /**
-     * Inserts forecast values to 'forecasts' table
+     * Normalizes city name
+     * @param string $cityName City name for normalization
+     * @return string
      */
-    public function insertForecastTemperature(Forecast $forecast)
+    protected function normalizeCityName(string $cityName)
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->persist($forecast);
-        $em->flush();
+        return str_replace(' ', '_', trim($cityName));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -10,8 +11,16 @@ use Symfony\Component\Validator\Constraints\DateTime;
  * @ORM\Table(name="users")
  */
 
-class User
+class User extends BaseUser
 {
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->registerDate = new \DateTime('now');
+    }
+
     /**
      * @var integer
      *
@@ -19,49 +28,13 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=50)
-     */
-    private $username;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=64)
-     */
-    private $password;
+//    protected $email;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="first_name", type="string", length=50)
-     */
-    private $firstName;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="last_name", type="string", length=50)
-     */
-    private $lastName;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=50)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=50)
-     */
-    private $telephoneNumber;
     /**
      * @ORM\Column(type="datetime")
      * @var DateTime
@@ -73,20 +46,14 @@ class User
      *
      * @ORM\Column(name="subscribe", type="boolean")
      */
-    private $subscription;
+    private $notifications;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="api", type="string", length=50)
+     * @ORM\Column(name="api", type="string", length=50, nullable=true)
      */
     private $api;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Role")
-     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
-     */
-    private $role;
 
     /**
      * Get id
@@ -98,131 +65,6 @@ class User
         return $this->id;
     }
 
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return User
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    /**
-     * Get username.
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set password.
-     *
-     * @param string $password
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = password_hash($password, PASSWORD_BCRYPT) ;
-    }
-
-    /**
-     * Get password.
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set first name.
-     *
-     * @param string $firstName
-     * @return User
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
-     * Get first name.
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * Set last name.
-     *
-     * @param string $lastName
-     * @return User
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-    }
-
-    /**
-     * Get last name.
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * Set email.
-     *
-     * @param string $email
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * Get email.
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Get telephone number.
-     *
-     * @return string
-     */
-    public function getTelephoneNumber()
-    {
-        return $this->telephoneNumber;
-    }
-
-    /**
-     * Set telephone number.
-     *
-     * @param string $telephoneNumber
-     * @return User
-     */
-    public function setTelephoneNumber($telephoneNumber)
-    {
-        $this->telephoneNumber = $telephoneNumber;
-    }
 
     /**
      * Set registration date.
@@ -246,24 +88,24 @@ class User
     }
 
     /**
-     * Set subscription.
+     * Set notifications.
      *
-     * @param boolean $subscription
+     * @param boolean $notifications
      * @return User
      */
-    public function setSubscribtion($subscription)
+    public function setNotifications($notifications)
     {
-        $this->subscription = $subscription;
+        $this->notifications = $notifications;
     }
 
     /**
-     * Get subscription.
+     * Get notifications.
      *
      * @return boolean
      */
-    public function getSubscription()
+    public function getNotifications()
     {
-        return $this->subscription;
+        return $this->notifications;
     }
 
     /**
@@ -287,24 +129,55 @@ class User
         return $this->api;
     }
 
+
     /**
-     * Set role.
+     * Set registerDate
      *
-     * @param $role
+     * @param \DateTime $registerDate
+     *
      * @return User
      */
-    public function setRole($role)
+    public function setRegisterDate($registerDate)
     {
-        $this->role = $role;
+        $this->registerDate = $registerDate;
+
+        return $this;
     }
 
     /**
-     * Get role.
+     * Get registerDate
      *
-     * @return Role
+     * @return \DateTime
      */
-    public function getRole()
+    public function getRegisterDate()
     {
-        return $this->role;
+        return $this->registerDate;
+    }
+
+    /**
+     * @param string $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->setUsername($email);
+        $this->email = $email;
+        return $this;
+    }
+
+
+
+    /**
+     * Set subscription
+     *
+     * @param boolean $subscription
+     *
+     * @return User
+     */
+    public function setSubscription($subscription)
+    {
+        $this->subscription = $subscription;
+
+        return $this;
     }
 }

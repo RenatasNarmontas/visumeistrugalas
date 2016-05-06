@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Advanced Weather - Cities Manager{% endblock %}
+
+{% block body %}
+    <div class="weather-table-wrapper">
+        <table class="table table-condensed" id="weather-table">
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Country (ISO 3166)</th>
+                    <th>Remove link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for city in cities %}
+                    <tr>
+                        <td>{{ city.name }}</td>
+                        <td>{{ city.country }}</td>
+                        <td>{{ city.countryIso3166 }}</td>
+                        <td><a href={{ path('delete_city', {'id': city.id }) }} onclick="return confirm('Do you want to delete it?');">Delete</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>No cities yet</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+        </div>
+
+    {% endfor %}
+
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+    <div class="weather-table-wrapper">
+        <table class="table table-condensed" id="weather-table">
+            <thead>
+                <tr>
+                    <th>The most requested cities</th>
+                    <th>Request count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                    <tr>
+                        <td>{{ request.city }}</td>
+                        <td>{{ request.request_count }}</td>
+                    </tr>
+                {% else %}
+                    <tr><td>No requests yet</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

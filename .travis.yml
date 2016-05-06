@@ -6,7 +6,10 @@ services:
   - mysql
 before_install:
   - phpenv config-rm xdebug.ini
+  - mysql -e 'create database weather;' -uroot
 install:
   - composer install --no-interaction --prefer-dist
+# before-script:
+#  - mysql -e 'create database weather;' -uroot
 script:
   - bin/phpcs -p --standard=PSR2 --extensions=php ./src

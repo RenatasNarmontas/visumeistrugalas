@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Contacts{% endblock%}
+
+{% block body %}
+    <header>
+        <h1>Contacts</h1>
+    </header>
+
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+        {#<form action="" method="post" {{ form_enctype(form) }}>#}
+            {#{{ form_errors(form) }}#}
+
+            {#{{ form_row(form.email) }}#}
+            {#{{ form_row(form.message) }}#}
+
+            {#{{ form_rest(form) }}#}
+
+            {#<input type="submit" value="Submit" />#}
+        {#</form>#}
+{% endblock %}

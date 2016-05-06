@@ -1,0 +1,50 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Homepage - {{ parent() }}{% endblock %}
+
+
+{% block body %}
+    <div class="weather-table-wrapper">
+        <h3>{{ city }}</h3>
+
+        <table class="table table-condensed" id="weather-table">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th></th>
+                <th>Temperature</th>
+                <th>Humidity</th>
+                <th>Pressure</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for forecast in forecasts %}
+                <tr>
+                    <td>
+                        {{ forecast.forecastDate|date("Y-m-d")}}
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Day</li>
+                            <li>Night</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>{{ forecast.temperatureHigh }} °C</li>
+                            <li>{{ forecast.temperatureLow }} °C</li>
+                        </ul>
+                    </td>
+                    <td>
+                        {{ forecast.humidity}}
+                    </td>
+                    <td>
+                        {{forecast.pressure}}
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
