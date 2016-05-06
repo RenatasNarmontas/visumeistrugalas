@@ -22,7 +22,6 @@ services:
         arguments:
             ["%wunderground_api%"]
 
-
     yahoo.crawler.service:
         class: AppBundle\Crawler\YahooCrawler
 

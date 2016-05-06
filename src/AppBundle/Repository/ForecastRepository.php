@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * ForecastsRepository
@@ -12,4 +13,57 @@ use Doctrine\ORM\EntityRepository;
  */
 class ForecastRepository extends EntityRepository
 {
+    /**
+     * Returns Forecast ID and calculated temperature deviation for the day time (high)
+     * @param string $startDate
+     * @param string $endDate
+     * @return array
+     */
+    public function getForecastIdAndTemperatureDevHigh(string $startDate, string $endDate)
+    {
+        $query = $this->createQueryBuilder('f')
+            ->select(
+                'AVG(f.temperatureLow - t.temperature) as temp_deviation_high',
+                'f.id'
+            )
+            ->from('AppBundle:Temperature', 't')
+            ->where('t.city = f.city')
+            ->andWhere('t.provider = f.provider')
+            ->andWhere('f.forecastDate between :startDate and :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->andWhere('date_add(f.forecastDate, f.forecastDays, \'day\') = date(t.date) ')
+            ->andWhere('date_format(t.date, \'%H:%i:%s\') between \'09:00:00\' and \'21:00:00\'')
+            ->addGroupBy('f.id')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * Returns Forecast ID and calculated temperature deviation for the night time (low)
+     * @param string $startDate
+     * @param string $endDate
+     * @return array
+     */
+    public function getForecastIdAndTemperatureDevLow(string $startDate, string $endDate)
+    {
+        $query = $this->createQueryBuilder('f')
+            ->select(
+                'AVG(f.temperatureLow - t.temperature) as temp_deviation_low',
+                'f.id'
+            )
+            ->from('AppBundle:Temperature', 't')
+            ->where('t.city = f.city')
+            ->andWhere('t.provider = f.provider')
+            ->andWhere('f.forecastDate between :startDate and :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->andWhere('date_add(f.forecastDate, f.forecastDays, \'day\') = date(t.date) ')
+            ->andWhere('date_format(t.date, \'%H:%i:%s\') not between \'09:00:00\' and \'21:00:00\'')
+            ->addGroupBy('f.id')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

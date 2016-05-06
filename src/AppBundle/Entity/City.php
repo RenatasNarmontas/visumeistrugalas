@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="cities")
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CityRepository")
  **/
 
 class City
