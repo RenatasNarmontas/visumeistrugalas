@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Contacts{% endblock%}
+
+{% block body %}
+    <header>
+        <h1>Contacts</h1>
+    </header>
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
