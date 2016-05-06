@@ -44,7 +44,7 @@ class User extends BaseUser
     /**
      * @var boolean
      *
-     * @ORM\Column(name="subscribe", type="boolean")
+     * @ORM\Column(name="subscribe", type="boolean", nullable=true)
      */
     private $notifications;
 

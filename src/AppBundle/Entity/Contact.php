@@ -1,7 +1,8 @@
 <?php
 
-namespace ContactsBundle\Entity;
+namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,6 +21,12 @@ class Contact
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var DateTime
+     */
+    private $date;
 
     /**
      * @var string
@@ -44,6 +51,27 @@ class Contact
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set date.
+     *
+     * @var \DateTime
+     * @return Contact
+     */
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
+    /**
+     * Get date.
+     *
+     * @return DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 
     /**
