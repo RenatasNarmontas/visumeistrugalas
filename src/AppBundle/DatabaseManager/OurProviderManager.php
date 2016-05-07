@@ -74,7 +74,6 @@ class OurProviderManager extends DatabaseManagerAbstract
             } catch (UniqueConstraintViolationException $ucve) {
                 // Already in database. Ignore
             }
-
         } else {
             new WeatherProviderException('Can\'t get forecast data for other providers from DB.');
         }
