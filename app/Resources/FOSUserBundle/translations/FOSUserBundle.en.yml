@@ -32,12 +32,11 @@ change_password:
         success: 'The password has been changed'
 
 registration:
-    check_email: 'An email has been sent to %email%. It contains an activation link you must click to activate your account.'
-    confirmed: 'Congrats %username%, your account is now activated.'
+    check_email: 'An email has been sent to %email%.'
+    check_email_explanation: 'It contains an activation link you must click to activate your account.'
+    confirmed: 'Congratulations, %username%. Your account is now activated.'
     back: 'Back to the originating page.'
     submit: Register
-    flash:
-        user_created: 'The user has been created successfully'
     email:
         subject: 'Welcome %username%!'
         message: |
@@ -50,11 +49,12 @@ registration:
 
 resetting:
     password_already_requested: 'The password for this user has already been requested within the last 24 hours.'
-    check_email: 'An email has been sent to %email%. It contains a link you must click to reset your password.'
+    check_email: 'Please check your email %email%. It contains a link you must click to reset your password.'
+    confirmed: 'Your password has been reset.'
     request:
         invalid_username: 'Email address "%username%" does not exist.'
         username: 'Email address'
-        submit: 'Reset password'
+        submit: 'Submit'
     reset:
         submit: 'Change password'
     flash:
@@ -80,8 +80,8 @@ form:
     group_name: 'Group name'
     username: Username
     email: Email address
-    current_password: 'Password'
     password: Password
+    current_password: 'Current password'
     password_confirmation: 'Repeat password'
     new_password: 'New password'
     new_password_confirmation: 'Repeat new password'

@@ -1,8 +1,56 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
-{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+<div class="panel panel-default">
+    <div class="panel-heading"><h2 class="panel-title">Account</h2> </div>
+<div class="form-wrapper">
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'form-horizontal col-sm-offset-2' } }) }}
+    <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">{{ 'form.email'|trans }}:</label>
+        <div class="col-sm-4">
+            <p class="disabled-field"> {{ user.email }}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="current_password" class="col-sm-2 control-label">{{ 'form.current_password'|trans }}:</label>
+        <div class="col-sm-4">
+            {{ form_widget(form.current_password, {'attr': {'class': 'form-control',}}) }}
+        </div>
+        {% if form_errors(form.current_password) is not empty %}
+            <div class="has-error col-md-offset-6">
+                <span class="help-block">{{ form_errors(form.current_password) }}</span>
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="plainPassword" class="col-sm-2 control-label">{{ 'form.new_password'|trans }}:</label>
+        <div class="col-sm-4">
+            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control',}}) }}
+        </div>
+        {% if form_errors(form.plainPassword) is not empty %}
+            <div class="has-error col-md-offset-6">
+                <span class="help-block">{{ form_errors(form.plainPassword) }}</span>
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    {{ form_widget(form.notifications) }}{{ 'form.notifications'|trans  }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">{{ 'form.api'|trans }}:</label>
+        <div class="col-sm-4">
+            {{ form_widget(form.api, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-10">
+            <input type="submit" class="btn btn-primary" value="{{ 'profile.edit.submit'|trans }}" />
+        </div>
     </div>
 {{ form_end(form) }}
+</div>
+    </div>

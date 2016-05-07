@@ -3,12 +3,18 @@ weather_app:
     type: annotation
     prefix: /
 
+contacts:
+    resource: "@ContactsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Home:index }
+
 app:
     resource: "@AppBundle/Resources/config/routing.yml"
     type: yaml
-
-#fos_user:
-    #resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -24,8 +30,3 @@ fos_user_register:
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
     prefix: /resetting
-
-fos_user_change_password:
-    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
-

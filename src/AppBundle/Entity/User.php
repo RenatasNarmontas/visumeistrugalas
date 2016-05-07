@@ -164,20 +164,4 @@ class User extends BaseUser
         $this->email = $email;
         return $this;
     }
-
-
-
-    /**
-     * Set subscription
-     *
-     * @param boolean $subscription
-     *
-     * @return User
-     */
-    public function setSubscription($subscription)
-    {
-        $this->subscription = $subscription;
-
-        return $this;
-    }
 }
