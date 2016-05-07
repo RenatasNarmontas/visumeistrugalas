@@ -16,6 +16,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class RequestRepository extends EntityRepository
 {
+    /**
+     * @param int $count
+     * @return mixed
+     */
     public function findTopXOrderedByCount(int $count)
     {
         $queryBuilder = $this->createQueryBuilder('r');

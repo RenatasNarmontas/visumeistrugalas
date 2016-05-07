@@ -25,6 +25,7 @@ class WeatherCrawlerCommand extends ContainerAwareCommand
     {
         $this
             ->setName('crawler:weather')
+            ->setAliases(array('weather:crawler:crawl'))
             ->setDescription('Import forecast and current data by cities')
             ->setHelp(<<<EOF
 The <info>crawler:weather</info> command imports weather data to DB from all weather providers.
@@ -91,6 +92,14 @@ EOF
 
         // Flush weather data to DB
         $databaseManagerService->flush();
+
+        // Add our provider
+        $ourProvider = $this->getContainer()->get('our.provider.service');
+        try {
+            $ourProvider->addOurProviderForecast();
+        } catch (WeatherProviderException $we) {
+            $logger->error($we->getMessage());
+        }
 
         $logger->info('weather crawler finish');
 

@@ -29,3 +29,8 @@ services:
         class: AppBundle\DatabaseManager\WeatherDatabaseManager
         arguments:
             ["@doctrine"]
+
+    our.provider.service:
+        class: AppBundle\DatabaseManager\OurProviderManager
+        arguments:
+            ["@doctrine"]

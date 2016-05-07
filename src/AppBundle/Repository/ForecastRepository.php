@@ -66,4 +66,47 @@ class ForecastRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * Returns average forecast temperatures of other providers
+     * @param string|null $startDate
+     * @param string|null $endDate
+     * @return array
+     */
+    public function getForecastAverage(string $startDate = null, string $endDate = null)
+    {
+        if (null === $startDate) {
+            // Current date
+            $startDate = date('Y-m-d');
+        }
+
+        if (null === $endDate) {
+            // Add one day to startDate
+            $endDate = date('Y-m-d', strtotime($startDate . ' +1 day'));
+        }
+
+        $query = $this->createQueryBuilder('f')
+            ->select(
+                '(f.city) as cityId',
+                'f.forecastDate as forecastDate',
+                'f.forecastDays as forecastDays',
+                'AVG(f.temperatureLow) as avgTempLow',
+                'AVG(f.temperatureHigh) as avgTempHigh'
+            )
+            ->where('f.forecastDate >= :startDate')
+            ->setParameter('startDate', $startDate)
+            ->andWhere('f.forecastDate < :endDate')
+            ->setParameter('endDate', $endDate)
+            ->andWhere('f.provider <> :ourProvider')
+            ->setParameter(
+                'ourProvider',
+                $this->getEntityManager()->getRepository('AppBundle:Provider')
+                    ->findOneByName('Advanced Weather')->getId()
+            )
+            ->addGroupBy('f.city', 'f.forecastDate', 'f.forecastDays')
+            ->getQuery();
+
+//        dump($query->getResult()); exit;
+        return $query->getResult();
+    }
 }

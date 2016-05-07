@@ -8,15 +8,23 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\DatabaseManager\CalculateForecastDeviations;
+use AppBundle\DatabaseManager\ForecastDeviationCalculator;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
 
-class CalculateWeatherDeviationCommand extends ContainerAwareCommand
+/**
+ * Class WeatherDeviationCalculatorCommand
+ * @package AppBundle\Command
+ */
+class WeatherDeviationCalculatorCommand extends ContainerAwareCommand
 {
+    use DateVerificationTrait;
+    
+    /**
+     * Configure Command
+     */
     protected function configure()
     {
         $this
@@ -27,7 +35,7 @@ class CalculateWeatherDeviationCommand extends ContainerAwareCommand
                 'start-date',
                 null,
                 InputOption::VALUE_REQUIRED,
-                'Start calculation from the date. <info>[format: Y-m-d]</info> <comment>[default: 1970-01-01]</comment>'
+                'Start calculation from the date. <info>[format: Y-m-d]</info> <comment>[default: yesterday]</comment>'
             )
             ->addOption(
                 'end-date',
@@ -63,15 +71,6 @@ EOF
         $startDate = $this->verifyStartDate($input->getOption('start-date'));
         $endDate = $this->verifyEndDate($input->getOption('end-date'));
 
-        $output->writeln(sprintf('Start date: "<info>%s</info>"', $startDate));
-        $output->writeln(sprintf('End date: "<info>%s</info>"', $endDate));
-
-        $forecastDeviation = new CalculateForecastDeviations(
-            $this->getContainer()->get('doctrine'),
-            $startDate,
-            $endDate
-        );
-
         $logger->info(
             sprintf(
                 'Calculate and update forecast temperature deviations. Period: %s - %s',
@@ -79,50 +78,17 @@ EOF
                 $endDate
             )
         );
+
+        // Calculate and update forecast deviations
+        $forecastDeviation = new ForecastDeviationCalculator(
+            $this->getContainer()->get('doctrine'),
+            $startDate,
+            $endDate
+        );
         $forecastDeviation->updateForecastTemperatureDeviations();
 
         $logger->info('Finish CalculateWeatherDeviationCommand->execute()');
 
         return 0;
-    }
-
-    /**
-     * Verifies start date
-     * @param string|null $startDate
-     * @return string
-     */
-    private function verifyStartDate($startDate): string
-    {
-        if ((null === $startDate) || (!$this->validateDate($startDate))) {
-            // Set date to 1970-01-01
-            return '1970-01-01';
-        }
-        return $startDate;
-    }
-
-    /**
-     * Verifies end date
-     * @param string|null $endDate
-     * @return string
-     */
-    private function verifyEndDate($endDate): string
-    {
-        if ((null === $endDate) || (!$this->validateDate($endDate))) {
-            // Set date to current date
-            return date('Y-m-d');
-        }
-        return $endDate;
-    }
-
-    /**
-     * Validates date correctness
-     * @param string $date
-     * @param string $format
-     * @return bool
-     */
-    private function validateDate(string $date, string $format = 'Y-m-d')
-    {
-        $d = \DateTime::createFromFormat($format, $date);
-        return $d && $d->format($format) == $date;
     }
 }
