@@ -12,10 +12,10 @@ use AppBundle\Entity\Forecast;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * Class CalculateForecastDeviations
+ * Class ForecastDeviationCalculator
  * @package AppBundle\DatabaseManager
  */
-class CalculateForecastDeviations
+class ForecastDeviationCalculator
 {
     /**
      * @var ManagerRegistry
