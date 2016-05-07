@@ -49,8 +49,8 @@ EOF
 
         // Wunderground service
         $wundergroundCrawler = $this->getContainer()->get('wunderground.crawler.service');
-        // TODO: placeholder for OpenWeatherMap service
-        //$openWeatherMapCrawler = $this->getContainer()->get('openweathermap.crawler.service');
+        // OpenWeatherMap service
+        $openWeatherMapCrawler = $this->getContainer()->get('openweathermap.crawler.service');
 
         // Yahoo service
         $yahooCrawler = $this->getContainer()->get('yahoo.crawler.service');
@@ -73,11 +73,10 @@ EOF
             }
             unset($temperatures);
 
-            // TODO: placeholder for OpenWeatherMap crawler
             // OpenWeatherMap crawler
-            //$temperatures = $openWeatherMapCrawler->crawl($city);
-            //$databaseManagerService->persist($temperatures);
-            //unset($temperatures);
+            $temperatures = $openWeatherMapCrawler->crawl($city);
+            $databaseManagerService->persist($temperatures);
+            unset($temperatures);
 
             // Yahoo crawler
             try {
