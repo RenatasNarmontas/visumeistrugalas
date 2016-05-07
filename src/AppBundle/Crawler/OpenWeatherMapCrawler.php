@@ -92,7 +92,7 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
             $forecasts[] = [
                 $this::DATA_TYPE => 'forecast',
                 $this::PROVIDER => 'OpenWeatherMap',
-                $this::FORECAST_DATE => convertDate($parsedJson['list'][$i]['dt']),
+                $this::FORECAST_DATE => $this->convertDate($parsedJson['list'][$i]['dt']),
                 $this::FORECAST_DAYS => ++$dayCounter,
                 $this::CITY_ID => $city->getId(),
                 $this::TEMPERATURE_HIGH => $parsedJson['list'][$i]['temp']['day'],
