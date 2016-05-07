@@ -70,6 +70,13 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
         return $data;
     }
 
+    private function convertDate($unixTimestamp)
+    {
+        $date = new \DateTime();
+        $date->setTimestamp($unixTimestamp);
+        return $date;
+    }
+
     /**
      * Get weather forecast data
      * @param array $parsedJson
@@ -85,7 +92,7 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
             $forecasts[] = [
                 $this::DATA_TYPE => 'forecast',
                 $this::PROVIDER => 'OpenWeatherMap',
-                $this::FORECAST_DATE => $parsedJson['list'][$i]['dt'],
+                $this::FORECAST_DATE => convertDate($parsedJson['list'][$i]['dt']),
                 $this::FORECAST_DAYS => ++$dayCounter,
                 $this::CITY_ID => $city->getId(),
                 $this::TEMPERATURE_HIGH => $parsedJson['list'][$i]['temp']['day'],
