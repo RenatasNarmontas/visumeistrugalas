@@ -1,11 +1,58 @@
 {% trans_default_domain 'FOSUserBundle' %}
+    <div class="col-md-9 col-md-offset-5">
+        <div class="panel panel-default">
+<div class="panel-heading"><h2 class="panel-title">Register</h2></div>
+<div class="form-wrapper">
 
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-<h1 class="reg">Register</h1>
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+{{ form_start(form, {'method': 'post', 'attr': {'class': 'form-horizontal col-sm-offset-2'}}) }}
+    {{ form_errors(form) }}
+    <div class="form-group  required">
+        <label for="email" class="col-sm-2 control-label">{{ 'form.email'|trans }}:</label>
+        <div class="col-sm-4">
+            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.email) is not empty %}
+                <div class="has-error">
+                    <span class="help-block">{{ form_errors(form.email) }}</span>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="form-group  required">
+        <label for="pass" class="col-sm-2 control-label">{{ 'form.password'|trans }}:</label>
+        <div class="col-sm-4">
+            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control pwd','type':'password'}}) }}
+            {% if form_errors(form.plainPassword) is not empty %}
+                <div class="has-error">
+                    <span class="help-block">{{ form_errors(form.plainPassword) }}</span>
+                </div>
+            {% endif %}
+        </div>
+        <span class="input-group-btn col-sm-1">
+            <button class="btn btn-default btn-color reveal" id="show" type="button">Show</button>
+          </span>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    {{ form_widget(form.notifications) }}{{ 'form.notifications'|trans  }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <p class="terms">
+            By clicking on the "Create your account" button below, you certify that you have read and agree to our terms of use and privacy policy.
+        </p>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-12 col-md-10  col-md-offset-4">
+            <button id="btn-fblogin" class="btn btn-primary">Register</button>
+        </div>
     </div>
 {{ form_end(form) }}
-
-
+</div>
+        </div>
+    </div>

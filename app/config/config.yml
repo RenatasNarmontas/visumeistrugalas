@@ -94,5 +94,8 @@ fos_user:
     service:
             mailer:  fos_user.mailer.twig_swift
     resetting:
+            form:
+                 type: AppBundle\Form\ResettingType
+                 validation_groups: [AppReset]
             email:
-                template: FOSUserBundle:Registration:email.txt.twig
+                template: FOSUserBundle:Resetting:email.txt.twig

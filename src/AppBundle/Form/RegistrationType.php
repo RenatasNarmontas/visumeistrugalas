@@ -22,14 +22,14 @@ class RegistrationType extends AbstractType
                     'label' => 'form.password',
                     'translation_domain' => 'FOSUserBundle')
             )
-            ->add(
-                'notifications',
-                CheckboxType::class,
-                array(
+              ->add(
+                  'notifications',
+                  CheckboxType::class,
+                  array(
                     'required' => false,
                     'label' => 'form.notifications_recieve',
                     'translation_domain' => 'FOSUserBundle')
-            );
+              );
         ;
     }
 

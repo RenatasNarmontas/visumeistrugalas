@@ -20,6 +20,5 @@ class ProvidersController extends Controller
             'city' => $city->getName(),
             'temperatures'  => $temperatures
         ));
-
     }
 }

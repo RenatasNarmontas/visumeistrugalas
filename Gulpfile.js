@@ -23,14 +23,14 @@ gulp.task('scripts', function() {
     gulp.src([
             dir.bower + 'jquery/dist/jquery.min.js',
             // Bootstrap JS modules
-            dir.bootstrapJS + 'transition.js',
+            dir.bootstrapJS + '../bootstrap.js',
             //...
             // Main JS file
             dir.assets + 'scripts/main.js',
             dir.assets + 'scripts/admin.js'
         ])
         .pipe(concat('script.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest(dir.dist + 'js'));
 });
 

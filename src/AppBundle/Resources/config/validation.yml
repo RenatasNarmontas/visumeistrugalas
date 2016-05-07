@@ -6,6 +6,7 @@ AppBundle\Entity\User:
              message: fos_user.email.already_used
              groups: [ "AppRegistration", "AppProfile" ]
 
+
     properties:
         email:
             - NotBlank:
@@ -25,8 +26,9 @@ AppBundle\Entity\User:
                 message: fos_user.password.blank
                 groups: [ "AppRegistration", "ResetPassword", "ChangePassword" ]
             - Length:
-                min: 2
-                max: 4096
-                minMessage: fos_user.password.short
-                groups: [ "AppRegistration", "AppProfile", "ResetPassword", "ChangePassword"]
+                min: 6
+                max: 255
+                minMessage: "The password must contain at least {{ limit }} characters."
+                maxMessage: "The password cannot be longer than {{ limit }} characters."
+                groups: [ "AppRegistration", "AppProfile", "AppReset"]
 

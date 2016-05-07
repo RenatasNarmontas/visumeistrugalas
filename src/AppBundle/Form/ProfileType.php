@@ -15,22 +15,40 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ProfileType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->remove('username')
+        $builder->remove('username')->remove('email')
+            ->add(
+                'plainPassword',
+                PasswordType::class,
+                array(
+                    'label' => 'form.new_password:',
+                    'translation_domain' => 'FOSUserBundle')
+            )
             ->add(
                 'notifications',
                 CheckboxType::class,
                 array
-                (   'label' => 'form.notifications',
+                (   'required' => false,
+                    'label' => 'form.notifications',
                     'translation_domain' => 'FOSUserBundle'
                 )
             )
-            ->add('api', TextType::class, array('label' => 'form.api','translation_domain' => 'FOSUserBundle'));
+            ->add(
+                'api',
+                TextType::class,
+                array
+                (
+                    'required' => false,
+                    'label' => 'form.api',
+                    'translation_domain' => 'FOSUserBundle'
+                )
+            );
         ;
 
     }

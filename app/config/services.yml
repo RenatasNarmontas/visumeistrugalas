@@ -22,10 +22,47 @@ services:
         arguments:
             ["%wunderground_api%"]
 
-    yahoo.crawler.service:
-        class: AppBundle\Crawler\YahooCrawler
+  app.form.resetting:
+      class: AppBundle\Form\ResettingType
+      tags:
+        - { name: form.type, alias: app_user_resetting }
 
-    weather.manager.service:
-        class: AppBundle\DatabaseManager\WeatherDatabaseManager
-        arguments:
-            ["@doctrine"]
+  app_user.password_resetting:
+      class: AppBundle\EventListener\PasswordResettingListener
+      arguments: [@router]
+      tags:
+        - {name: kernel.event_subscriber }
+
+  app_user.route_listener:
+            class: AppBundle\EventListener\UserRouteListener
+            arguments: [@security.token_storage, @router]
+            tags:
+                - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+  app_user.registration_confirm:
+            class: AppBundle\EventListener\RegistrationsConfirmListener
+            arguments:    [@router, @session]
+            tags:
+              - { name: kernel.event_subscriber}
+
+  yahoo.crawler.service:
+    class: AppBundle\Crawler\YahooCrawler
+
+  weather.manager.service:
+    class: AppBundle\DatabaseManager\WeatherDatabaseManager
+    arguments:
+      ["@doctrine"]
+
+  app.menu_builder:
+          class: AppBundle\Menu\MenuBuilder
+          arguments: ["@knp_menu.factory"]
+
+
+  app.menu.breadcrumb:
+          class: Knp\Menu\MenuItem
+          factory_service: app.menu_builder
+          factory_method: createBreadcrumbMenu
+          arguments: ["@request"]
+          scope: request
+          tags:
+              - { name: knp_menu.menu, alias: breadcrumb }
