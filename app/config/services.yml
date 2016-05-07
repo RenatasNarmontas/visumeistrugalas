@@ -34,36 +34,36 @@ services:
           - {name: kernel.event_subscriber }
 
     app_user.route_listener:
-         class: AppBundle\EventListener\UserRouteListener
-          arguments:
-              -@security.token_storage
-              -@router
-          tags:
-                - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+        class: AppBundle\EventListener\UserRouteListener
+        arguments:
+            -@security.token_storage
+            -@router
+        tags:
+          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
     app_user.registration_confirm:
-          class: AppBundle\EventListener\RegistrationsConfirmListener
-          arguments: ["@router", "@session"]
-          tags:
-              - { name: kernel.event_subscriber}
+        class: AppBundle\EventListener\RegistrationsConfirmListener
+        arguments: ["@router", "@session"]
+        tags:
+          - { name: kernel.event_subscriber}
 
     yahoo.crawler.service:
-          class: AppBundle\Crawler\YahooCrawler
+        class: AppBundle\Crawler\YahooCrawler
 
     weather.manager.service:
-          class: AppBundle\DatabaseManager\WeatherDatabaseManager
-          arguments: ["@doctrine"]
+        class: AppBundle\DatabaseManager\WeatherDatabaseManager
+        arguments: ["@doctrine"]
 
     app.menu_builder:
-          class: AppBundle\Menu\MenuBuilder
-          arguments: ["@knp_menu.factory"]
+        class: AppBundle\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory"]
 
 
     app.menu.breadcrumb:
-          class: Knp\Menu\MenuItem
-          factory_service: app.menu_builder
-          factory_method: createBreadcrumbMenu
-          arguments: ["@request"]
-          scope: request
-          tags:
-              - { name: knp_menu.menu, alias: breadcrumb }
+        class: Knp\Menu\MenuItem
+        factory_service: app.menu_builder
+        factory_method: createBreadcrumbMenu
+        arguments: ["@request"]
+        scope: request
+        tags:
+          - { name: knp_menu.menu, alias: breadcrumb }
