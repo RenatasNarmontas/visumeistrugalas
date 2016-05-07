@@ -22,7 +22,7 @@ services:
         arguments:
             ["%wunderground_api%"]
 
-    wunderground.crawler.service:
+    openweathermap.crawler.service:
         class: AppBundle\Crawler\OpenWeatherMapCrawler
         arguments:
             ["%owm_api_key%"]
