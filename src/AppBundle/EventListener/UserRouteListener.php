@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserRouteListener
 {
+    private $tokenStorageInterface;
     private $routerInterface;
 
     public function __construct(TokenStorageInterface $tokenStorageInterface, RouterInterface $routerInterface)
