@@ -3,11 +3,6 @@ weather_app:
     type: annotation
     prefix: /
 
-contacts:
-    resource: "@ContactsBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 homepage:
     path:     /
     defaults: { _controller: AppBundle:Home:index }
