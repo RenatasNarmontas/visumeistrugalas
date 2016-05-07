@@ -50,12 +50,12 @@ services:
 
     weather.manager.service:
         class: AppBundle\DatabaseManager\WeatherDatabaseManager
-        arguments: ["@doctrine"]
+        arguments:
+            ["@doctrine"]
 
     app.menu_builder:
         class: AppBundle\Menu\MenuBuilder
         arguments: ["@knp_menu.factory"]
-
 
     app.menu.breadcrumb:
         class: Knp\Menu\MenuItem
@@ -65,3 +65,8 @@ services:
         scope: request
         tags:
           - { name: knp_menu.menu, alias: breadcrumb }
+
+    our.provider.service:
+        class: AppBundle\DatabaseManager\OurProviderManager
+        arguments:
+            ["@doctrine"]
