@@ -9,21 +9,23 @@ Advanced Weather Forecast
 Requirements
 ------------
 
-    * PHP 7 or higher;    
-    * MySql or MariaDB
-    * gulp
-    * and the [usual Symfony application requirements](http://symfony.com/doc/current/reference/requirements.html).
+  * PHP 7 or higher;    
+  * MySql or MariaDB
+  * gulp
+  * and the [usual Symfony application requirements](http://symfony.com/doc/current/reference/requirements.html).
 
 Installation
 ------------
 
 Download and install this application usig Git and Composer:
 
-> $ git clone https://github.com/nfqakademija/visumeistrugalas
-> $ cd visumeistrugalas/
-> $ composer install --no-interaction
-> $ npm install
-> $ gulp
+```bash
+$ git clone https://github.com/nfqakademija/visumeistrugalas
+$ cd visumeistrugalas/
+$ composer install --no-interaction
+$ npm install
+$ gulp
+```
 
 Usage
 -----
@@ -46,7 +48,6 @@ Various internal commands
 
 Useful commands to check code quality:
 > bin/phpcs -p --standard=PSR2 --extensions=php ./src
-
 > bin/phpcs -p --standard=PSR2 --extensions=php --report=diff ./src
 
 Code quality automatic fix:
