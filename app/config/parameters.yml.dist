@@ -20,3 +20,5 @@ parameters:
 
     # Get your own API at https://www.wunderground.com/
     wunderground_api: InsertYourOwnApiHere
+    # Get your own API at https://openweathermap.org/
+    owm_api_key:      InsertYourOwnApiHere

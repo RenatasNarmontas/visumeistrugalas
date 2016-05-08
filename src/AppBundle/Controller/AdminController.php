@@ -14,7 +14,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
@@ -23,7 +25,7 @@ class AdminController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function citiesManagerAction(Request $request)
+    public function citiesManagerAction(Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $cities = $entityManager->getRepository('AppBundle:City')->findAll();
@@ -75,8 +77,10 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/delete_city/{id}", name="delete_city")
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteCityAction(int $id)
+    public function deleteCityAction(int $id): RedirectResponse
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
