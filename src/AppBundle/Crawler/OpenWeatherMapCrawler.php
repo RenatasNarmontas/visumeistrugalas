@@ -40,9 +40,9 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
         $forecasts = $this->getForecastData($forecastArray, $city);
         $currentWeather = $this->getCurrentData($currentWeatherArray, $city);
 
-        $result = array_push($forecasts, $currentWeather);
+        array_push($forecasts, $currentWeather);
 
-        return $result;
+        return $forecasts;
 
     }
 
@@ -50,6 +50,7 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
      * Convert json string into associative array
      * @param string $jsonString
      * @return array
+     * @throws WeatherProviderException
      */
     private function getJsonArray(string $jsonString):array
     {
