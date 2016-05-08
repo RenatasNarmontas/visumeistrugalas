@@ -47,10 +47,13 @@ Various internal commands
 -------------------------
 
 Useful commands to check code quality:
+
 > bin/phpcs -p --standard=PSR2 --extensions=php ./src
+>
 > bin/phpcs -p --standard=PSR2 --extensions=php --report=diff ./src
 
 Code quality automatic fix:
+
 > bin/phpcbf --no-patch --standard=PSR2 ./src/filename.php
 
 - - - - - - -  
