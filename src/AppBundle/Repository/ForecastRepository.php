@@ -110,16 +110,23 @@ class ForecastRepository extends EntityRepository
     }
 
     /**
-     * Returns latest forecast for all cities
+     * Returns latest forecast values for all cities (our provider only)
      * @return array
      */
     public function getOurTodayForecast()
     {
+        // Get our provider ID
+        $ourProviderId = $this->getOurProviderId();
+
+        // Get max forecastDate for our provider
         $maxDateQuery = $this->createQueryBuilder('f')
             ->select('max(f.forecastDate)')
+            ->where('f.provider = :ourProvider')
+            ->setParameter('ourProvider', $ourProviderId)
             ->getQuery();
         $maxDate = $maxDateQuery->getArrayResult()[0][1];
 
+        // Select required fields
         $query = $this->createQueryBuilder('f')
             ->select('c.name')
             ->addSelect('c.country')
@@ -134,13 +141,22 @@ class ForecastRepository extends EntityRepository
             ->where('f.forecastDate = :thisDate')
             ->setParameter('thisDate', $maxDate)
             ->andWhere('f.provider = :ourProvider')
-            ->setParameter(
-                'ourProvider',
-                $this->getEntityManager()->getRepository('AppBundle:Provider')
-                    ->findOneByName('Advanced Weather')->getId()
-            )
+            ->setParameter('ourProvider', $ourProviderId)
             ->getQuery();
 
         return $query->getArrayResult();
+    }
+
+    /**
+     * Get our provider ID
+     * @return int
+     */
+    private function getOurProviderId(): int
+    {
+        return $this
+            ->getEntityManager()
+            ->getRepository('AppBundle:Provider')
+            ->findOneByName('Advanced Weather')
+            ->getId();
     }
 }

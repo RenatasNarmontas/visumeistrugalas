@@ -26,8 +26,8 @@ class ApiController extends Controller
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
 
-        // Check apiKey
-        $validApi = $entityManager->getRepository('AppBundle:User')->findOneByApi($apiKey);
+        // Check apiKey (user should be enabled)
+        $validApi = $entityManager->getRepository('AppBundle:User')->findOneBy(['api' => $apiKey, 'enabled' => 1]);
         if (!$validApi) {
             // API key is not found. Return error message
             $forecast = [];
