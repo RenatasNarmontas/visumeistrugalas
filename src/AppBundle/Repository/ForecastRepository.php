@@ -106,7 +106,41 @@ class ForecastRepository extends EntityRepository
             ->addGroupBy('f.city', 'f.forecastDate', 'f.forecastDays')
             ->getQuery();
 
-//        dump($query->getResult()); exit;
         return $query->getResult();
+    }
+
+    /**
+     * Returns latest forecast for all cities
+     * @return array
+     */
+    public function getOurTodayForecast()
+    {
+        $maxDateQuery = $this->createQueryBuilder('f')
+            ->select('max(f.forecastDate)')
+            ->getQuery();
+        $maxDate = $maxDateQuery->getArrayResult()[0][1];
+
+        $query = $this->createQueryBuilder('f')
+            ->select('c.name')
+            ->addSelect('c.country')
+            ->addSelect('c.countryIso3166')
+            ->addSelect('f.forecastDate')
+            ->addSelect('f.forecastDays')
+            ->addSelect('f.temperatureHigh')
+            ->addSelect('f.temperatureLow')
+            ->addSelect('f.humidity')
+            ->addSelect('f.pressure')
+            ->innerJoin('f.city', 'c')
+            ->where('f.forecastDate = :thisDate')
+            ->setParameter('thisDate', $maxDate)
+            ->andWhere('f.provider = :ourProvider')
+            ->setParameter(
+                'ourProvider',
+                $this->getEntityManager()->getRepository('AppBundle:Provider')
+                    ->findOneByName('Advanced Weather')->getId()
+            )
+            ->getQuery();
+
+        return $query->getArrayResult();
     }
 }
