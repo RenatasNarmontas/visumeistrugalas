@@ -7,6 +7,7 @@
  */
 
 namespace AppBundle\Controller\Admin;
+
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
