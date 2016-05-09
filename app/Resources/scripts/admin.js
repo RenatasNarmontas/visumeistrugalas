@@ -37,3 +37,21 @@ function delete_user(username, userId, thisObj) {
         });
     }
 }
+
+function  delete_api(api, userId, thisObj) {
+    if (confirm("Do you want to delete '" + api + "'?")) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/admin/delete_api',
+            data: {id:userId},
+            error: function (value, dataType) {
+                alert(value.message);
+            },
+            success: function (value) {
+                // TODO: refresh table
+                // $(thisObj).parents("tr:first").remove();
+            }
+        });
+    }
+}
