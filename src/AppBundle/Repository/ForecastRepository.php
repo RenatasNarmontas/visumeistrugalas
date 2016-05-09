@@ -40,6 +40,21 @@ class ForecastRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function addDaysToForecastDate(int $cityId)
+    {
+        $query = $this->createQueryBuilder('f')
+                       ->select('date_add(f.forecastDate, f.forecastDays, \'day\') as forecastDate')
+                       ->addSelect('f.temperatureHigh')
+                       ->addSelect('f.temperatureLow')
+                       ->addSelect('f.humidity')
+                       ->addSelect('f.pressure')
+                       ->addSelect('(f.city) as cityId')
+                       ->where('f.city=:city')
+                       ->setParameter('city', $cityId)
+                       ->getQuery();
+        return $query->getResult();
+    }
+
     /**
      * Returns Forecast ID and calculated temperature deviation for the night time (low)
      * @param string $startDate

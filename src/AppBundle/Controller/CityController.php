@@ -16,18 +16,16 @@ class CityController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository('AppBundle:City')->findOneBy(array('name' => $cityName));
-        $forecasts = $em->getRepository('AppBundle:Forecast')
-            ->findBy(array('city' => $city->getId()));
-
+        $forecasts = $em->getRepository('AppBundle:Forecast')->addDaysToForecastDate($city->getId());
         return $this->render('AppBundle:Forecast:cityForecast.html.twig', array(
             'city' => $city->getName(),
-            'forecasts'  => $this->modifyForecastsArray($forecasts)
+            'forecasts'  => $forecasts
         ));
 
     }
 
 
-    private function modifyForecastsArray(array $forecasts):array
+    /*private function modifyForecastsArray(array $forecasts):array
     {
         $modifiedForecats = array();
 
@@ -38,5 +36,5 @@ class CityController extends Controller
             $modifiedForecats[] = $forecast;
         }
         return $modifiedForecats;
-    }
+    }*/
 }
