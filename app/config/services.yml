@@ -40,7 +40,7 @@ services:
 
     app_user.route_listener:
         class: AppBundle\EventListener\UserRouteListener
-        arguments: [@security.token_storage, @router]
+        arguments: ["@security.token_storage", "@router"]
         tags:
           - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
