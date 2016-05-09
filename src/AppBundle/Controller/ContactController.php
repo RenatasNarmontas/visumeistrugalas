@@ -4,18 +4,19 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends Controller
 {
     /**
-     * @Route("/contacts", name="contacts")
+     * @param Request $request
+     * @return Response
      */
-    public function contactAction(Request $request)
+    public function contactAction(Request $request): Response
     {
         $contact = new Contact();
         $form = $this->createFormBuilder($contact)
@@ -31,7 +32,6 @@ class ContactController extends Controller
                 $em->flush();
                 return $this->redirect($this->generateUrl('contacts'));
         }
-
 
         return $this->render('AppBundle:Contact:contact.html.twig', array(
             'form' => $form->createView()
