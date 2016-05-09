@@ -3,7 +3,12 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class HomeController
+ * @package AppBundle\Controller
+ */
 class HomeController extends Controller
 {
     /**
@@ -11,11 +16,10 @@ class HomeController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         return $this->render('AppBundle:Home:index.html.twig', array(
             // ...
         ));
     }
-    //testing git
 }

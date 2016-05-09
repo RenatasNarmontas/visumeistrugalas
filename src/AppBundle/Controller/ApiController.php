@@ -9,19 +9,21 @@
 namespace AppBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ApiController
+ * @package AppBundle\Controller
+ */
 class ApiController extends Controller
 {
     /**
-     * @Route("/api/{apiKey}/forecast", name="api_forecast")
      * @param string $apiKey
      * @return Response
      */
-    public function fetchForecastJsonAction(string $apiKey)
+    public function fetchForecastJsonAction(string $apiKey): Response
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();

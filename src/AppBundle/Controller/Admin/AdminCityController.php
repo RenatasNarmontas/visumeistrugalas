@@ -11,12 +11,9 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\City;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,12 +24,10 @@ use Symfony\Component\HttpFoundation\Response;
 class AdminCityController extends Controller
 {
     /**
-     * @Route("/admin/cities", name="cities_manager")
-     * @Method("GET")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function listCitiesAction(Request $request): Response
+    public function indexCitiesAction(Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $cities = $entityManager->getRepository('AppBundle:City')->findAll();
@@ -83,12 +78,10 @@ class AdminCityController extends Controller
     }
 
     /**
-     * @Route("/admin/delete_city", name="delete_city")
-     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */
-    public function deleteUserAjaxAction(Request $request)
+    public function deleteCityAjaxAction(Request $request): JsonResponse
     {
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);

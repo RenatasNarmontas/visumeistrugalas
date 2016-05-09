@@ -9,8 +9,7 @@
 namespace AppBundle\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AdminUsageStatsController
@@ -19,11 +18,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class AdminUsageStatsController extends Controller
 {
     /**
-     * @Route("/admin/stats", name="stats_manager")
-     * @Method("GET")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function indexAction()
+    public function indexUsageStatsAction(): Response
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();

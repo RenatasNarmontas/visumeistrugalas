@@ -11,10 +11,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,11 +22,9 @@ use Symfony\Component\HttpFoundation\Response;
 class AdminUserController extends Controller
 {
     /**
-     * @Route("/admin/users", name="users_manager")
-     * @Method("GET")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function listUsersAction(): Response
+    public function indexUsersAction(): Response
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
@@ -45,12 +40,10 @@ class AdminUserController extends Controller
     }
 
     /**
-     * @Route("/admin/users", name="users_enable")
-     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */
-    public function enableUserAction(Request $request)
+    public function enableUserAjaxAction(Request $request): JsonResponse
     {
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
@@ -81,12 +74,10 @@ class AdminUserController extends Controller
     }
 
     /**
-     * @Route("/admin/delete_user", name="delete_user")
-     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */
-    public function deleteUserAjaxAction(Request $request)
+    public function deleteUserAjaxAction(Request $request): JsonResponse
     {
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);

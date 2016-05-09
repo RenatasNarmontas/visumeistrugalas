@@ -10,19 +10,19 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class AdminApiController
+ * @package AppBundle\Controller\Admin
+ */
 class AdminApiController extends Controller
 {
     /**
-     * @Route("/admin/apis", name="apis_manager")
-     * @Method("GET")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexApiAction(): Response
     {
@@ -40,12 +40,10 @@ class AdminApiController extends Controller
     }
 
     /**
-     * @Route("/admin/delete_api", name="delete_api")
-     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */
-    public function deleteUserAjaxAction(Request $request)
+    public function deleteApiAjaxAction(Request $request): JsonResponse
     {
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);

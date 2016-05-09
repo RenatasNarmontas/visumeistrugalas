@@ -1,16 +1,68 @@
-weather_app:
-    resource: "@AppBundle/Controller/"
-    type: annotation
-    prefix: /
-
-contacts:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 homepage:
     path:     /
-    defaults: { _controller: AppBundle:Home:index }
+    defaults: { _controller: "AppBundle:Home:index" }
+
+providers:
+    path:     /providers/{cityName}
+    defaults: { _controller: "AppBundle:Providers:index" }
+
+forecast:
+    path:     /forecast/{cityName}
+    defaults: { _controller: "AppBundle:City:index" }
+
+#weather_app:
+#    resource: "@AppBundle/Controller/"
+#    type: annotation
+#    prefix: /
+
+contacts:
+    path:     /contacts
+    defaults: { _controller: "AppBundle:Contact:contact" }
+
+api_forecast:
+    path:     /api/{apiKey}/forecast
+    defaults: { _controller: "AppBundle:Api:fetchForecastJson" }
+
+#Admin section
+admin_apis:
+    path:     /admin/apis
+    defaults: { _controller: "AppBundle:Admin/AdminApi:indexApi" }
+    methods:  [GET]
+
+admin_delete_api:
+    path:     /admin/delete_api
+    defaults: { _controller: "AppBundle:Admin/AdminApi:deleteApiAjax" }
+    methods:  [POST]
+
+admin_cities:
+    path:     /admin/cities
+    defaults: { _controller: "AppBundle:Admin/AdminCity:indexCities" }
+    methods:  [GET]
+
+admin_delete_city:
+    path:     /admin/delete_city
+    defaults: { _controller: "AppBundle:Admin/AdminCity:deleteCityAjax" }
+    methods:  [POST]
+
+admin_usage_stats:
+    path:     /admin/stats
+    defaults: { _controller: "AppBundle:Admin/AdminUsageStats:indexUsageStats" }
+    methods:  [GET]
+
+admin_users:
+    path:     /admin/users
+    defaults: { _controller: "AppBundle:Admin/AdminUser:indexUsers" }
+    methods:  [GET]
+
+admin_users_enable:
+    path:     /admin/users
+    defaults: { _controller: "AppBundle:Admin/AdminUser:enableUserAjax" }
+    methods:  [POST]
+
+admin_users_delete:
+    path:     /admin/delete_user
+    defaults: { _controller: "AppBundle:Admin/AdminUser:deleteUserAjax" }
+    methods:  [POST]
 
 app:
     resource: "@AppBundle/Resources/config/routing.yml"

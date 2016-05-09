@@ -4,15 +4,23 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ProvidersController
+ * @package AppBundle\Controller
+ */
 class ProvidersController extends Controller
 {
-    public function indexAction($cityName)
+    /**
+     * @param $cityName
+     * @return Response
+     */
+    public function indexAction($cityName): Response
     {
 
         $em = $this->getDoctrine()->getManager();
-        $city = $em->getRepository('AppBundle:City')->findOneBy(array('name' => $cityName));
+        $city = $em->getRepository('AppBundle:City')->findOneByName($cityName);
         $temperatures = $em->getRepository('AppBundle:Temperature')
                            ->findBy(array('city' => $city->getId(),'date'=> new \DateTime('today')));
 

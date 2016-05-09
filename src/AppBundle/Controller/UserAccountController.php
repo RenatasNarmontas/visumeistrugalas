@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AppBundle\Controller;
 
 use FOS\UserBundle\Model\UserInterface;
@@ -12,11 +11,20 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+/**
+ * Class UserAccountController
+ * @package AppBundle\Controller
+ */
 class UserAccountController extends Controller
 {
-    public function editAction(Request $request)
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function editAction(Request $request): Response
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -46,10 +54,10 @@ class UserAccountController extends Controller
                 new FilterUserResponseEvent($user, $request, $response)
             );
         }
+
         return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
             'form' => $form->createView(),
             'user' => $user
         ));
-
     }
 }
