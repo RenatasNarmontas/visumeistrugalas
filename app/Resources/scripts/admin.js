@@ -21,8 +21,25 @@ $('input:checkbox').change(function (e) {
     });
 });
 
+function delete_city(name, cityId, thisObj) {
+    if (confirm("Do you want to delete '" + name + "'?")) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/admin/delete_city',
+            data: {id:cityId},
+            error: function (value, dataType) {
+                alert(value.message);
+            },
+            success: function (value) {
+                $(thisObj).parents("tr:first").remove();
+            }
+        });
+    }
+}
+
 function delete_user(username, userId, thisObj) {
-    if (confirm("Do you want to delete " + username + "?")) {
+    if (confirm("Do you want to delete '" + username + "'?")) {
         $.ajax({
             type: 'POST',
             dataType: 'json',
@@ -50,7 +67,7 @@ function  delete_api(api, userId, thisObj) {
             },
             success: function (value) {
                 // TODO: refresh table
-                // $(thisObj).parents("tr:first").remove();
+                //$(thisObj).parents("tr:first").remove();
             }
         });
     }

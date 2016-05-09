@@ -19,7 +19,7 @@
                         <td>{{ city.name }}</td>
                         <td>{{ city.country }}</td>
                         <td>{{ city.countryIso3166 }}</td>
-                        <td><a href={{ path('delete_city', {'id': city.id }) }} onclick="return confirm('Do you want to delete it?');">Delete</a></td>
+                        <td><a href='#' onclick="delete_city('{{ city.name }}','{{ city.id }}',this)">Delete</a></td>
                     </tr>
                 {% else %}
                     <tr>
@@ -38,7 +38,7 @@
         <div class="alert alert-danger">
             {{ flashMessage }}
         </div>
-
+    
     {% endfor %}
 
     <div>

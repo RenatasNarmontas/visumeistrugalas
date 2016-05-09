@@ -22,7 +22,7 @@ Download and install this application usig Git and Composer:
 ```bash
 $ git clone https://github.com/nfqakademija/visumeistrugalas
 $ cd visumeistrugalas/
-$ composer install --no-interaction
+$ composer install
 $ npm install
 $ gulp
 ```
