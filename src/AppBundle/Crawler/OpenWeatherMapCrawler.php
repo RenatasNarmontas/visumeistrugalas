@@ -71,13 +71,6 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
         return $data;
     }
 
-    private function convertDate($unixTimestamp)
-    {
-        $date = new \DateTime();
-        $date->setTimestamp($unixTimestamp);
-        return $date;
-    }
-
     /**
      * Get weather forecast data
      * @param array $parsedJson
