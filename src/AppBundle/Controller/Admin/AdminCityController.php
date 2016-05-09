@@ -12,8 +12,10 @@ use AppBundle\Entity\City;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +28,7 @@ class AdminCityController extends Controller
 {
     /**
      * @Route("/admin/cities", name="cities_manager")
+     * @Method("GET")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -80,16 +83,27 @@ class AdminCityController extends Controller
     }
 
     /**
-     * @Route("/admin/delete_city/{id}", name="delete_city")
-     * @param int $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/admin/delete_city", name="delete_city")
+     * @Method("POST")
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function deleteCityAction(int $id): RedirectResponse
+    public function deleteUserAjaxAction(Request $request)
     {
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+
+        $id = $request->request->get('id');
+
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
         /** @var City $city */
         $city = $entityManager->getRepository('AppBundle:City')->find($id);
+
+        if (!$city) {
+            return new JsonResponse(array('message' => 'City not found'), 400);
+        }
 
         // Whipe out all temperature data for this city
         $qbDeleteTemperatures = $entityManager->createQueryBuilder();
@@ -109,6 +123,6 @@ class AdminCityController extends Controller
         $entityManager->remove($city);
         $entityManager->flush();
 
-        return $this->redirectToRoute('cities_manager');
+        return new JsonResponse(array('message' => 'Success!'), 200);
     }
 }
