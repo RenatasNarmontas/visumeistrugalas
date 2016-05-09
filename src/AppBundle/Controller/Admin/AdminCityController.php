@@ -6,7 +6,7 @@
  * Time: 19:15
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\City;
 use Doctrine\ORM\EntityManager;
@@ -18,14 +18,18 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminController extends Controller
+/**
+ * Class AdminCityController
+ * @package AppBundle\Controller\Admin
+ */
+class AdminCityController extends Controller
 {
     /**
      * @Route("/admin/cities", name="cities_manager")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function citiesManagerAction(Request $request): Response
+    public function listCitiesAction(Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $cities = $entityManager->getRepository('AppBundle:City')->findAll();
