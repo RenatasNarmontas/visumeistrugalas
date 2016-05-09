@@ -30,7 +30,9 @@ class UserRouteListener
     {
         $route = $event->getRequest()->attributes->get('_route');
 
-        if ($this->tokenStorageInterface->getToken()->getUser() instanceof User && $this->isForbiddenPath($route)) {
+        if ((null !== $this->tokenStorageInterface->getToken())
+            && ($this->tokenStorageInterface->getToken()->getUser() instanceof User
+                && $this->isForbiddenPath($route))) {
             $event->setResponse(new RedirectResponse($this->routerInterface->generate('fos_user_profile_edit')));
         }
     }
