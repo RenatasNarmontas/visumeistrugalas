@@ -34,7 +34,7 @@ services:
 
     app_user.password_resetting:
         class: AppBundle\EventListener\PasswordResettingListener
-        arguments: [@router]
+        arguments: ["@router"]
         tags:
           - {name: kernel.event_subscriber }
 
@@ -46,7 +46,7 @@ services:
 
     app_user.registration_confirm:
         class: AppBundle\EventListener\RegistrationsConfirmListener
-        arguments: [@router, @session]
+        arguments: ["@router", "@session"]
         tags:
           - { name: kernel.event_subscriber}
 
@@ -64,10 +64,8 @@ services:
 
     app.menu.breadcrumb:
         class: Knp\Menu\MenuItem
-        factory_service: app.menu_builder
-        factory_method: createBreadcrumbMenu
-        arguments: ["@request"]
-        scope: request
+        factory: ["@app.menu_builder", createBreadcrumbMenu]
+        arguments: ["@request_stack"]
         tags:
           - { name: knp_menu.menu, alias: breadcrumb }
 

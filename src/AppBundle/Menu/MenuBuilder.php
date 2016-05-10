@@ -4,6 +4,7 @@ namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuBuilder
 {
@@ -17,13 +18,14 @@ class MenuBuilder
         $this->factory = $factory;
     }
 
-    public function createBreadcrumbMenu(Request $request)
+    public function createBreadcrumbMenu(RequestStack $requestStack)
     {
         $menu = $this->factory->createItem('root');
 
         $menu->addChild('Home', array('route' => 'homepage'));
         $menu->setChildrenAttribute('class', 'breadcrumb');
 
+        $request = $requestStack->getCurrentRequest();
         switch ($request->get('_route')) {
             case 'fos_user_security_login':
                 $menu->addChild('Login')
