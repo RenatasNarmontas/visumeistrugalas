@@ -1,6 +1,8 @@
- <div class="navbar-right-buttons">
-     <a class="nav-bar-button-login" href="{{ path('fos_user_security_login') }}">Login</a>
-     <span>|</span>
-     <a class="nav-bar-button-register" href="{{ path('fos_user_registration_register') }}">Register</a>
- </div>
+<div class="header-actions">
+    <ul class="nav  navbar-nav navbar-left menu">
+        <li class="menu-item" id="login-link"><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+        <li class="menu-item link-separator"><span>|</span></li>
+        <li class="menu-item" id="register-link"><a href="{{ path('fos_user_registration_register') }}">Register</a></li>
+    </ul>
 
+</div>

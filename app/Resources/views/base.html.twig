@@ -9,37 +9,46 @@
 
         <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
 
+
     {% endblock %}
     {% block canonical_meta %}{% endblock %}
+
+    {% block javascripts %}
+        <script src="{{ asset('js/script.js') }}"></script>
+    {% endblock %}
 </head>
 <body>
 
-    {% block container %}
-        {% block header %}
-            {% include "::inc/header.html.twig" %}
-        {% endblock %}
-        {% block beadcrumbs %}
-            {% include "::inc/breadcrumbs.html.twig" %}
-        {% endblock %}
+{% block container %}
+    {% block header %}
+        {% include "::inc/header.html.twig" %}
+    {% endblock %}
+
+    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+        <div class="container">
+
+            {% block beadcrumbs %}
+                {% include "::inc/breadcrumbs.html.twig" %}
+            {% endblock %}
+        </div>
+    </div>
+
     <div class="section">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-        {% block body %}
+                    {% block body %}
 
-        {% endblock %}
-                 </div>
+                    {% endblock %}
                 </div>
             </div>
         </div>
-    {% endblock %}
-    <div class="section"></div>
-{% block footer %}
-{% include "::inc/footer.html.twig" %}
-
+    </div>
 {% endblock %}
-{% block javascripts %}
-    <script src="{{ asset('js/script.js') }}"></script>
+<div class="section"></div>
+{% block footer %}
+    {% include "::inc/footer.html.twig" %}
+
 {% endblock %}
 
 </body>
