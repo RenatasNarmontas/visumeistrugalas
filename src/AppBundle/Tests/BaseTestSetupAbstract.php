@@ -8,27 +8,37 @@
 
 namespace AppBundle\Tests;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Tools\SchemaTool;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
+/**
+ * Class BaseTestSetupAbstract
+ * @package AppBundle\Tests
+ */
 abstract class BaseTestSetupAbstract extends WebTestCase
 {
     protected $client;
     protected $container;
-    protected $em;
+    /** @var  EntityManager $entityManager */
+    protected $entityManager;
 
+    /**
+     * @throws \Doctrine\ORM\Tools\ToolsException
+     */
     protected function setUp()
     {
         $this->client = static::createClient();
         $this->container = $this->client->getContainer();
-        $this->em = static::$kernel->getContainer()
+        $this->entityManager = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
         if (!isset($metadata)) {
-            $metadata = $this->em->getMetadataFactory()->getAllMetadata();
+            $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
         }
-        $schemaTool = new SchemaTool($this->em);
+        $schemaTool = new SchemaTool($this->entityManager);
         $schemaTool->dropDatabase();
         if (!empty($metadata)) {
             $schemaTool->createSchema($metadata);

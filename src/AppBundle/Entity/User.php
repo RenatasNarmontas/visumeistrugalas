@@ -4,17 +4,16 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
-
 class User extends BaseUser
 {
-
-
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -30,14 +29,9 @@ class User extends BaseUser
      */
     protected $id;
 
-
-//    protected $email;
-
-
-
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime
+     * @var \DateTime
      */
     private $registerDate;
 
@@ -65,22 +59,23 @@ class User extends BaseUser
         return $this->id;
     }
 
-
     /**
      * Set registration date.
      *
-     * @param DateTime $registerDate
+     * @param \DateTime $registerDate
      * @return User
      */
     public function setRegistrationDate($registerDate)
     {
         $this->registerDate = $registerDate;
+
+        return $this;
     }
 
     /**
      * Get registration date.
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getRegistrationDate()
     {
@@ -96,6 +91,8 @@ class User extends BaseUser
     public function setNotifications($notifications)
     {
         $this->notifications = $notifications;
+
+        return $this;
     }
 
     /**
@@ -117,6 +114,8 @@ class User extends BaseUser
     public function setApi($api)
     {
         $this->api = $api;
+
+        return $this;
     }
 
     /**
@@ -128,7 +127,6 @@ class User extends BaseUser
     {
         return $this->api;
     }
-
 
     /**
      * Set registerDate
@@ -156,12 +154,13 @@ class User extends BaseUser
 
     /**
      * @param string $email
-     * @return $this
+     * @return User
      */
     public function setEmail($email)
     {
         $this->setUsername($email);
         $this->email = $email;
+
         return $this;
     }
 }
