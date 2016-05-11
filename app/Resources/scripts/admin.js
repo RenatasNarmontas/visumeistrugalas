@@ -1,7 +1,7 @@
 function enable_user_action(userId, type, cb) {
     // cb.preventDefault();
 
-    alert(123);
+//    alert(cb.checked);
     var data = [];
     data[0] = type;
     data[1] = userId;
