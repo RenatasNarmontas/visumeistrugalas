@@ -60,6 +60,9 @@ class ForecastDeviationCalculator
         $tempDevLow = $entityManager->getRepository('AppBundle:Forecast')
             ->getForecastIdAndTemperatureDevLow($this->startDate, $this->endDate);
 
+        $humidityAndPressureDevs = $entityManager->getRepository('AppBundle:Forecast')
+            ->getForecastIdHumidityAndPressureDeviations($this->startDate, $this->endDate);
+
         // Get Forecast entity and fill temperatureHighDeviation property
         foreach ($tempDevHigh as $item) {
             /** @var Forecast $forecast */
@@ -72,6 +75,14 @@ class ForecastDeviationCalculator
             /** @var Forecast $forecast */
             $forecast = $entityManager->getRepository('AppBundle:Forecast')->findOneById($item['id']);
             $forecast->setTemperatureLowDeviation($item['temp_deviation_low']);
+        }
+
+        // Get Forecast entity and fill humidityDeviation and pressureDeviation properties
+        foreach ($humidityAndPressureDevs as $item) {
+            /** @var Forecast $forecast */
+            $forecast = $entityManager->getRepository('AppBundle:Forecast')->findOneById($item['id']);
+            $forecast->setHumidityDeviation($item['humidity_deviation']);
+            $forecast->setPressureDeviation($item['pressure_deviation']);
         }
 
         $entityManager->flush();

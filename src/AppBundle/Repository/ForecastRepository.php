@@ -40,6 +40,10 @@ class ForecastRepository extends EntityRepository
         return $query->getResult();
     }
 
+    /**
+     * @param int $cityId
+     * @return array
+     */
     public function addDaysToForecastDate(int $cityId)
     {
         $query = $this->createQueryBuilder('f')
@@ -83,6 +87,33 @@ class ForecastRepository extends EntityRepository
     }
 
     /**
+     * Returns Forecast ID and calculated humidity and pressure deviations
+     * @param string $startDate
+     * @param string $endDate
+     * @return array
+     */
+    public function getForecastIdHumidityAndPressureDeviations(string $startDate, string $endDate)
+    {
+        $query = $this->createQueryBuilder('f')
+            ->select(
+                'AVG(f.humidity - t.humidity) as humidity_deviation',
+                'AVG(f.pressure - t.pressure) as pressure_deviation',
+                'f.id'
+            )
+            ->from('AppBundle:Temperature', 't')
+            ->where('t.city = f.city')
+            ->andWhere('t.provider = f.provider')
+            ->andWhere('f.forecastDate between :startDate and :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->andWhere('date_add(f.forecastDate, f.forecastDays, \'day\') = date(t.date) ')
+            ->addGroupBy('f.id')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * Returns average forecast temperatures of other providers
      * @param string|null $startDate
      * @param string|null $endDate
@@ -106,7 +137,9 @@ class ForecastRepository extends EntityRepository
                 'f.forecastDate as forecastDate',
                 'f.forecastDays as forecastDays',
                 'AVG(f.temperatureLow) as avgTempLow',
-                'AVG(f.temperatureHigh) as avgTempHigh'
+                'AVG(f.temperatureHigh) as avgTempHigh',
+                'AVG(f.humidity) as avgHumidity',
+                'AVG(f.pressure) as avgPressure'
             )
             ->where('f.forecastDate >= :startDate')
             ->setParameter('startDate', $startDate)
@@ -175,6 +208,10 @@ class ForecastRepository extends EntityRepository
             ->getId();
     }
 
+    /**
+     * Get tomorrows forecast data for all cities
+     * @return array
+     */
     public function getForecastsForSubscribers()
     {
         // Get our provider ID
@@ -198,6 +235,6 @@ class ForecastRepository extends EntityRepository
             ->andWhere('f.forecastDays = 1')
             ->getQuery();
 
-        return $query->getResult();
+        return $query->getArrayResult();
     }
 }
