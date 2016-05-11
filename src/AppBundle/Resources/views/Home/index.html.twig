@@ -2,60 +2,44 @@
 
 {% block title %}Homepage - {{ parent() }}{% endblock %}
 
-
-
-    {% block body %}
-<div class="col-md-9 col-md-offset-5">
-    <div class="panel panel-default">
-        <div class="panel-heading"></div>
-        <div class="form-wrapper">
-        <div class="weather-table-wrapper">
-
-            <h3>Cities</h3>
-
-            <table class="table table-condensed" id="weather-table">
-                <thead>
+{% block body %}
+        <div class="col-sm-4 col-centered">
+            {{ form_start(form, {'attr': {'class': 'form-inline'}}) }}
+            {{ form_widget(form.city, {'attr': {'class': 'form-control', 'placeholder': 'Your city name'}}) }}
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+            {{ form_end(form) }}
+        </div>
+    <div class="weather-table-wrapper">
+        <table class="table table-condensed" id="weather-table">
+            <thead>
+            <tr>
+                <th>City</th>
+                <th></th>
+                <th>Temperature</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for city in cities %}
                 <tr>
-                    <th>Date</th>
-                    <th></th>
-                    <th>Temperature</th>
-                    <th>Humidity</th>
-                    <th>Pressure</th>
+                    <td>
+                        {{ city.name }}
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Day</li>
+                            <li>Night</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>{{ city.temperatureHigh }} °C</li>
+                            <li>{{ city.temperatureLow }} °C</li>
+                        </ul>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                {#% for city in cities %#}
-                    <tr>
-                        <td>
-                           City
-                        </td>
-                        <td>
-                            <ul>
-                                <li>Day</li>
-                                <li>Night</li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                <li>°C</li>
-                                <li>°C</li>
-                            </ul>
-                        </td>
-                        <td>
+            {% endfor %}
 
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                {#% endfor %#}
-
-                </tbody>
-            </table>
-        </div>
-        </div>
+            </tbody>
+        </table>
     </div>
-    </div>
-
-
-    {% endblock %}
+{% endblock %}
