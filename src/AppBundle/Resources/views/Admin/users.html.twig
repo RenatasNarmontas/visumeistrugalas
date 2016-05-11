@@ -24,11 +24,13 @@
                                 <div class="checkbox">
                                     <label for="{{ user.enabled }}">
                                         <input type="checkbox" {{ block('widget_attributes') }}
-                                                {% if value is defined %} value="{{ value }}"
-                                                {% endif %}{% if user.enabled %} checked="checked"
+                                                {#{% if value is defined %} value="{{ value }}"#}
+                                                {#{% endif %}#}
+                                                {% if user.enabled %} checked="checked"
                                                 {% endif %}
-                                                name="enable"
-                                                id="{{ user.id }}"
+                                                onclick="enable_user_action('{{ user.id }}','enable', this)"
+                                                {#name="enable"#}
+                                                {#id="{{ user.id }}"#}
                                         />
                                     </label>
                                 </div>
@@ -45,8 +47,9 @@
                                                 {% if value is defined %} value="{{ value }}"
                                                 {% endif %}{% if user.notifications %} checked="checked"
                                                 {% endif %}
-                                               name="notification"
-                                               id="{{ user.id }}"
+                                               onclick="enable_user_action('{{ user.id }}','notification', this)"
+                                               {#name="notification"#}
+                                               {#id="{{ user.id }}"#}
                                         />
                                     </label>
                                 </div>

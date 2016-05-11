@@ -1,0 +1,34 @@
+{% block body %}
+
+<h3>Forecast news for tomorrow</h3>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>City</th>
+            <th>Country</th>
+            <th>Forecast date</th>
+            <th>Temperature High</th>
+            <th>Temperature Low</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for forecast in forecasts %}
+            <tr>
+                <td>{{ forecast.name }}</td>
+                <td>{{ forecast.country }}({{ forecast.countryIso3166 }})</td>
+                <td>{{ forecast.date|date("Y-m-d") }}</td>
+                <td>{{ forecast.temperatureHigh }}</td>
+                <td>{{ forecast.temperatureLow }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br>
+--<br>
+Sincerely yours<br>
+Advanced Weather Forecast<br>
+
+{% endblock %}
