@@ -13,6 +13,8 @@ use AppBundle\Entity\Provider;
 
 trait LoadHelperTrait
 {
+    abstract public function getReference($name);
+
     /**
      * Returns City reference
      * @param string $cityId

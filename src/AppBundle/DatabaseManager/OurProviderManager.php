@@ -11,6 +11,7 @@ namespace AppBundle\DatabaseManager;
 use AppBundle\Crawler\WeatherProviderException;
 use AppBundle\Entity\Forecast;
 use AppBundle\Entity\Provider;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
@@ -41,6 +42,7 @@ class OurProviderManager extends DatabaseManagerAbstract
      */
     public function addOurProviderForecast(string $startDate = null, string $endDate = null)
     {
+        /** @var EntityManager $entityManager */
         $entityManager = $this->managerRegistry->getManager();
         
         // Get average forecast values of other providers
