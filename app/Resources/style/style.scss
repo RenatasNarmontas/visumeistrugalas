@@ -1,18 +1,29 @@
-.main-content {
 
-  padding-bottom: 9px;
-  margin: 70px 0 20px;
-
-}
 body
 {
   font-family: Lato;
-  color: #666;
+  color: $grey-darkest;
+}
+footer
+{
+   margin-top: 80px;
+   border-top: 2px solid #e4e4e4;
+   padding-top: 1px!important;
+ }
+footer p
+{
+    color: $grey-darkest;
 }
 form label
 {
-  font-weight:200;
+  font-weight:$font-weight-light;
 }
+a:hover
+{
+  text-decoration:none;
+  cursor:pointer;
+}
+
 .weather-table-wrapper
 {
   padding-right: 60px;
@@ -35,23 +46,23 @@ form label
   line-height: 2;
 
 }
-#weather-table th{
+#weather-table th
+{
   background-color: #222;
   color:#f7f7f7;
   text-align: center;
 }
-#weather-table td{
+#weather-table td
+{
   background-color: #fff;
   padding-top: 14px;
 }
-#weather-table tr{
+#weather-table tr
+{
   text-align: center;
 }
 
-footer p
-{
-  color: #666666;
-}
+
 .navbar-right-buttons{
   float: right;
   padding-top: 10px;
@@ -60,29 +71,11 @@ footer p
 {
   line-height: 32px;
   font-size: 10pt;
-  font-weight: 600;
-  border-radius: 3px;
-  color:white;
-  padding: 0 15px;
-}
-.nav-bar-button-login
-{
-  padding: 6px 12px;
-  color: #333;
-  background-color: #eee;
-  border: 1px solid #d5d5d5;
-  margin-right: 20px;
-}
-.nav-bar-button-register
-{
-  background-color: #337ab7;
-  border-color: #337ab7;
-  padding: 7px 7px;
 }
 
 .navbar-default {
-  background-color: #0074d9;
-  border-color: #0062b8;
+  background-color: $blue-light;
+  border-color: $blue-dark;
   border-bottom: 3px solid #e7e7e7;
 }
 .navbar-default .navbar-brand:hover
@@ -101,11 +94,11 @@ footer p
 .menu li a:hover
 {
   color: #e6e6e6!important;
-  background-color: #0062b8!important;
+  background-color: $blue-dark!important;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #0062b8;
+  background-color: $blue-dark;
 }
 .navbar-default .navbar-nav>li>a {
   color: #ffffff;
@@ -114,35 +107,7 @@ footer p
 {
   margin-right: 100px!important;
 }
-.thumbnail {
-  padding: 0;
-}
-a:hover
-{
-  text-decoration:none;
-  cursor:pointer;
-}
-.nav-bar-button-login:hover
-{
-  color:#fff;
-}
-.thumbnail .caption-full {
-  padding: 9px 45px;
-  color: #333;
-  background-color: #f7f7f7;
-  height: 54px;
-  border-bottom: 1px solid #d8d8d8;
-}
-.caption-full h4
-{
-  color: #337ab7;
-}
 
-footer {
-  margin-top: 80px;
-  border-top: 2px solid #e4e4e4;
-  padding-top: 1px!important;
-}
 .footer-content {
   margin-top: -15px;
 }
@@ -167,23 +132,19 @@ footer {
 }
 .nav-bar-button-register,.nav-bar-button-login
 {
-
+  background:transparent!important;
   font-size: 10pt;
-  font-weight: 200;
-
-  color:white;
+  font-weight: $font-weight-light;
   padding: 0 15px;
 }
 .nav-bar-button-login
 {
-  background:transparent!important;
   border: none !important;
   padding: 6px 0px;
   margin-right: 10px;
 }
 .nav-bar-button-register
 {
-  background:transparent!important;
   padding: 7px 7px;
 }
 .navbar-nav{
@@ -198,14 +159,14 @@ footer {
 .table-headings
 {
   color: white;
-  font-weight: 600;
+  font-weight: $font-weight-bold;
 }
 .table-content-row
 {
   border: 1px solid #ddd;
   line-height: 50px;
   height: 107px;
-  font-weight:600;
+  font-weight:$font-weight-bold;
 }
 #first-title
 {
@@ -367,7 +328,7 @@ footer {
 .btn-color
 {
   background:#F2EFEF;
-  font-weight:200;
+  font-weight:$font-weight-light;
 }
 
 .row-offset {

@@ -36,7 +36,7 @@ class ApiController extends Controller
             $messageArray = ['Status' => 'Error', 'Text' => 'API key is expired and/or not valid'];
         } else {
             // Fetch forecast data
-            $forecast = $entityManager->getRepository('AppBundle:Forecast')->getOurTodayForecast();
+            $forecast = $entityManager->getRepository('AppBundle:Forecast')->getOurLatestForecast();
             $messageArray = ['Status' => 'OK', 'Text' => 'Thank you for being our customer'];
         }
         array_push($forecast, $messageArray);

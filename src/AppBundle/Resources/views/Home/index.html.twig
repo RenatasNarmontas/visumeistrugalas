@@ -2,25 +2,60 @@
 
 {% block title %}Homepage - {{ parent() }}{% endblock %}
 
-{% block stylesheets %}
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-    {{ parent() }}
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-weight: 100;
-            font-family: 'Lato';
-        }
 
-        .title {
-            margin: 20px auto;
-            text-align: center;
-            font-size: 96px;
-        }
-    </style>
-{% endblock %}
 
-{% block body %}
-    <div class="title">NFQ Akademija</div>
-{% endblock %}
+    {% block body %}
+<div class="col-md-9 col-md-offset-5">
+    <div class="panel panel-default">
+        <div class="panel-heading"></div>
+        <div class="form-wrapper">
+        <div class="weather-table-wrapper">
+
+            <h3>Cities</h3>
+
+            <table class="table table-condensed" id="weather-table">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th></th>
+                    <th>Temperature</th>
+                    <th>Humidity</th>
+                    <th>Pressure</th>
+                </tr>
+                </thead>
+                <tbody>
+                {#% for city in cities %#}
+                    <tr>
+                        <td>
+                           City
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Day</li>
+                                <li>Night</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>°C</li>
+                                <li>°C</li>
+                            </ul>
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                {#% endfor %#}
+
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+    {% endblock %}
