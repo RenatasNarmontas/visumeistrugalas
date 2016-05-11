@@ -8,10 +8,15 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\Contact;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * Class LoadContactData
+ * @package AppBundle\DataFixtures\ORM
+ */
 class LoadContactData extends AbstractFixture implements OrderedFixtureInterface
 {
 
