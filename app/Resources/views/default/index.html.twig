@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Homepage - {{ parent() }}{% endblock %}
+
+
+
+    {% block body %}
+<div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+    <div class="container">
+
+        {% block beadcrumbs %}
+            {% include "::inc/breadcrumbs.html.twig" %}
+        {% endblock %}
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% endblock %}
