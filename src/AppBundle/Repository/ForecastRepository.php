@@ -124,11 +124,37 @@ class ForecastRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function getAverageProvidersAccuracy(string $dateFrom, string $dateTo)
+    {
+        if (null === $dateFrom) {
+            $dateFrom = date('Y-m-d');
+        }
+
+
+        $query = $this->createQueryBuilder('f')
+            ->select(
+                'p.name as forecastProvider',
+                'f.forecastDays as forecastDays',
+                'AVG(f.temperatureLowDeviation) as avgTempLowDeviation',
+                'AVG(f.temperatureHighDeviation) as avgTempHighDeviation'
+            )
+            ->join('f.provider', 'p')
+            ->where('f.forecastDate between :dateFrom and :dateTo')
+            ->setParameter('dateFrom', $dateFrom)
+            ->setParameter('dateTo', $dateTo)
+            ->andWhere('f.forecastDays = 1')
+            ->addGroupBy('p.name', 'f.forecastDays')
+            ->getQuery();
+
+        return $query->getResult();
+
+    }
+
     /**
      * Returns latest forecast values for all cities (our provider only)
      * @return array
      */
-    public function getOurTodayForecast()
+    public function getOurLatestForecast()
     {
         // Get our provider ID
         $ourProviderId = $this->getOurProviderId();
