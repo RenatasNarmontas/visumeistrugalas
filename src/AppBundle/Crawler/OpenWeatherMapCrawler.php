@@ -10,10 +10,18 @@ namespace AppBundle\Crawler;
 
 use AppBundle\Entity\City;
 
+/**
+ * Class OpenWeatherMapCrawler
+ * @package AppBundle\Crawler
+ */
 class OpenWeatherMapCrawler extends CrawlerAbstract
 {
     private $apiKey;
 
+    /**
+     * OpenWeatherMapCrawler constructor.
+     * @param string $apiKey
+     */
     public function __construct(string $apiKey)
     {
         $this->apiKey = $apiKey;
@@ -27,9 +35,9 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
     public function crawl(City $city): array
     {
         $forecastUri = 'http://api.openweathermap.org/data/2.5/forecast/daily?q='
-               .$city->getName().','.$city->getCountryIso3166() .'&mode=json&units=metric&cnt=5&appid='.$this->apiKey;
+               .$city->getName().','.$city->getCountryIso3166().'&mode=json&units=metric&cnt=5&appid='.$this->apiKey;
         $currentWeatherUri = 'http://api.openweathermap.org/data/2.5/weather?q='
-               .$city->getName().','.$city->getCountryIso3166() .'&appid=' . $this->apiKey . '&units=metric';
+               .$city->getName().','.$city->getCountryIso3166().'&appid='.$this->apiKey.'&units=metric';
 
         $forecastJsonString = file_get_contents($forecastUri);
         $currentWeatherJsonString = file_get_contents($currentWeatherUri);
@@ -82,7 +90,7 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
         $forecasts = array();
         $date = new \DateTime('now');
 
-        for ($i=0; $i<5; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $dayCounter=$i;
             $forecasts[] = [
                 $this::DATA_TYPE => 'forecast',
@@ -106,7 +114,6 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
      * @param City $city
      * @return array
      */
-
     private function getCurrentData(array $parsedJson, City $city): array
     {
         return [

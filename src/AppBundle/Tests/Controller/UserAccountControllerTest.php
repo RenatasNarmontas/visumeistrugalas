@@ -126,4 +126,32 @@ class UserAccountControllerTest extends BaseTestSetupAbstract
         // Check that there are no errors
         $this->assertEquals('Invalid credentials.', $crawler->filter('span[class=help-block]')->first()->text());
     }
+
+    public function testGetJsonWithCorrectApi()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/api/AdvWeatherAPI_57337d6c313d2/forecast');
+        $response = $client->getResponse();
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->getContent();
+
+        // Check that we received json
+        $this->assertTrue(
+            false !== strpos($responseData, '{"Status":"OK","Text":"Thank you for being our customer"}]')
+        );
+    }
+
+    public function testGetJsonWithIncorrectApi()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/api/doesntexist/forecast');
+        $response = $client->getResponse();
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->getContent();
+
+        // Check that we received json
+        $this->assertTrue(
+            false !== strpos($responseData, '[{"Status":"Error","Text":"API key is expired and\/or not valid"}]')
+        );
+    }
 }

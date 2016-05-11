@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,7 +23,7 @@ class Contact
 
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime
+     * @var \DateTime
      */
     private $date;
 
@@ -57,7 +56,6 @@ class Contact
      * Set date.
      *
      * @var \DateTime
-     * @return Contact
      */
     public function __construct()
     {
@@ -67,7 +65,7 @@ class Contact
     /**
      * Get date.
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getDate()
     {

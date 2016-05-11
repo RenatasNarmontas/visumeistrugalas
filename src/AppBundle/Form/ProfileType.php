@@ -17,9 +17,16 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
+/**
+ * Class ProfileType
+ * @package AppBundle\Form
+ */
 class ProfileType extends AbstractType
 {
-
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->remove('username')->remove('email')
@@ -33,8 +40,8 @@ class ProfileType extends AbstractType
             ->add(
                 'notifications',
                 CheckboxType::class,
-                array
-                (   'required' => false,
+                array(
+                    'required' => false,
                     'label' => 'form.notifications',
                     'translation_domain' => 'FOSUserBundle'
                 )
@@ -42,8 +49,7 @@ class ProfileType extends AbstractType
             ->add(
                 'api',
                 TextType::class,
-                array
-                (
+                array(
                     'required' => false,
                     'label' => 'form.api',
                     'translation_domain' => 'FOSUserBundle'
@@ -53,16 +59,25 @@ class ProfileType extends AbstractType
 
     }
 
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return 'FOS\UserBundle\Form\Type\ProfileFormType';
     }
 
+    /**
+     * @return string
+     */
     public function getBlockPrefix()
     {
         return 'app_user_profile';
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->getBlockPrefix();

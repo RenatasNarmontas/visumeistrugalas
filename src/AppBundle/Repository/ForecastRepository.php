@@ -124,7 +124,7 @@ class ForecastRepository extends EntityRepository
 
         if (null === $endDate) {
             // Add one day to startDate
-            $endDate = date('Y-m-d', strtotime($startDate . ' +1 day'));
+            $endDate = date('Y-m-d', strtotime($startDate.'+1 day'));
         }
 
         $query = $this->createQueryBuilder('f')
@@ -311,7 +311,7 @@ class ForecastRepository extends EntityRepository
             ->andWhere('f.forecastDate = date(:currentDate)')
             ->setParameter('currentDate', $currentDate)
             ->andWhere('c.name like :city')
-            ->setParameter('city', '%' . $city['city'] . '%')
+            ->setParameter('city', '%'.$city['city'].'%')
             ->getQuery();
 
         return $query->getArrayResult();
