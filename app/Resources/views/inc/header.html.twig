@@ -1,19 +1,16 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="site-header">
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ path('homepage') }}"><span>AdvancedWeatherApp</span></a>
-        </div>
-        {% if app.user is not null %}
-            {% include "::inc/user_nav.html.twig" %}
-        {% else %}
-            {% include "::inc/header_actions.html.twig" %}
-        {% endif %}
+
+
+        <a class="branding" href="{{ path('homepage') }}">
+            <img src="/images/icons/icon-12.svg" alt="" width="48">
+            <div class="logo-type">
+                <h1 class="site-title">AdvancedWeatherApp</h1>
+            </div>
+
+        </a>
+
+
         {% include "::inc/nav.html.twig" %}
     </div>
 </nav>
