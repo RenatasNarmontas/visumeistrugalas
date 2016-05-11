@@ -1,4 +1,16 @@
+@import
+"libs/settings",
+"libs/mixins",
+"libs/normalize",
+"libs/global",
+"libs/components",
 
+
+"layout/header",
+"layout/content",
+"layout/sidebar",
+"layout/footer";
+/*
 body
 {
   font-family: Lato;
@@ -277,7 +289,7 @@ a:hover
 {
   padding-top: 30px;
   /*margin-left: 100px;*/
-}
+/*}
 .login-checkbox
 {
   padding-top: 10px;
@@ -339,3 +351,4 @@ a:hover
   color: #ffffff;
 }
 
+*/
