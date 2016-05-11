@@ -188,8 +188,8 @@ class ForecastRepository extends EntityRepository
             ->addSelect('f.forecastDate')
             ->addSelect('round(f.temperatureHigh, 2) as temperatureHigh')
             ->addSelect('round(f.temperatureLow, 2) as temperatureLow')
-//            ->addSelect('f.humidity')
-//            ->addSelect('f.pressure')
+            ->addSelect('f.humidity')
+            ->addSelect('f.pressure')
             ->innerJoin('f.city', 'c')
             ->where('f.forecastDate = date(:thisDate)')
             ->setParameter('thisDate', new \DateTime('now'))
@@ -198,7 +198,6 @@ class ForecastRepository extends EntityRepository
             ->andWhere('f.forecastDays = 1')
             ->getQuery();
 
-//        dump($query->getArrayResult()); exit;
         return $query->getResult();
     }
 }
