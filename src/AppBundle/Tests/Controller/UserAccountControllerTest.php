@@ -8,10 +8,14 @@
 
 namespace AppBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Tests\BaseTestSetupAbstract;
+use Symfony\Component\Console\Input\StringInput;
 
-class UserAccountControllerTest extends WebTestCase
+/**
+ * Class UserAccountControllerTest
+ * @package AppBundle\Tests\Controller
+ */
+class UserAccountControllerTest extends BaseTestSetupAbstract
 {
     /**
      * Check main page and links availability

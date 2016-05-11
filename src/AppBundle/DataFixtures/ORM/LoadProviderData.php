@@ -13,6 +13,10 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * Class LoadProviderData
+ * @package AppBundle\DataFixtures\ORM
+ */
 class LoadProviderData extends AbstractFixture implements OrderedFixtureInterface
 {
 
