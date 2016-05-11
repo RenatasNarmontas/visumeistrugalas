@@ -68,9 +68,9 @@ class OurProviderManager extends DatabaseManagerAbstract
                     $forecastItem['avgTempLow'],
                     null, //temperatureHighDeviation,
                     null, //$temperatureLowDeviation,
-                    null, //$humidity,
+                    $forecastItem['avgHumidity'], //$humidity,
                     null, //$humidityDeviation,
-                    null, //$pressure,
+                    $forecastItem['avgPressure'], //$pressure,
                     null  //$pressureDeviation
                 );
 

@@ -56,7 +56,7 @@ EOF
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int|null
+     * @return int
      * @throws WeatherProviderException
      */
     public function execute(InputInterface $input, OutputInterface $output)
