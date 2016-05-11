@@ -52,7 +52,7 @@ class AdminUserController extends Controller
         $data = $request->request->get('data');
         $name = $data[0];
         $id = $data[1];
-        $isEnabled = $data[2];
+        $isEnabled = $data[2] === "true" ? true : false;
 
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
