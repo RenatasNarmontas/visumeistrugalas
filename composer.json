@@ -31,7 +31,8 @@
     },
     "require-dev": {
         "symfony/phpunit-bridge": "~2.7",
-        "squizlabs/php_codesniffer": "~2.0"
+        "squizlabs/php_codesniffer": "~2.0",
+        "liip/functional-test-bundle": "^1.6"
     },
     "scripts": {
         "post-install-cmd": [
