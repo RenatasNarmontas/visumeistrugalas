@@ -174,4 +174,30 @@ class ForecastRepository extends EntityRepository
             ->findOneByName('Advanced Weather')
             ->getId();
     }
+
+    public function getForecastsForSubscribers()
+    {
+        // Get our provider ID
+        $ourProviderId = $this->getOurProviderId();
+
+        // Select required fields
+        $query = $this->createQueryBuilder('f')
+            ->select('c.name')
+            ->addSelect('c.country')
+            ->addSelect('c.countryIso3166')
+            ->addSelect('f.forecastDate')
+            ->addSelect('round(f.temperatureHigh, 2) as temperatureHigh')
+            ->addSelect('round(f.temperatureLow, 2) as temperatureLow')
+            ->addSelect('f.humidity')
+            ->addSelect('f.pressure')
+            ->innerJoin('f.city', 'c')
+            ->where('f.forecastDate = date(:thisDate)')
+            ->setParameter('thisDate', new \DateTime('now'))
+            ->andWhere('f.provider = :ourProvider')
+            ->setParameter('ourProvider', $ourProviderId)
+            ->andWhere('f.forecastDays = 1')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

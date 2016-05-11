@@ -14,6 +14,10 @@ use AppBundle\Entity\Provider;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
+/**
+ * Class OurProviderManager
+ * @package AppBundle\DatabaseManager
+ */
 class OurProviderManager extends DatabaseManagerAbstract
 {
     /**
@@ -30,6 +34,11 @@ class OurProviderManager extends DatabaseManagerAbstract
         $this->managerRegistry = $managerRegistry;
     }
 
+    /**
+     * @param string|null $startDate
+     * @param string|null $endDate
+     * @throws WeatherProviderException
+     */
     public function addOurProviderForecast(string $startDate = null, string $endDate = null)
     {
         $entityManager = $this->managerRegistry->getManager();
@@ -78,42 +87,4 @@ class OurProviderManager extends DatabaseManagerAbstract
             new WeatherProviderException('Can\'t get forecast data for other providers from DB.');
         }
     }
-
-//    /**
-//     * Make forecast object
-//     * @param array $data
-//     * @return Forecast
-//     */
-//    public function makeForecastObject(array $data, Provider $provider): Forecast
-//    {
-//        $forecast = new Forecast();
-//        $forecast->setCity($this->fetchCityObject($data['city_id']));
-//        $forecast->setForecastDate($data['forecast_date']);
-//        $forecast->setForecastDays($data['forecast_days']);
-//        $forecast->setProvider($provider);
-//        $forecast->setTemperatureHigh($data['avg_temp_high']);
-//        $forecast->setTemperatureLow($data['avg_temp_low']);
-//        if (isset($data['humidity'])) {
-//            $forecast->setHumidity($forecast['humidity']);
-//        }
-//        if (isset($data['pressure'])) {
-//            $forecast->setPressure($forecast['pressure']);
-//        }
-//
-//        return $forecast;
-//    }
-
-//    /**
-//     * Fetch City object
-//     * @param int $id
-//     * @return City
-//     * @throws \Exception
-//     */
-//    private function fetchCityObject(int $id): City
-//    {
-//        $entityManager = $this->managerRegistry->getManager();
-//        $city = $entityManager->getRepository('AppBundle:City')->findOneBy(array('id' => $id));
-//
-//        return $city;
-//    }
 }

@@ -68,6 +68,7 @@ class AdminUserController extends Controller
         } else {
             $user->setNotifications($isEnabled);
         }
+
         $entityManager->flush($user);
 
         return new JsonResponse(array('message' => 'Success!'), 200);

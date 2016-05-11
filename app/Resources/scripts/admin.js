@@ -1,14 +1,11 @@
-$('input:checkbox').change(function (e) {
-   e.preventDefault();
+function enable_user_action(userId, type, cb) {
+    // cb.preventDefault();
 
-    // Determine checkbox
-    var name = $(this).attr('name');
-    var id = $(this).attr('id');
-    var isChecked = $(this).is(':checked') ? 1 : 0;
+    alert(123);
     var data = [];
-    data[0] = name;
-    data[1] = id;
-    data[2] = isChecked;
+    data[0] = type;
+    data[1] = userId;
+    data[2] = cb.checked;
 
     $.ajax({
         type: 'POST',
@@ -17,10 +14,33 @@ $('input:checkbox').change(function (e) {
         data: { data:data },
         error: function (value, dataType) {
             alert(value.message);
-        }
+        },
     });
-});
+}
 
+// $('input:checkbox').change(function (e) {
+//    e.preventDefault();
+//
+//     // Determine checkbox
+//     var name = $(this).attr('name');
+//     var id = $(this).attr('id');
+//     var isChecked = $(this).is(':checked') ? 1 : 0;
+//     var data = [];
+//     data[0] = name;
+//     data[1] = id;
+//     data[2] = isChecked;
+//
+//     $.ajax({
+//         type: 'POST',
+//         dataType: 'json',
+//         url: '/admin/users',
+//         data: { data:data },
+//         error: function (value, dataType) {
+//             alert(value.message);
+//         }
+//     });
+// });
+//
 function delete_city(name, cityId, thisObj) {
     if (confirm("Do you want to delete '" + name + "'?")) {
         $.ajax({
