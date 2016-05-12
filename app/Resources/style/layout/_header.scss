@@ -60,7 +60,7 @@
     .header-actions
 	{
 		float: right;
-		margin-top: -1px;
+		margin-top: -2px;
 	}
 	.menu{
 		margin-left: 50px;
@@ -151,7 +151,14 @@
 		padding: 0 40px;
 	}
 }
-
+.table-link
+{
+	text-decoration: none!important;
+}
+.part-of-the-day-main
+{
+	margin-top: 93px;
+}
 .forecast-container{
 	width: 100%;
 	background: #323544;
