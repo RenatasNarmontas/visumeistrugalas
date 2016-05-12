@@ -182,7 +182,7 @@ fieldset
 			height: 45px;
 			@include cover;
 			margin: auto;
-			background: url(../../images/play-button.png);
+			//background: url(../../images/play-button.png);
 		}
 
 		img{
@@ -209,7 +209,7 @@ fieldset
 		content:" ";
 		width: 12px;
 		height: 7px;
-		background: url(../../images/arrow.png);
+		//background: url(../../images/arrow.png);
 		display: block;
 	}
 
@@ -237,7 +237,7 @@ fieldset
 			content:" ";
 			width: 12px;
 			height: 7px;
-			background: url(../../images/arrow.png);
+			//background: url(../../images/arrow.png);
 			position: absolute;
 			left: 0;
 			top:5px;
@@ -297,7 +297,7 @@ fieldset
 			vertical-align: middle;
 			width: 12px;
 			height: 7px;
-			background: url(../../images/arrow-gray.png) no-repeat;
+			//background: url(../../images/arrow-gray.png) no-repeat;
 			margin: 0 10px;
 
 		}
@@ -345,7 +345,7 @@ fieldset
 			content:" ";
 			width: 30px;
 			height: 23px;
-			background: url(../../images/quote.png);
+			//background: url(../../images/quote.png);
 			position: absolute;
 			top:0;
 			left:0;
