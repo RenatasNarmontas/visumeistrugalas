@@ -130,7 +130,7 @@ class UserAccountControllerTest extends BaseTestSetupAbstract
     public function testGetJsonWithCorrectApi()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/api/AdvWeatherAPI_57337d6c313d2/forecast');
+        $client->request('GET', '/api/AdvWeatherAPI_57337d6c313d2/forecast');
         $response = $client->getResponse();
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->getContent();
@@ -144,7 +144,7 @@ class UserAccountControllerTest extends BaseTestSetupAbstract
     public function testGetJsonWithIncorrectApi()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/api/doesntexist/forecast');
+        $client->request('GET', '/api/doesntexist/forecast');
         $response = $client->getResponse();
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->getContent();
