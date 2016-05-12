@@ -55,7 +55,7 @@ class ForecastRepository extends EntityRepository
                        ->addSelect('(f.city) as cityId')
                        ->where('f.city=:city')
                        ->setParameter('city', $cityId)
-                       ->andWhere('f.forecastDate = date(startDate)')
+                       ->andWhere('f.forecastDate = date(:startDate)')
                        ->setParameter('startDate', new \DateTime('now'))
                        ->getQuery();
 
