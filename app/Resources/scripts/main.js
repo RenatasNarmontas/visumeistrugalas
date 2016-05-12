@@ -1,4 +1,4 @@
-(function ($) {
+$( document ).ready(function () {
     $(".reveal").on('click', function () {
         var $pwd = $(".pwd");
         console.log('called')
@@ -13,4 +13,4 @@
             }
         }
     });
-})(window.jQuery);
+})

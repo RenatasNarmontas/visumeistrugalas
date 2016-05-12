@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class CityController
@@ -25,6 +26,9 @@ class CityController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository('AppBundle:City')->findOneByName($cityName);
+        if (!$city) {
+            throw new NotFoundHttpException("There's no data about this city");
+        }
         $forecasts = $em->getRepository('AppBundle:Forecast')->addDaysToForecastDate($city->getId());
 
         return $this->render('AppBundle:Forecast:cityForecast.html.twig', array(

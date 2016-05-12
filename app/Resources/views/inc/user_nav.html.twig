@@ -1,4 +1,4 @@
-<div class="navbar-right-buttons">
+<div class="header-actions">
     {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
     <a href="{{ path('fos_user_security_logout') }}">
         {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}

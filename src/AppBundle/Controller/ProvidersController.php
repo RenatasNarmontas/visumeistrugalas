@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class ProvidersController
@@ -21,6 +22,9 @@ class ProvidersController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository('AppBundle:City')->findOneByName($cityName);
+        if (!$city) {
+            throw new NotFoundHttpException("There's no data about this city");
+        }
         $temperatures = $em->getRepository('AppBundle:Temperature')
             ->findBy(array('city' => $city->getId(), 'date'=> new \DateTime('today')));
 

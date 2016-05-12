@@ -68,7 +68,6 @@ services:
         arguments: ["@request_stack"]
         tags:
           - { name: knp_menu.menu, alias: breadcrumb }
-
     our.provider.service:
         class: AppBundle\DatabaseManager\OurProviderManager
         arguments:
