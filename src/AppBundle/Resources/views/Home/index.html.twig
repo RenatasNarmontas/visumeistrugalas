@@ -29,17 +29,18 @@
             <div class="forecast-container">
                 <div class="today forecast">
                     <div class="forecast-header">
-                        <div class="day">{{ "now"|date('l') }}</div>
-                        <div class="date">{{ "now"|date("Y/m/d") }}</div>
+                        <div class="day"><h3>{{ "now"|date('l') }}</h3></div>
+                        <div class="date"><h3>{{ "now"|date("Y/m/d") }}</h3></div>
                     </div>
                     <div class="forecast-content">
                         <div class="location"></div>
                         <div class="degree">
 
                         </div>
-                        <div class="part-of-the-day-providers">
+                        <div class="part-of-the-day-main">
 
-                            <div class="degree">Temperature</div>
+                            <div class="degree">Day</div>
+                            <div class="degree">Night</div>
                             <small>Humidity</small>
                             <div class="degree"></div>
                             <small>Pressure</small>
@@ -50,12 +51,15 @@
 
 
                 {% for city in cities %}
+
                     <div class="forecast">
+                        <a class='table-link' href="{{ path('forecast',{'cityName':city.name }) }}" title="{{ city.name }}">
                         <div class="forecast-header">
-
+                            <h3>
                             {{ city.name }}
-
+                            </h3>
                         </div>
+                        </a>
                         <div class="forecast-content">
                             <div class="forecast-icon">
                                 {% if city.humidity > 50 %}
@@ -72,6 +76,7 @@
 
                         </div>
                     </div>
+
                 {% endfor %}
 
             </div>
