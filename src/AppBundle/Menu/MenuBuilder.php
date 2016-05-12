@@ -69,6 +69,42 @@ class MenuBuilder
                     ->setCurrent(true)
                     ->setAttribute('class', 'active');
                 break;
+            case 'admin_apis':
+                $menu = $this->factory->createItem('root');
+
+                $menu->addChild('Admin', array('route' => 'admin_main'));
+                $menu->setChildrenAttribute('class', 'breadcrumb');
+                $menu->addChild('API Management')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+            case 'admin_cities':
+                $menu = $this->factory->createItem('root');
+
+                $menu->addChild('Admin', array('route' => 'admin_main'));
+                $menu->setChildrenAttribute('class', 'breadcrumb');
+                $menu->addChild('City Management')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+            case 'admin_usage_stats':
+                $menu = $this->factory->createItem('root');
+
+                $menu->addChild('Admin', array('route' => 'admin_main'));
+                $menu->setChildrenAttribute('class', 'breadcrumb');
+                $menu->addChild('Usage Statistics')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+            case 'admin_users':
+                $menu = $this->factory->createItem('root');
+
+                $menu->addChild('Admin', array('route' => 'admin_main'));
+                $menu->setChildrenAttribute('class', 'breadcrumb');
+                $menu->addChild('User Management')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
         }
 
         return $menu;
