@@ -25,7 +25,6 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "beberlei/DoctrineExtensions": "^1.0",
-        "symfony/console": "^3.0",
         "twbs/bootstrap": "^3.3",
         "knplabs/knp-menu-bundle": "^2.0"
     },
