@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * Temperature
  *
  * @ORM\Table(name="temperatures")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TemperatureRepository")
  **/
 
 class Temperature

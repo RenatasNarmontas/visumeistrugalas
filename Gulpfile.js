@@ -22,6 +22,7 @@ gulp.task('sass', function() {
 gulp.task('scripts', function() {
     gulp.src([
             dir.bower + 'jquery/dist/jquery.min.js',
+            dir.bower + 'Chart.js/dist/Chart.bundle.js',
             // Bootstrap JS modules
             dir.bootstrapJS + '../bootstrap.js',
             //...
