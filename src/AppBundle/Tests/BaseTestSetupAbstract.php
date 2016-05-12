@@ -9,7 +9,6 @@
 namespace AppBundle\Tests;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Tools\SchemaTool;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 

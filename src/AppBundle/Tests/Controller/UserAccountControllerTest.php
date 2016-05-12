@@ -9,7 +9,6 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Tests\BaseTestSetupAbstract;
-use Symfony\Component\Console\Input\StringInput;
 
 /**
  * Class UserAccountControllerTest
