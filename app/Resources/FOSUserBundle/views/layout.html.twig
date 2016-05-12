@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}{{ "My project" }}{% endblock %}
 
 {% block body %}
+
     <div>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
@@ -21,7 +22,20 @@
             {% endif %}
         {% endfor %}
     {% endif %}
+    <div class="main-content">
+        <div class="container">
+
+            {% block beadcrumbs %}
+                {% include "::inc/breadcrumbs.html.twig" %}
+            {% endblock %}
+        </div>
+        <div class="fullwidth-block">
+            <div class="container">
 
         {% block fos_user_content %}
+
         {% endblock fos_user_content %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

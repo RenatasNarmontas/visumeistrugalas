@@ -1,16 +1,16 @@
 <div class="main-navigation">
     <ul class="nav navbar-nav navbar-left menu">
         <li class="menu-item">
-            <a href="#">Weather</a>
+            <a href="{{ path('homepage') }}">Weather</a>
         </li>
         <li class="menu-item">
-            <a href="#">Providers</a>
+            <a href="{{ path('providers_avg') }}">Providers</a>
         </li>
         <li class="menu-item">
             <a href="#">API</a>
         </li>
         <li class="menu-item">
-            <a href="#">Contacts</a>
+            <a href="{{ path('contacts') }}">Contacts</a>
         </li>
     </ul>
     {% if app.user is not null %}

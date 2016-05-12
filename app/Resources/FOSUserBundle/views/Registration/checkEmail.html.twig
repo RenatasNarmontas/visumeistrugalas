@@ -5,13 +5,15 @@
 {% block fos_user_content %}
 <div class="panel panel-default">
     <div class="panel-heading"><h2 class="panel-title">Register</h2></div>
-    <div class="col-md-offset-4 message-offset">
-    <h5 col-md-offset-1>
+    <div class="panel-body">
+    <div class="col-md-offset-3 message-offset">
+    <h3 col-md-offset-1>
         {{ 'registration.check_email'|trans({'%email%': user.email}) }}
-    </h5>
-    <h5>
+    </h3>
+    <h3>
        {{ 'registration.check_email_explanation'|trans }}
-    </h5>
+    </h3>
 </div>
+    </div>
 </div>
 {% endblock fos_user_content %}

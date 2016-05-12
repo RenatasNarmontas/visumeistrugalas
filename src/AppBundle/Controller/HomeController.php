@@ -21,7 +21,6 @@ class HomeController extends Controller
         $form = $this->createFormBuilder()
             ->setMethod('GET')
             ->add('city', SearchType::class)
-            ->add('save', SubmitType::class, array('label' => 'Search'))
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

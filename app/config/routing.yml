@@ -6,6 +6,10 @@ providers:
     path:     /providers/{cityName}
     defaults: { _controller: "AppBundle:Providers:index" }
 
+providers_avg:
+    path:     /providers/
+    defaults: { _controller: "AppBundle:Providers:show" }
+
 forecast:
     path:     /forecast/{cityName}
     defaults: { _controller: "AppBundle:City:index" }
