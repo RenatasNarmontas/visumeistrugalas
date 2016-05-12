@@ -23,6 +23,10 @@ api_forecast:
     path:     /api/{apiKey}/forecast
     defaults: { _controller: "AppBundle:Api:fetchForecastJson" }
 
+graph_display:
+    path:     /graph/{cityName}
+    defaults: { _controller: "AppBundle:Graph:graphDisplay" }
+
 #Admin section
 admin_apis:
     path:     /admin/apis
