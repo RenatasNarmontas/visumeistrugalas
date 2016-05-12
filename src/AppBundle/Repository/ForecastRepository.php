@@ -46,18 +46,23 @@ class ForecastRepository extends EntityRepository
      */
     public function addDaysToForecastDate(int $cityId)
     {
+        // Get our provider ID
+        $ourProviderId = $this->getOurProviderId();
+
         $query = $this->createQueryBuilder('f')
-                       ->select('date_add(f.forecastDate, f.forecastDays, \'day\') as forecastDate')
-                       ->addSelect('round(f.temperatureHigh, 2) as temperatureHigh')
-                       ->addSelect('round(f.temperatureLow, 2) as temperatureLow')
-                       ->addSelect('f.humidity')
-                       ->addSelect('f.pressure')
-                       ->addSelect('(f.city) as cityId')
-                       ->where('f.city=:city')
-                       ->setParameter('city', $cityId)
-                       ->andWhere('f.forecastDate = date(:startDate)')
-                       ->setParameter('startDate', new \DateTime('now'))
-                       ->getQuery();
+            ->select('date_add(f.forecastDate, f.forecastDays, \'day\') as forecastDate')
+            ->addSelect('round(f.temperatureHigh, 2) as temperatureHigh')
+            ->addSelect('round(f.temperatureLow, 2) as temperatureLow')
+            ->addSelect('f.humidity')
+            ->addSelect('f.pressure')
+            ->addSelect('(f.city) as cityId')
+            ->where('f.city=:city')
+            ->setParameter('city', $cityId)
+            ->andWhere('f.forecastDate = date(:startDate)')
+            ->setParameter('startDate', new \DateTime('now'))
+            ->andWhere('f.provider = :ourProvider')
+            ->setParameter('ourProvider', $ourProviderId)
+            ->getQuery();
 
         return $query->getResult();
     }
