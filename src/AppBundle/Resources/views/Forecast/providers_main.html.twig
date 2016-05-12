@@ -9,29 +9,15 @@
             {% block beadcrumbs %}
                 {% include "::inc/breadcrumbs.html.twig" %}
             {% endblock %}
-            <div class='col-md-5'>
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker6'>
-                        <input type='text' class="form-control" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-                    </div>
-                </div>
-            </div>
-            <div class='col-md-5'>
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker7'>
-                        <input type='text' class="form-control" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-                    </div>
+
+            <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+                <div class="container">
+                    {% block beadcrumbs %}
+                        {% include "::inc/breadcrumbs.html.twig" %}
+                    {% endblock %}
                 </div>
             </div>
         </div>
-        </div>
-    </div>
 <div class="forecast-table">
     <div class="container">
         <div class="forecast-container">

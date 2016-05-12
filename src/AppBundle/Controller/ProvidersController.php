@@ -34,13 +34,18 @@ class ProvidersController extends Controller
         ));
     }
 
+    /**
+     * @return Response
+     */
     public function showAction()
     {
+        $now = date('Y-m-d');
+        $date1 = strtotime($now);
+        $date2 = strtotime("-7 day", $date1);
         $em = $this->getDoctrine()->getManager();
-        $providers = $em->getRepository('AppBundle:Forecast')->getAverageProvidersAccuracy('2016-05-11', '2016-05-12');
+        $providers = $em->getRepository('AppBundle:Forecast')->getAverageProvidersAccuracy($date1, $date2);
         return $this->render('AppBundle:Forecast:providers_main.html.twig', array(
             'providers'  => $providers
         ));
-
     }
 }
