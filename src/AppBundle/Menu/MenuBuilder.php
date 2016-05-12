@@ -109,5 +109,4 @@ class MenuBuilder
 
         return $menu;
     }
-    
 }
