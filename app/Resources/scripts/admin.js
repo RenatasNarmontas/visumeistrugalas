@@ -1,7 +1,4 @@
 function enable_user_action(userId, type, cb) {
-    // cb.preventDefault();
-
-//    alert(cb.checked);
     var data = [];
     data[0] = type;
     data[1] = userId;
@@ -18,29 +15,6 @@ function enable_user_action(userId, type, cb) {
     });
 }
 
-// $('input:checkbox').change(function (e) {
-//    e.preventDefault();
-//
-//     // Determine checkbox
-//     var name = $(this).attr('name');
-//     var id = $(this).attr('id');
-//     var isChecked = $(this).is(':checked') ? 1 : 0;
-//     var data = [];
-//     data[0] = name;
-//     data[1] = id;
-//     data[2] = isChecked;
-//
-//     $.ajax({
-//         type: 'POST',
-//         dataType: 'json',
-//         url: '/admin/users',
-//         data: { data:data },
-//         error: function (value, dataType) {
-//             alert(value.message);
-//         }
-//     });
-// });
-//
 function delete_city(name, cityId, thisObj) {
     if (confirm("Do you want to delete '" + name + "'?")) {
         $.ajax({
@@ -75,7 +49,7 @@ function delete_user(username, userId, thisObj) {
     }
 }
 
-function  delete_api(api, userId, thisObj) {
+function delete_api(api, userId, thisObj) {
     if (confirm("Do you want to delete '" + api + "'?")) {
         $.ajax({
             type: 'POST',
@@ -91,4 +65,20 @@ function  delete_api(api, userId, thisObj) {
             }
         });
     }
+}
+
+function chart_data() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/graph_get_data',
+        success: function (result) {
+                var jsonData = JSON.parse(result)
+                alert(result.message);
+                // do something with data
+        },
+        error: function (result) {
+            alert(result.message);
+        }
+    })
 }

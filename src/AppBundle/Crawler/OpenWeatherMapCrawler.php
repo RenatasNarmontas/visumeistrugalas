@@ -91,7 +91,7 @@ class OpenWeatherMapCrawler extends CrawlerAbstract
         $date = new \DateTime('now');
 
         for ($i = 0; $i < 5; $i++) {
-            $dayCounter=$i;
+            $dayCounter = $i;
             $forecasts[] = [
                 $this::DATA_TYPE => 'forecast',
                 $this::PROVIDER => 'OpenWeatherMap',
