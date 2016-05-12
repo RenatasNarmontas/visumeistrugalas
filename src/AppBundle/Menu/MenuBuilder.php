@@ -68,4 +68,43 @@ class MenuBuilder
 
         return $menu;
     }
+
+    public function createAdminMenu(RequestStack $requestStack)
+    {
+        $menu = $this->factory->createItem('root');
+
+        $menu->addChild('Admin', array('route' => 'admin_usage_stats'));
+        $menu->setChildrenAttribute('class', 'breadcrumb');
+
+        $request = $requestStack->getCurrentRequest();
+        switch ($request->get('_route')) {
+            case 'admin_apis':
+            case 'admin_delete_api':
+                $menu->addChild('API manager')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+            case 'admin_cities':
+            case 'admin_delete_city':
+                $menu->addChild('City manager')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+            case 'admin_usage_stats':
+                $menu->addChild('Usage stats')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+            case 'admin_users':
+            case 'admin_users_enable':
+            case 'admin_users_delete':
+                $menu->addChild('User manager')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+        }
+
+        return $menu;
+
+    }
 }
