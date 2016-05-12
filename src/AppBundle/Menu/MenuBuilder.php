@@ -64,6 +64,11 @@ class MenuBuilder
                      ->setCurrent(true)
                      ->setAttribute('class', 'active');
                 break;
+            case 'api_information':
+                $menu->addChild('API Information')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
         }
 
         return $menu;

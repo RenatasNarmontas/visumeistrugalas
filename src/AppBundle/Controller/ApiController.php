@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiController extends Controller
 {
     /**
+     * Fetches forecast and provides as JSON
      * @param string $apiKey
      * @return Response
      */
@@ -42,5 +43,14 @@ class ApiController extends Controller
         array_push($forecast, $messageArray);
 
         return new JsonResponse($forecast);
+    }
+
+    /**
+     * Displays static info about API features
+     * @return Response
+     */
+    public function showApiHelpAction(): Response
+    {
+           return $this->render('AppBundle:Help:api_help.html.twig');
     }
 }
