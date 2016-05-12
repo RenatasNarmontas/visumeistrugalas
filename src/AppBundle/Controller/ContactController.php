@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Contact;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -27,10 +28,12 @@ class ContactController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
-                $em->persist($contact);
-                $em->flush();
-                return $this->redirect($this->generateUrl('contacts'));
+            /** @var EntityManager $entityManager */
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($contact);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('contacts'));
         }
 
         return $this->render('AppBundle:Contact:contact.html.twig', array(

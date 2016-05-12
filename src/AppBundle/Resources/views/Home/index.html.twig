@@ -3,60 +3,80 @@
 {% block title %}Homepage - {{ parent() }}{% endblock %}
 
 
+{% block body %}
+    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+        <div class="container">
 
-    {% block body %}
+            {% block beadcrumbs %}
+                {% include "::inc/breadcrumbs.html.twig" %}
+            {% endblock %}
+            <div class="col-sm-11 search-box-wrapper">
 
-<div class="col-md-9 col-md-offset-5">
-    <div class="panel panel-default">
-        <div class="panel-heading"></div>
-        <div class="form-wrapper">
-        <div class="weather-table-wrapper">
-
-            <h3>Cities</h3>
-
-            <table class="table table-condensed" id="weather-table">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th></th>
-                    <th>Temperature</th>
-                    <th>Humidity</th>
-                    <th>Pressure</th>
-                </tr>
-                </thead>
-                <tbody>
-                {#% for city in cities %#}
-                    <tr>
-                        <td>
-                           City
-                        </td>
-                        <td>
-                            <ul>
-                                <li>Day</li>
-                                <li>Night</li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                <li>°C</li>
-                                <li>°C</li>
-                            </ul>
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                {#% endfor %#}
-
-                </tbody>
-            </table>
-        </div>
+                {{ form_start(form, {'attr': {'class': 'find-location'}}) }}
+                <div class="col-sm-5">
+                {{ form_widget(form.city, {'attr': {'placeholder': 'City name'}}) }}
+                    <input type="submit" id="submit" value="Search" class="btn btn-primary">
+                    </div>
+                {{ form_end(form) }}
+            </div>
         </div>
     </div>
+
+
+
+    <div class="forecast-table" id="main-page-table">
+        <div class="container">
+            <div class="forecast-container">
+                <div class="today forecast">
+                    <div class="forecast-header">
+                        <div class="day">{{ "now"|date('l') }}</div>
+                        <div class="date">{{ "now"|date("Y/m/d") }}</div>
+                    </div>
+                    <div class="forecast-content">
+                        <div class="location"></div>
+                        <div class="degree">
+
+                        </div>
+                        <div class="part-of-the-day-providers">
+
+                            <div class="degree">Temperature</div>
+                            <small>Humidity</small>
+                            <div class="degree"></div>
+                            <small>Pressure</small>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {% for city in cities %}
+                    <div class="forecast">
+                        <div class="forecast-header">
+
+                            {{ city.name }}
+
+                        </div>
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                {% if city.humidity > 50 %}
+                                    <img src="/images/icons/icon-14.svg" alt="" width="48">
+                                {% else %}
+                                    <img src="/images/icons/icon-5.svg" alt="" width="48">
+                                {% endif %}
+                            </div>
+                            <div class="degree">{{ city.temperatureHigh }}°C</div>
+                            <div class="degree">{{ city.temperatureLow }}°C</div>
+                            <small>  {{city.humidity}}</small>
+                            <div class="degree"></div>
+                            <small>{{ city.pressure}}</small>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
     </div>
 
 
-    {% endblock %}
+{% endblock %}

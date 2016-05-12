@@ -40,10 +40,6 @@ class ForecastRepository extends EntityRepository
         return $query->getResult();
     }
 
-    /**
-     * @param int $cityId
-     * @return array
-     */
     public function addDaysToForecastDate(int $cityId)
     {
         $query = $this->createQueryBuilder('f')
@@ -128,7 +124,7 @@ class ForecastRepository extends EntityRepository
 
         if (null === $endDate) {
             // Add one day to startDate
-            $endDate = date('Y-m-d', strtotime($startDate . ' +1 day'));
+            $endDate = date('Y-m-d', strtotime($startDate.'+1 day'));
         }
 
         $query = $this->createQueryBuilder('f')
@@ -259,6 +255,63 @@ class ForecastRepository extends EntityRepository
             ->andWhere('f.provider = :ourProvider')
             ->setParameter('ourProvider', $ourProviderId)
             ->andWhere('f.forecastDays = 1')
+            ->getQuery();
+
+        return $query->getArrayResult();
+    }
+
+    /**
+     * Returns tomorrow's temperature's values for all cities (our provider only)
+     * @return array
+     */
+    public function getOurTomorrowTemperature(\DateTime $currentDate)
+    {
+        // Get our provider ID
+        $ourProviderId = $this->getOurProviderId();
+
+        // Select required fields
+        $query = $this->createQueryBuilder('f')
+            ->select('c.name')
+            ->addSelect('f.forecastDate')
+            ->addSelect('f.temperatureHigh')
+            ->addSelect('f.temperatureLow')
+            ->addSelect('f.humidity')
+            ->addSelect('f.pressure')
+            ->innerJoin('f.city', 'c')
+            ->where('f.provider = :ourProvider')
+            ->setParameter('ourProvider', $ourProviderId)
+            ->andWhere('f.forecastDays = 1')
+            ->andWhere('f.forecastDate = date(:currentDate)')
+            ->setParameter('currentDate', $currentDate)
+            ->getQuery();
+
+        return $query->getArrayResult();
+    }
+
+    /**
+     * Returns tomorrow's temperature's values for one city (our provider only)
+     * @return array
+     */
+    public function getOurTomorrowTemperatureForCity(\DateTime $currentDate, $city)
+    {
+        // Get our provider ID
+        $ourProviderId = $this->getOurProviderId();
+        // Select required fields
+        $query = $this->createQueryBuilder('f')
+            ->select('c.name')
+            ->addSelect('f.forecastDate')
+            ->addSelect('f.temperatureHigh')
+            ->addSelect('f.temperatureLow')
+            ->addSelect('f.humidity')
+            ->addSelect('f.pressure')
+            ->innerJoin('f.city', 'c')
+            ->where('f.provider = :ourProvider')
+            ->setParameter('ourProvider', $ourProviderId)
+            ->andWhere('f.forecastDays = 1')
+            ->andWhere('f.forecastDate = date(:currentDate)')
+            ->setParameter('currentDate', $currentDate)
+            ->andWhere('c.name like :city')
+            ->setParameter('city', '%'.$city['city'].'%')
             ->getQuery();
 
         return $query->getArrayResult();
