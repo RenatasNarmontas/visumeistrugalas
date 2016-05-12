@@ -4,47 +4,63 @@
 
 
 {% block body %}
-    <div class="weather-table-wrapper">
-        <h3>{{ city }}</h3>
+    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+        <div class="container">
 
-        <table class="table table-condensed" id="weather-table">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th></th>
-                <th>Temperature</th>
-                <th>Humidity</th>
-                <th>Pressure</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for forecast in forecasts %}
-                <tr>
-                    <td>
-                        {{ forecast.forecastDate|date("Y-m-d")}}
-                    </td>
-                    <td>
-                        <ul>
-                            <li>Day</li>
-                            <li>Night</li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <li>{{ forecast.temperatureHigh }} °C</li>
-                            <li>{{ forecast.temperatureLow }} °C</li>
-                        </ul>
-                    </td>
-                    <td>
-                        {{ forecast.humidity}}
-                    </td>
-                    <td>
-                        {{forecast.pressure}}
-                    </td>
-                </tr>
-            {% endfor %}
-
-            </tbody>
-        </table>
+            {% block beadcrumbs %}
+                {% include "::inc/breadcrumbs.html.twig" %}
+            {% endblock %}
+        </div>
     </div>
+    <div class="forecast-table">
+        <div class="container">
+            <div class="forecast-container">
+                <div class="today forecast">
+                    <div class="forecast-header">
+                        <div class="day">Date</div>
+                        <div class="date"></div>
+                    </div>
+                    <div class="forecast-content">
+                        <div class="location"></div>
+                        <div class="degree">
+                            <h2>{{ city }}</h2>
+                        </div>
+                        <div class="part-of-the-day">
+                            <div class="degree">Day</div>
+                            <div class="degree">Night</div>
+                            <small>Humidity</small>
+                            <div class="degree"></div>
+                            <small>Pressure</small>
+                        </div>
+                    </div>
+                </div>
+
+
+                {% for forecast in forecasts %}
+                    <div class="forecast">
+                        <div class="forecast-header">
+                            {{ forecast.forecastDate|date("Y-m-d")}}
+                        </div>
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                {% if forecast.humidity > 50 %}
+                                <img src="/images/icons/icon-14.svg" alt="" width="48">
+                                {% else %}
+                                <img src="/images/icons/icon-5.svg" alt="" width="48">
+                                {% endif %}
+                            </div>
+                            <div class="degree">{{ forecast.temperatureHigh }} °C</div>
+                            <div class="degree">{{ forecast.temperatureLow }} °C</div>
+
+                            <small> {{ forecast.humidity}}</small>
+                            <div class="degree"></div>
+                            <small>{{forecast.pressure}}</small>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

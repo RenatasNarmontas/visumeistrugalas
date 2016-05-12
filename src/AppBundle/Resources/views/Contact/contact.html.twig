@@ -3,6 +3,14 @@
 {% block title %}Contacts{% endblock%}
 
 {% block body %}
+    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+        <div class="container">
+
+            {% block beadcrumbs %}
+                {% include "::inc/breadcrumbs.html.twig" %}
+            {% endblock %}
+        </div>
+    </div>
     <header>
         <h1>Contacts</h1>
     </header>

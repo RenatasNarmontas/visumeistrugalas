@@ -1,0 +1,48 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Homepage - {{ parent() }}{% endblock %}
+
+
+{% block body %}
+    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+        <div class="container">
+
+            {% block beadcrumbs %}
+                {% include "::inc/breadcrumbs.html.twig" %}
+            {% endblock %}
+        </div>
+    </div>
+<div class="forecast-table">
+    <div class="container">
+        <div class="forecast-container">
+            <div class="forecast">
+                <div class="forecast-header">
+                    Provider
+                </div>
+                <div class="forecast-content">
+                    <div class="providers-margin">Average day temperature deviation</div>
+
+                    <div>Average night temperature deviation</div>
+
+                </div>
+            </div>
+                {% for provider in providers %}
+                    <div class="forecast">
+                <div class="forecast-header">
+
+                   {{ provider.forecastProvider }}
+
+                </div>
+                        <div class="forecast-content">
+                            <div class="degree">{{provider.avgTempHighDeviation}}</div>
+                            <div class="degree">{{provider.avgTempLowDeviation}}</div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

@@ -45,6 +45,17 @@ class MenuBuilder
                      ->setCurrent(true)
                     ->setAttribute('class', 'active');
                 break;
+            case 'contacts':
+                $menu->addChild('Contacts')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+            case 'providers_avg':
+            case 'providers':
+                $menu->addChild('Providers')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
 
             case 'fos_user_resetting_request':
             case 'fos_user_resetting_send_email':

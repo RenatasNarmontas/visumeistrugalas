@@ -27,6 +27,109 @@
 
 
 }
+fieldset
+{
+	border:none;
+}
+.forecast-panel-heading
+{
+	background: rgba(0,0,0,0.1);
+}
+.flash-message
+{
+	margin-top: -55px;
+	padding-bottom: 70px;
+	padding-top: 15px;
+}
+.disabled-field
+{
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 6px 12px;
+	background: #e4e4e4;
+}
+.form-wrapper label
+{
+	color:#666;
+	font-weight:200;
+}
+.first
+{
+	margin-right: -20px;
+}
+.message-offset
+{
+	margin-bottom: 20%;
+	margin-top: 55px;
+}
+.part-of-the-day
+{
+	margin-top: 69px;
+}
+.providers-margin
+{
+	padding-bottom: 20px;
+	padding-top: 5px;
+}
+.part-of-the-day-providers
+{
+	margin-top: 50px;
+}
+.form-wrapper
+{
+	padding-top: 80px;
+	padding-bottom: 50px;
+}
+.login-form-wrapper
+{
+	padding-top: 50px;
+}
+.panel-default
+{
+	border: none;
+}
+.panel-default
+{
+	.panel-heading {
+	color: #f5f5f5;
+	background-color: #009ad8;
+	border-color: #ddd;
+}
+}
+
+#show
+{
+	border-bottom-left-radius:0;
+	border-top-left-radius:0;
+	margin-left:-92px;
+	position: absolute;
+	min-width: 64px;
+	height: 34px;
+}
+.clearfix {
+	padding-top: 5px;
+	padding-bottom: 10px;
+	margin-left: -40px;
+}
+.terms {
+
+	border: 1px dashed #e4e4e4;
+	border-radius: 4px;
+	width:600px;
+	color:#666;
+}
+.register-table, #loginbox {
+
+}
+.panel-content
+{
+	background: #262936;
+}
+.form-group.required .control-label:before {
+	content:"*";
+	color:#A94442;
+	font-size:11pt;
+}
 .select.control{
 	background: $secondary-color;
 	border-radius: 40px;

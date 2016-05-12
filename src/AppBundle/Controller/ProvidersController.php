@@ -16,7 +16,7 @@ class ProvidersController extends Controller
      * @param $cityName
      * @return Response
      */
-    public function indexAction($cityName): Response
+    public function indexAction($cityName)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -28,5 +28,15 @@ class ProvidersController extends Controller
             'city' => $city->getName(),
             'temperatures'  => $temperatures
         ));
+    }
+
+    public function showAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $providers = $em->getRepository('AppBundle:Forecast')->getAverageProvidersAccuracy('2016-05-11','2016-05-12');
+        return $this->render('AppBundle:Forecast:providers_main.html.twig', array(
+            'providers'  => $providers
+        ));
+
     }
 }

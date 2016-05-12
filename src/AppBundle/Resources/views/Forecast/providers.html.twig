@@ -4,33 +4,65 @@
 
 
 {% block body %}
-    <div class="jumbotron">
-    <h2>{{ city }}</h2>
+    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+        <div class="container">
 
-<table class="table table-bordered table-hover table-striped">
-    <thead>
-    <tr>
-        <th>Providers</th>
-        <th>Weather</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for temperature in temperatures %}
-        <tr>
-            <td>
-                {{ temperature.provider.name }}
-            </td>
-            <td>
-                {{ temperature.temperatureHigh }}
-            </td>
-            <td>
-                {{ temperature.temperatureLow }}
-            </td>
-        </tr>
-    {% endfor %}
+            {% block beadcrumbs %}
+                {% include "::inc/breadcrumbs.html.twig" %}
+            {% endblock %}
+        </div>
+    </div>
+<div class="forecast-table">
+    <div class="container">
+        <div class="forecast-container">
+            <div class="today forecast">
+                <div class="forecast-header">
+                    <div class="day">{{ "now"|date('l') }}</div>
+                    <div class="date">{{ "now"|date("Y/m/d") }}</div>
+                </div>
+                <div class="forecast-content">
+                    <div class="location"></div>
+                    <div class="degree">
+                        <h2>{{ city }}</h2>
+                    </div>
+                    <div class="part-of-the-day-providers">
 
-    </tbody>
-    </table>
+                    <div class="degree">Temperature</div>
+                        <small>Humidity</small>
+                        <div class="degree"></div>
+                        <small>Pressure</small>
+                    </div>
+                </div>
+            </div>
+
+
+
+                {% for temperature in temperatures %}
+                    <div class="forecast">
+                <div class="forecast-header">
+
+                   {{ temperature.provider.name }}
+
+                </div>
+                        <div class="forecast-content">
+                            <div class="forecast-icon">
+                                {% if temperature.humidity > 50 %}
+                                    <img src="/images/icons/icon-14.svg" alt="" width="48">
+                                {% else %}
+                                    <img src="/images/icons/icon-5.svg" alt="" width="48">
+                                {% endif %}
+                            </div>
+                            <div class="degree">{{temperature.temperature}}°C</div>
+                            <small> {{ temperature.humidity}}</small>
+                            <div class="degree"></div>
+                            <small>{{temperature.pressure}}</small>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+        </div>
+    </div>
     </div>
 
 {% endblock %}
