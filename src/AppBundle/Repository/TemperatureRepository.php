@@ -10,8 +10,18 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Class TemperatureRepository
+ * @package AppBundle\Repository
+ */
 class TemperatureRepository extends EntityRepository
 {
+    /**
+     * Get average temperature for city for provider
+     * @param string $city
+     * @param string $provider
+     * @return array
+     */
     public function getAvgTempDataForGraph(string $city, string $provider)
     {
         $query = $this->createQueryBuilder('t')
@@ -30,11 +40,19 @@ class TemperatureRepository extends EntityRepository
         return $query->getResult();
     }
 
+    /**
+     * Get temperature dates for city
+     * @param string $city
+     * @return array
+     */
     public function getUniqueDateForGraph(string $city)
     {
         $query = $this->createQueryBuilder('t')
             ->select('date(t.date) as tdate')
-            ->where('t.temperature is not null')
+            ->innerJoin('t.city', 'c')
+            ->where('c.name=:city')
+            ->setParameter('city', $city)
+            ->andWhere('t.temperature is not null')
             ->distinct()
             ->getQuery();
 

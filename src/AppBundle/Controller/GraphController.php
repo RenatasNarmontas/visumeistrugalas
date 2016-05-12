@@ -13,8 +13,16 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class GraphController
+ * @package AppBundle\Controller
+ */
 class GraphController extends Controller
 {
+    /**
+     * @param string $cityName
+     * @return Response
+     */
     public function graphDisplayAction(string $cityName): Response
     {
         /** @var EntityManager $entityManager */
@@ -38,6 +46,12 @@ class GraphController extends Controller
         ));
     }
 
+    /**
+     * Returns temperatures. Example: '12,15,17,18,18,'
+     * @param $temperatures
+     * @param $dates
+     * @return string
+     */
     private function renderData($temperatures, $dates)
     {
         $data = '';
@@ -59,23 +73,15 @@ class GraphController extends Controller
     }
 
     /**
-     * Returns labels. Example: 'labels: ["2016-04-02","2016-04-03", ... "2016-05-01"]'
+     * Returns labels. Example: '"2016-04-02","2016-04-03", ... "2016-05-01,"'
      * @param $dates
      * @return string
      */
     private function renderLabels($dates)
     {
-        // render labels
         $labels = '';
-        $numItems = count($dates);
-        $i = 0;
         foreach ($dates as $item) {
-            if (++$i !== $numItems) {
-                // last item
                 $labels .= '"'.$item['tdate'].'",';
-            } else {
-                $labels .= '"'.$item['tdate'].'"';
-            }
         }
 
         return $labels;
