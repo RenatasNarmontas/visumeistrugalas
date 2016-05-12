@@ -64,6 +64,7 @@ class ForecastRepository extends EntityRepository
             ->setParameter('ourProvider', $ourProviderId)
             ->getQuery();
 
+        
         return $query->getResult();
     }
 
