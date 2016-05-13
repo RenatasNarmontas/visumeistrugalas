@@ -7,10 +7,13 @@
             <a href="{{ path('providers_avg') }}">Providers</a>
         </li>
         <li class="menu-item">
-            <a href="#">API</a>
+            <a href="{{ path('api_information') }}">API</a>
         </li>
         <li class="menu-item">
             <a href="{{ path('contacts') }}">Contact us</a>
+        </li>
+        <li class="menu-item">
+            <a href="{{ path('admin_main') }}">Admin</a>
         </li>
     </ul>
     {% if app.user is not null %}

@@ -54,7 +54,7 @@ admin_delete_api:
 admin_cities:
     path:     /admin/cities
     defaults: { _controller: "AppBundle:Admin/AdminCity:indexCities" }
-    methods:  [GET]
+    methods:  [GET,POST]
 
 admin_delete_city:
     path:     /admin/delete_city

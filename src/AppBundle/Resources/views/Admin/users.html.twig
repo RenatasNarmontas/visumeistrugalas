@@ -3,7 +3,8 @@
 {% block title %}Advanced Weather - Users Manager{% endblock %}
 
 {% block body %}
-    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+
+    <div class="hero" data-bg-image="/images/background.jpg" style="background-image: url('/images/background.jpg');">
         <div class="container">
 
             {% block beadcrumbs %}
@@ -11,71 +12,77 @@
             {% endblock %}
         </div>
     </div>
-    <div class="weather-table-wrapper">
-        <table class="table table-condensed" id="weather-table">
-            <thead>
-            <tr>
-                <th>Username</th>
-                <th>Enabled</th>
-                <th>API</th>
-                <th>Notifications</th>
-                <th>Remove link</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.username }}</td>
-                    <td>
-                        {% block checkbox_enabled_widget %}
-                            {% spaceless %}
-                                <div class="checkbox">
-                                    <label for="{{ user.enabled }}">
-                                        <input type="checkbox" {{ block('widget_attributes') }}
-                                                {#{% if value is defined %} value="{{ value }}"#}
-                                                {#{% endif %}#}
-                                                {% if user.enabled %} checked="checked"
+
+    <div class="forecast-table">
+        <div class="container">
+            <div class="forecast-container">
+                <table class="table table-condensed" id="weather-table">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Enabled</th>
+                        <th>API</th>
+                        <th>Notifications</th>
+                        <th>Remove link</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>
+                                {% block checkbox_enabled_widget %}
+                                    {% spaceless %}
+                                        <div class="checkbox">
+                                            <label for="{{ user.enabled }}">
+                                                <input type="checkbox" {{ block('widget_attributes') }}
+                                                        {#{% if value is defined %} value="{{ value }}"#}
+                                                        {#{% endif %}#}
+                                                        {% if user.enabled %} checked="checked"
+                                                        {% endif %}
+                                                       onclick="enable_user_action('{{ user.id }}','enable', this)"
+                                                        {#name="enable"#}
+                                                        {#id="{{ user.id }}"#}
+                                                />
+                                            </label>
+                                        </div>
+                                    {% endspaceless %}
+                                {% endblock checkbox_enabled_widget %}
+                            </td>
+                            <td>{{ user.api }}</td>
+                            <td>
+                                {% block checkbox_notification_widget %}
+                                    {% spaceless %}
+                                        <div class="checkbox">
+                                            <label for="{{ user.notifications }}">
+                                                <input type="checkbox" {{ block('widget_attributes') }}
+                                                        {% if value is defined %} value="{{ value }}"
+                                                        {% endif %}{% if user.notifications %} checked="checked"
                                                 {% endif %}
-                                                onclick="enable_user_action('{{ user.id }}','enable', this)"
-                                                {#name="enable"#}
-                                                {#id="{{ user.id }}"#}
-                                        />
-                                    </label>
-                                </div>
-                            {% endspaceless %}
-                        {% endblock checkbox_enabled_widget %}
-                    </td>
-                    <td>{{ user.api }}</td>
-                    <td>
-                        {% block checkbox_notification_widget %}
-                            {% spaceless %}
-                                <div class="checkbox">
-                                    <label for="{{ user.notifications }}">
-                                        <input type="checkbox" {{ block('widget_attributes') }}
-                                                {% if value is defined %} value="{{ value }}"
-                                                {% endif %}{% if user.notifications %} checked="checked"
-                                                {% endif %}
-                                               onclick="enable_user_action('{{ user.id }}','notification', this)"
-                                               {#name="notification"#}
-                                               {#id="{{ user.id }}"#}
-                                        />
-                                    </label>
-                                </div>
-                            {% endspaceless %}
-                        {% endblock checkbox_notification_widget %}
-                    </td>
-                    <td><a href='#' onclick="delete_user('{{ user.username }}','{{ user.id }}',this)">Delete</a></td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td>No users yet</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                                                       onclick="enable_user_action('{{ user.id }}','notification', this)"
+                                                        {#name="notification"#}
+                                                        {#id="{{ user.id }}"#}
+                                                />
+                                            </label>
+                                        </div>
+                                    {% endspaceless %}
+                                {% endblock checkbox_notification_widget %}
+                            </td>
+                            <td><a href='#' onclick="delete_user('{{ user.username }}','{{ user.id }}',this)">Delete</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>No users yet</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
