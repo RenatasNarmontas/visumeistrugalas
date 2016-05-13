@@ -95,7 +95,7 @@ class UserAccountControllerTest extends BaseTestSetupAbstract
             trim(
                 explode(
                     PHP_EOL,
-                    $crawler->filter('div[class=navbar-right-buttons]')->first()->text()
+                    $crawler->filter('div[class=header-actions]')->first()->text()
                 )[1]
             )
         );
