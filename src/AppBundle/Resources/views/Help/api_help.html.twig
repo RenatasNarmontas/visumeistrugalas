@@ -3,9 +3,8 @@
 {% block title %}Advanced Weather - API Information{% endblock %}
 
 {% block body %}
-    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+    <div class="hero" data-bg-image="/images/background.jpg" style="background-image: url('/images/background.jpg');">
         <div class="container">
-
             {% block beadcrumbs %}
                 {% include "::inc/breadcrumbs.html.twig" %}
             {% endblock %}
@@ -16,24 +15,23 @@
         <div class="container">
             <div class="forecast-container">
                 <div class="today forecast">
-                    <div class="panel-heading"><h2 class="panel-title">API Information</h2> </div>
+                    <div class="panel-heading"><h2 class="panel-title">API Information</h2></div>
                     <div class="forecast-content">
                         <div class="location"></div>
-                            <div class="forecast-content">
-                                Before you start using the Weather API, it is important to know that:<br>
-                                API features require an API key. <a href="/register/">Register for a key</a>.<br><br>
-                                API requests are made over HTTP. Data features return JSON.<br>
-                                To get forecasts for all cities:<br>
-                                <p class="terms">
-                                    http://visumeistrugalas.projektai.nfqakademija.lt/api/{your_api_key}/forecast
-                                </p>
-                            </div>
-
+                        <div class="forecast-content">
+                            Before you start using the Weather API, it is important to know that:<br>
+                            API features require an API key. <a href="/register/">Register for a key</a>.<br><br>
+                            API requests are made over HTTP. Data features return JSON.<br>
+                            To get forecasts for all cities:<br>
+                            <p class="terms">
+                                http://visumeistrugalas.projektai.nfqakademija.lt/api/{your_api_key}/forecast
+                            </p>
                         </div>
+
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
 

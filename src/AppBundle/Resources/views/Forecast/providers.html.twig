@@ -2,48 +2,43 @@
 
 {% block title %}Advanced Weather - Providers{% endblock %}
 
-
 {% block body %}
-    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+    <div class="hero" data-bg-image="/images/background.jpg" style="background-image: url('/images/background.jpg');">
         <div class="container">
-
             {% block beadcrumbs %}
                 {% include "::inc/breadcrumbs.html.twig" %}
             {% endblock %}
         </div>
     </div>
-<div class="forecast-table">
-    <div class="container">
-        <div class="forecast-container">
-            <div class="today forecast">
-                <div class="forecast-header">
-                    <div class="day">{{ "now"|date('l') }}</div>
-                    <div class="date">{{ "now"|date("Y/m/d") }}</div>
-                </div>
-                <div class="forecast-content">
-                    <div class="location"></div>
-                    <div class="degree">
-                        <h2>{{ city }}</h2>
+
+    <div class="forecast-table">
+        <div class="container">
+            <div class="forecast-container">
+                <div class="today forecast">
+                    <div class="forecast-header">
+                        <div class="day">{{ "now"|date('l') }}</div>
+                        <div class="date">{{ "now"|date("Y/m/d") }}</div>
                     </div>
-                    <div class="part-of-the-day-providers">
+                    <div class="forecast-content">
+                        <div class="location"></div>
+                        <div class="degree">
+                            <h2>{{ city }}</h2>
+                        </div>
+                        <div class="part-of-the-day-providers">
 
-                    <div class="degree">Temperature</div>
-                        <small>Humidity</small>
-                        <div class="degree"></div>
-                        <small>Pressure</small>
+                            <div class="degree">Temperature</div>
+                            <small>Humidity</small>
+                            <div class="degree"></div>
+                            <small>Pressure</small>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-
 
                 {% for temperature in temperatures %}
                     <div class="forecast">
-                <div class="forecast-header">
-
-                   {{ temperature.provider.name }}
-
-                </div>
+                        <div class="forecast-header">
+                            {{ temperature.provider.name }}
+                        </div>
                         <div class="forecast-content">
                             <div class="forecast-icon">
                                 {% if temperature.humidity > 50 %}
@@ -52,17 +47,15 @@
                                     <img src="/images/icons/icon-5.svg" alt="" width="48">
                                 {% endif %}
                             </div>
-                            <div class="degree">{{temperature.temperature}}°C</div>
-                            <small> {{ temperature.humidity}}</small>
+                            <div class="degree">{{ temperature.temperature }}°C</div>
+                            <small> {{ temperature.humidity }}</small>
                             <div class="degree"></div>
-                            <small>{{temperature.pressure}}</small>
-
+                            <small>{{ temperature.pressure }}</small>
                         </div>
                     </div>
                 {% endfor %}
-
+            </div>
         </div>
-    </div>
     </div>
 
 {% endblock %}

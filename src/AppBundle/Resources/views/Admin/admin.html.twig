@@ -3,7 +3,7 @@
 {% block title %}Advanced Weather - Administrator{% endblock %}
 
 {% block body %}
-    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+    <div class="hero" data-bg-image="/images/background.jpg" style="background-image: url('/images/background.jpg');">
         <div class="container">
 
             {% block beadcrumbs %}
@@ -12,25 +12,29 @@
         </div>
     </div>
 
-    <div class="weather-table-wrapper">
-        <table class="table table-condensed" id="weather-table">
-            <thead>
-            <tr>
-                <th>Statistics</th>
-                <th>API management</th>
-                <th>User management</th>
-                <th>City management</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href='{{ path('admin_usage_stats') }}'>Jump to</a></td>
-                    <td><a href='{{ path('admin_apis') }}'>Jump to</a></td>
-                    <td><a href='{{ path('admin_users') }}'>Jump to</a></td>
-                    <td><a href='{{ path('admin_cities') }}'>Jump to</a></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="forecast-table">
+        <div class="container">
+            <div class="forecast-container">
+                <table class="table table-condensed" id="weather-table">
+                    <thead>
+                    <tr>
+                        <th>Statistics</th>
+                        <th>API management</th>
+                        <th>User management</th>
+                        <th>City management</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href='{{ path('admin_usage_stats') }}'>Jump to</a></td>
+                        <td><a href='{{ path('admin_apis') }}'>Jump to</a></td>
+                        <td><a href='{{ path('admin_users') }}'>Jump to</a></td>
+                        <td><a href='{{ path('admin_cities') }}'>Jump to</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

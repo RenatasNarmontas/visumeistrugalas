@@ -63,7 +63,7 @@ class AdminCityController extends Controller
                 $entityManager->persist($city);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('cities_manager');
+                return $this->redirectToRoute('admin_cities');
             }
         }
 

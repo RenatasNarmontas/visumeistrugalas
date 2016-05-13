@@ -1,10 +1,9 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Homepage - {{ parent() }}{% endblock %}
-
+{% block title %}Advanced Weather - Main{% endblock %}
 
 {% block body %}
-    <div class="hero" data-bg-image="images/background.jpg" style="background-image: url('/images/background.jpg');">
+    <div class="hero" data-bg-image="/images/background.jpg" style="background-image: url('/images/background.jpg');">
         <div class="container">
 
             {% block beadcrumbs %}
@@ -14,15 +13,13 @@
 
                 {{ form_start(form, {'attr': {'class': 'find-location'}}) }}
                 <div class="col-sm-5">
-                {{ form_widget(form.city, {'attr': {'placeholder': 'City name'}}) }}
+                    {{ form_widget(form.city, {'attr': {'placeholder': 'City name'}}) }}
                     <input type="submit" id="submit" value="Search" class="btn btn-primary">
-                    </div>
+                </div>
                 {{ form_end(form) }}
             </div>
         </div>
     </div>
-
-
 
     <div class="forecast-table" id="main-page-table">
         <div class="container">
@@ -48,17 +45,16 @@
                     </div>
                 </div>
 
-
-
                 {% for city in cities %}
 
                     <div class="forecast">
-                        <a class='table-link' href="{{ path('forecast',{'cityName':city.name }) }}" title="{{ city.name }}">
-                        <div class="forecast-header">
-                            <h3>
-                            {{ city.name }}
-                            </h3>
-                        </div>
+                        <a class='table-link' href="{{ path('forecast',{'cityName':city.name }) }}"
+                           title="{{ city.name }}">
+                            <div class="forecast-header">
+                                <h3>
+                                    {{ city.name }}
+                                </h3>
+                            </div>
                         </a>
                         <div class="forecast-content">
                             <div class="forecast-icon">
@@ -70,9 +66,9 @@
                             </div>
                             <div class="degree">{{ city.temperatureHigh }}°C</div>
                             <div class="degree">{{ city.temperatureLow }}°C</div>
-                            <small>  {{city.humidity}}</small>
+                            <small>  {{ city.humidity }}</small>
                             <div class="degree"></div>
-                            <small>{{ city.pressure}}</small>
+                            <small>{{ city.pressure }}</small>
 
                         </div>
                     </div>
@@ -82,6 +78,5 @@
             </div>
         </div>
     </div>
-
 
 {% endblock %}
