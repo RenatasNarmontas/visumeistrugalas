@@ -48,44 +48,4 @@ class ProvidersController extends Controller
             'providers'  => $providers
         ));
     }
-    /**
-     * Returns temperatures. Example: '12,15,17,18,18,'
-     * @param $temperatures
-     * @param $dates
-     * @return string
-     */
-    private function renderData($temperatures, $dates)
-    {
-        $data = '';
-        $numTemp = count($temperatures);
-        foreach ($dates as $item) {
-            $found = false;
-            for ($i = 0; $i < $numTemp; $i++) {
-                if ($item['tdate'] == $temperatures[$i]['tdate']) {
-                    $found = true;
-                    $data .= $temperatures[$i]['avg_temp'].',';
-                    break;
-                }
-            }
-            if (false === $found) {
-                $data .= ',';
-            }
-        }
-        return $data;
-    }
-
-    /**
-     * Returns labels. Example: '"2016-04-02","2016-04-03", ... "2016-05-01,"'
-     * @param $dates
-     * @return string
-     */
-    private function renderLabels($dates)
-    {
-        $labels = '';
-        foreach ($dates as $item) {
-            $labels .= '"'.$item['tdate'].'",';
-        }
-
-        return $labels;
-    }
 }
