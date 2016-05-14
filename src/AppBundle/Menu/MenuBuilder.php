@@ -3,7 +3,6 @@
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuBuilder
@@ -18,6 +17,10 @@ class MenuBuilder
         $this->factory = $factory;
     }
 
+    /**
+     * @param RequestStack $requestStack
+     * @return \Knp\Menu\ItemInterface
+     */
     public function createBreadcrumbMenu(RequestStack $requestStack)
     {
         $menu = $this->factory->createItem('root');
@@ -64,6 +67,25 @@ class MenuBuilder
                      ->setCurrent(true)
                      ->setAttribute('class', 'active');
                 break;
+            case 'forecast':
+                $cityName = $request->get('cityName');
+                $menu->addChild($cityName.' forecast')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+
+            case 'graph_display':
+                $cityName = $request->get('cityName');
+                $menu->addChild($cityName.' forecast', array(
+                    'route' => 'forecast',
+                    'routeParameters' => array('cityName' => $request->get('cityName'))
+                ));
+                $menu->addChild($cityName.' graph')
+                    ->setCurrent(true)
+                    ->setAttribute('class', 'active');
+                break;
+
+
             case 'api_information':
                 $menu->addChild('API Information')
                     ->setCurrent(true)

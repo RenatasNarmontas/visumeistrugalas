@@ -37,7 +37,7 @@ graph_display:
 
 #Admin section
 admin_main:
-    path:     /admin
+    path:     /admin/
     defaults: { _controller: "AppBundle:Admin/AdminMain:indexAdmin" }
     methods:  [GET]
 

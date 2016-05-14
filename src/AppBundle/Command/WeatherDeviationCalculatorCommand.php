@@ -85,7 +85,8 @@ EOF
             $startDate,
             $endDate
         );
-        $forecastDeviation->updateForecastTemperatureDeviations();
+        $forecastDeviation->updateForecastTemperatureDeviationsOthers();
+        $forecastDeviation->updateForecastTemperatureDeviationsOur();
 
         $logger->info('Finish CalculateWeatherDeviationCommand->execute()');
 

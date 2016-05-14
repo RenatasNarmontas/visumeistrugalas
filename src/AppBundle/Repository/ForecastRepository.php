@@ -23,12 +23,43 @@ class ForecastRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder('f')
             ->select(
-                'AVG(f.temperatureLow - t.temperature) as temp_deviation_high',
+                'f.temperatureLow - AVG(t.temperature) as temp_deviation_high',
                 'f.id'
             )
             ->from('AppBundle:Temperature', 't')
             ->where('t.city = f.city')
             ->andWhere('t.provider = f.provider')
+            ->andWhere('f.forecastDate between :startDate and :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->andWhere('date_add(f.forecastDate, f.forecastDays, \'day\') = date(t.date) ')
+            ->andWhere('date_format(t.date, \'%H:%i:%s\') between \'09:00:00\' and \'21:00:00\'')
+            ->addGroupBy('f.id')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * Returns Forecast ID and calculated temperature deviation for the day time (high) for our provider
+     * @param string $startDate
+     * @param string $endDate
+     * @return array
+     */
+    public function getForecastIdAndTemperatureDevHighOur(string $startDate, string $endDate)
+    {
+        // Get our provider ID
+        $ourProviderId = $this->getOurProviderId();
+
+        $query = $this->createQueryBuilder('f')
+            ->select(
+                'f.temperatureLow - AVG(t.temperature) as temp_deviation_high',
+                'f.id'
+            )
+            ->from('AppBundle:Temperature', 't')
+            ->where('t.city = f.city')
+            ->andWhere('f.provider = :ourProvider')
+            ->setParameter('ourProvider', $ourProviderId)
             ->andWhere('f.forecastDate between :startDate and :endDate')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
@@ -64,7 +95,6 @@ class ForecastRepository extends EntityRepository
             ->setParameter('ourProvider', $ourProviderId)
             ->getQuery();
 
-        
         return $query->getResult();
     }
 
@@ -87,7 +117,38 @@ class ForecastRepository extends EntityRepository
             ->andWhere('f.forecastDate between :startDate and :endDate')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
-            ->andWhere('date_add(f.forecastDate, f.forecastDays, \'day\') = date(t.date) ')
+            ->andWhere('date_add(f.forecastDate, f.forecastDays, \'day\') = date(t.date)')
+            ->andWhere('date_format(t.date, \'%H:%i:%s\') not between \'09:00:00\' and \'21:00:00\'')
+            ->addGroupBy('f.id')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * Returns Forecast ID and calculated temperature deviation for the night time (low)
+     * @param string $startDate
+     * @param string $endDate
+     * @return array
+     */
+    public function getForecastIdAndTemperatureDevLowOur(string $startDate, string $endDate)
+    {
+        // Get our provider ID
+        $ourProviderId = $this->getOurProviderId();
+
+        $query = $this->createQueryBuilder('f')
+            ->select(
+                'f.temperatureLow - AVG(t.temperature) as temp_deviation_low',
+                'f.id'
+            )
+            ->from('AppBundle:Temperature', 't')
+            ->where('t.city = f.city')
+            ->andWhere('f.provider = :ourProvider')
+            ->setParameter('ourProvider', $ourProviderId)
+            ->andWhere('f.forecastDate between :startDate and :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->andWhere('date_add(f.forecastDate, f.forecastDays, \'day\') = date(t.date)')
             ->andWhere('date_format(t.date, \'%H:%i:%s\') not between \'09:00:00\' and \'21:00:00\'')
             ->addGroupBy('f.id')
             ->getQuery();
@@ -123,6 +184,37 @@ class ForecastRepository extends EntityRepository
     }
 
     /**
+     * Returns Forecast ID and calculated humidity and pressure deviations
+     * @param string $startDate
+     * @param string $endDate
+     * @return array
+     */
+    public function getForecastIdHumidityAndPressureDeviationsOur(string $startDate, string $endDate)
+    {
+        // Get our provider ID
+        $ourProviderId = $this->getOurProviderId();
+
+        $query = $this->createQueryBuilder('f')
+            ->select(
+                'AVG(f.humidity - t.humidity) as humidity_deviation',
+                'AVG(f.pressure - t.pressure) as pressure_deviation',
+                'f.id'
+            )
+            ->from('AppBundle:Temperature', 't')
+            ->where('t.city = f.city')
+            ->andWhere('f.provider = :ourProvider')
+            ->setParameter('ourProvider', $ourProviderId)
+            ->andWhere('f.forecastDate between :startDate and :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->andWhere('date_add(f.forecastDate, f.forecastDays, \'day\') = date(t.date) ')
+            ->addGroupBy('f.id')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * Returns average forecast temperatures of other providers
      * @param string|null $startDate
      * @param string|null $endDate
@@ -140,6 +232,9 @@ class ForecastRepository extends EntityRepository
             $endDate = date('Y-m-d', strtotime($startDate.'+1 day'));
         }
 
+        // Get our provider ID
+        $ourProviderId = $this->getOurProviderId();
+
         $query = $this->createQueryBuilder('f')
             ->select(
                 '(f.city) as cityId',
@@ -155,30 +250,25 @@ class ForecastRepository extends EntityRepository
             ->andWhere('f.forecastDate < :endDate')
             ->setParameter('endDate', $endDate)
             ->andWhere('f.provider <> :ourProvider')
-            ->setParameter(
-                'ourProvider',
-                $this->getEntityManager()->getRepository('AppBundle:Provider')
-                    ->findOneByName('Advanced Weather')->getId()
-            )
+            ->setParameter('ourProvider', $ourProviderId)
             ->addGroupBy('f.city', 'f.forecastDate', 'f.forecastDays')
             ->getQuery();
 
         return $query->getResult();
     }
 
+    /**
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @return array
+     */
     public function getAverageProvidersAccuracy(string $dateFrom, string $dateTo)
     {
-        if (null === $dateFrom) {
-            $dateFrom = date('Y-m-d');
-        }
-
-
         $query = $this->createQueryBuilder('f')
             ->select(
                 'p.name as forecastProvider',
-                'f.forecastDays as forecastDays',
-                'AVG(f.temperatureLowDeviation) as avgTempLowDeviation',
-                'AVG(f.temperatureHighDeviation) as avgTempHighDeviation'
+                'round(AVG(f.temperatureLowDeviation), 2) as avgTempLowDeviation',
+                'round(AVG(f.temperatureHighDeviation), 2) as avgTempHighDeviation'
             )
             ->join('f.provider', 'p')
             ->where('f.forecastDate between :dateFrom and :dateTo')
@@ -189,7 +279,6 @@ class ForecastRepository extends EntityRepository
             ->getQuery();
 
         return $query->getResult();
-
     }
 
     /**
@@ -309,11 +398,12 @@ class ForecastRepository extends EntityRepository
     {
         // Get our provider ID
         $ourProviderId = $this->getOurProviderId();
+
         // Select required fields
         $query = $this->createQueryBuilder('f')
             ->select('c.name')
             ->addSelect('f.forecastDate')
-            ->addSelect('round(f.temperatureHigh, 2) as temperature')
+            ->addSelect('round(f.temperatureHigh, 2) as temperatureHigh')
             ->addSelect('round(f.temperatureLow, 2) as temperatureLow')
             ->addSelect('f.humidity')
             ->addSelect('f.pressure')

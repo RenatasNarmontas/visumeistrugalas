@@ -16,8 +16,10 @@
             <div class="forecast-container">
                 <div class="today forecast">
                     <div class="forecast-header">
-                        <div class="day">Date</div>
-                        <div class="date"></div>
+                        <div class="day">
+                            <a href="{{ path('graph_display', {'cityName': city}) }}" title="{{ city }}">Show historical data graph for {{ city}}</a>
+                        </div>
+                        <div class="date">Date</div>
                     </div>
                     <div class="forecast-content">
                         <div class="location"></div>
@@ -25,8 +27,8 @@
                             <h2>{{ city }}</h2>
                         </div>
                         <div class="part-of-the-day">
-                            <div class="degree">Day</div>
-                            <div class="degree">Night</div>
+                            <div class="degree">Day Average</div>
+                            <div class="degree">Night Average</div>
                             <small>Humidity</small>
                             <div class="degree"></div>
                             <small>Pressure</small>

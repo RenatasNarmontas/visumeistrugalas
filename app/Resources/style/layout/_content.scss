@@ -57,6 +57,11 @@ fieldset
 {
 	margin-right: -20px;
 }
+.next
+{
+	margin-right: -20px;
+}
+
 .message-offset
 {
 	margin-bottom: 20%;
@@ -286,7 +291,7 @@ fieldset
 .breadcrumb{
 	background: $secondary-color;
 	border-radius: 40px;
-	padding: 20px 30px;
+	padding: 20px 20px;
 	@include em(13);
 	a{
 		color: $body-color;
