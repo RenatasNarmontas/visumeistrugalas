@@ -19,7 +19,6 @@ class ProvidersController extends Controller
      */
     public function indexAction($cityName)
     {
-
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository('AppBundle:City')->findOneByName($cityName);
         if (!$city) {
@@ -39,11 +38,12 @@ class ProvidersController extends Controller
      */
     public function showAction()
     {
-        $now = date('Y-m-d');
-        $date1 = strtotime($now);
-        $date2 = strtotime("-7 day", $date1);
+        $dateTo = date('Y-m-d');
+        $dateFrom = date('Y-m-d', strtotime($dateTo.'-7 day'));
+
         $em = $this->getDoctrine()->getManager();
-        $providers = $em->getRepository('AppBundle:Forecast')->getAverageProvidersAccuracy($date1, $date2);
+        $providers = $em->getRepository('AppBundle:Forecast')->getAverageProvidersAccuracy($dateFrom, $dateTo);
+
         return $this->render('AppBundle:Forecast:providers_main.html.twig', array(
             'providers'  => $providers
         ));

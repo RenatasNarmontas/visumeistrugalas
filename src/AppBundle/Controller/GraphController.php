@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Temperature;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -20,10 +21,13 @@ use Symfony\Component\HttpFoundation\Response;
 class GraphController extends Controller
 {
     /**
+     * Display historical data for other providers
+     * Attention: there is no our provider as we are not collecting our current temperatures
      * @param string $cityName
+     * @param Request $request
      * @return Response
      */
-    public function graphDisplayAction(string $cityName): Response
+    public function graphDisplayAction(string $cityName, Request $request): Response
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
@@ -36,6 +40,8 @@ class GraphController extends Controller
             ->getAvgTempDataForGraph($cityName, 'Weather Underground');
 
         $dates = $entityManager->getRepository('AppBundle:Temperature')->getUniqueDateForGraph($cityName);
+
+        $request->attributes->set('cityName', $cityName);
 
         return $this->render('@App/History/graph.html.twig', array(
             'city' => $cityName,

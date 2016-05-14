@@ -31,7 +31,7 @@ class AdminCityController extends Controller
     {
         $entityManager = $this->getDoctrine()->getManager();
         $cities = $entityManager->getRepository('AppBundle:City')->findAll();
-        $requests = $entityManager->getRepository('AppBundle:Request')->findTopXOrderedByCount(10);
+        $requests = $entityManager->getRepository('AppBundle:Request')->findTopXCitiesOrderedByCount(10);
 
         $city = new City();
         $form = $this->createFormBuilder($city)

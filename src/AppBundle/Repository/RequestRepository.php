@@ -18,16 +18,17 @@ class RequestRepository extends EntityRepository
 {
     /**
      * @param int $count
-     * @return mixed
+     * @return array
      */
-    public function findTopXOrderedByCount(int $count)
+    public function findTopXCitiesOrderedByCount(int $count)
     {
-        $queryBuilder = $this->createQueryBuilder('r');
-        return $queryBuilder->select('r.city, COUNT(r.city) as request_count')
+        $query = $this->createQueryBuilder('r')
+            ->select('r.city, COUNT(r.city) as request_count')
             ->addGroupBy('r.city')
             ->addOrderBy('request_count', 'DESC')
             ->setMaxResults($count)
-            ->getQuery()
-            ->execute();
+            ->getQuery();
+
+        return $query->getResult();
     }
 }
