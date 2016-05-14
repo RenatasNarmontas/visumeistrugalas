@@ -36,20 +36,20 @@
                                         <div class="checkbox">
                                             <label for="{{ user.enabled }}">
                                                 <input type="checkbox" {{ block('widget_attributes') }}
-                                                        {#{% if value is defined %} value="{{ value }}"#}
-                                                        {#{% endif %}#}
                                                         {% if user.enabled %} checked="checked"
                                                         {% endif %}
                                                        onclick="enable_user_action('{{ user.id }}','enable', this)"
-                                                        {#name="enable"#}
-                                                        {#id="{{ user.id }}"#}
                                                 />
                                             </label>
                                         </div>
                                     {% endspaceless %}
                                 {% endblock checkbox_enabled_widget %}
                             </td>
-                            <td>{{ user.api }}</td>
+                            <td>
+                                {% if user.api is not null %}
+                                    <a href="{{ path('api_forecast', {'apiKey': user.api}) }}">{{ user.api }}</a>
+                                {% endif %}
+                            </td>
                             <td>
                                 {% block checkbox_notification_widget %}
                                     {% spaceless %}
@@ -60,8 +60,6 @@
                                                         {% endif %}{% if user.notifications %} checked="checked"
                                                 {% endif %}
                                                        onclick="enable_user_action('{{ user.id }}','notification', this)"
-                                                        {#name="notification"#}
-                                                        {#id="{{ user.id }}"#}
                                                 />
                                             </label>
                                         </div>
