@@ -28,6 +28,9 @@ swiftmailer:
     password:
     delivery_addresses:
 
+twig:
+    cache: false
+
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:

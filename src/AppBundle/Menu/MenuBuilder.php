@@ -79,7 +79,9 @@ class MenuBuilder
                 $menu->addChild($cityName.' forecast', array(
                     'route' => 'forecast',
                     'routeParameters' => array('cityName' => $request->get('cityName'))
-                ));
+                ))
+                ->setAttribute('class', 'active')
+                ->setAttribute('class', 'middle');
                 $menu->addChild($cityName.' graph')
                     ->setCurrent(true)
                     ->setAttribute('class', 'active');

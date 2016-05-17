@@ -55,7 +55,12 @@ fieldset
 }
 .first
 {
-	margin-right: -20px;
+	margin-right: -30px;
+}
+
+.middle
+{
+	margin-right: -30px;
 }
 
 .message-offset
@@ -113,11 +118,11 @@ fieldset
 	margin-left: -40px;
 }
 .terms {
-
 	border: 1px dashed #e4e4e4;
 	border-radius: 4px;
-	width:600px;
-	color:#666;
+	word-wrap: break-word;
+	//width:600px;
+	color:#bbbbbb;
 }
 #main-page-table
 {
