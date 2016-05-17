@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "My project" }}{% endblock %}
+{% block title %}{{ "Advanced Weather" }}{% endblock %}
 
 {% block body %}
 
@@ -12,30 +12,25 @@
     {% if app.request.hasPreviousSession %}
         {% for type, messages in app.session.flashbag.all() %}
             {% if app.request.get('_route') !='fos_user_registration_check_email' %}
-            {% for message in messages %}
-                <div class="flash-message">
-                    <div class="alert alert-block alert-success col-md-8" role="alert">
-                        {{ message }}
+                {% for message in messages %}
+                    <div class="flash-message">
+                        <div class="alert alert-block alert-success col-md-8" role="alert">
+                            {{ message }}
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
             {% endif %}
         {% endfor %}
     {% endif %}
-    <div class="main-content">
-        <div class="container">
 
+    <div class="hero" data-bg-image="/images/background.jpg" style="background-image: url('/images/background.jpg');">
+        <div class="container">
             {% block beadcrumbs %}
                 {% include "::inc/breadcrumbs.html.twig" %}
             {% endblock %}
         </div>
-        <div class="fullwidth-block">
-            <div class="container">
-
-        {% block fos_user_content %}
-
-        {% endblock fos_user_content %}
-            </div>
-        </div>
     </div>
+    {% block fos_user_content %}
+
+    {% endblock fos_user_content %}
 {% endblock %}

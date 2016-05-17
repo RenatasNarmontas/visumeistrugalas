@@ -11,38 +11,38 @@
         </div>
     </div>
 
-    <div class="forecast-table">
-        <div class="container">
-            <div class="forecast-container">
+    <div class="container">
+        <div class="forecast-container">
+            <div class="today forecast">
 
-                <div class="col-md-9 col-md-offset-1">
-                    <div class="panel panel-default col-md-offset-1">
-                        <div class="panel-heading"><h2 class="panel-title">Contact us</h2></div>
-                        <div class="form-wrapper">
-                            {{ form_start(form, {'attr': {'class': 'form-horizontal col-sm-offset-3'}}) }}
-                            <div class="form-group required">
-                                <label for="email" class="col-sm-2 control-label">Email:</label>
-                                <div class="col-sm-4">
-                                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                <label for="pass" class="col-sm-2 control-label">Message:</label>
-                                <div class="col-sm-4">
-                                    {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12 col-md-10  col-md-offset-3">
-                                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
-                                </div>
-                            </div>
-                            {{ form_end(form) }}
+                <div class="forecast-header">
+                    <label>Contact us</label>
+                </div>
+
+                <div class="forecast-content">
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal col-lg-offset-2'}}) }}
+                    <div class="form-group required">
+                        <label for="email" class="col-sm-2 col-lg-2 control-label">Email:</label>
+                        <div class="col-sm-8 col-lg-6">
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
                         </div>
+                    </div>
+                    <div class="form-group required">
+                        <label for="pass" class="col-sm-2 col-lg-2 control-label">Message:</label>
+                        <div class="col-sm-8 col-lg-6">
+                            {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2 col-lg-2"></div>
+                            <div class="col-sm-8 col-lg-6 center-block">
+                            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary center-block'}}) }}
+                            </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
+
 {% endblock %}
