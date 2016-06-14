@@ -145,7 +145,7 @@ class WundergroundCrawler extends CrawlerAbstract
             $this::CURRENT_DATE => new \DateTime('now'),
             $this::CITY_ID => $city->getId(),
             $this::TEMPERATURE_CURRENT => $parsedJson->current_observation->temp_c,
-            $this::HUMIDITY => $parsedJson->current_observation->relative_humidity,
+            $this::HUMIDITY => str_replace('%', '', $parsedJson->current_observation->relative_humidity),
             $this::PRESSURE => $parsedJson->current_observation->pressure_mb
         ];
     }
